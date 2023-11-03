@@ -1,0 +1,9 @@
+Plug Description:   Office Heater Plug
+IP Address:         192.168.68.105
+Host():             broker.hivermq.com
+Port:               1883
+Client              Room1-Heater-Plug
+Topic:              Room1Plug
+Full Topic:         house/%topic%/%prefix%
+
+
