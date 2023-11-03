@@ -26,7 +26,7 @@ def send_Message(msg):
     # Check if the message was successfully sent
     status = result[0]
     if status == 0:
-        print(f"Sent `{msg}` to topic `{topic}`")Please show all the code
+        print(f"Sent `{msg}` to topic `{topic}`")
     else:
         print(f"Failed to send message to topic {topic}")
 
@@ -79,7 +79,7 @@ def on_message(client, userdata, message):
     #     append_to_csv(controllersParameters, csv_file)
 
 
-TOPIC = 'house/Room1Plug/'  #Base address for Tasmota Plug MQTT interface
+TOPIC = 'house/Room2Plug/'  #Base address for Tasmota Plug MQTT interface
 SUB_TOPIC_REQUESTSENSOR = 'cmnd/status'
 SUB_TOPIC_CONTROL = 'cmnd/Power1'
 SUB_TOPIC_STATUS = 'stat/'
