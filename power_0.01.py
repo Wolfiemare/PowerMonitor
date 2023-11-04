@@ -16,6 +16,7 @@ def on_connect(client, userdata, flags, rc):
 # Define on_message event Handler
 def on_message(client, userdata, msg):
     print(f"Topic: {msg.topic} Message: {msg.payload.decode('utf-8')}")
+    print()
 
 # Define on_subscribe event Handler
 def on_subscribe(client, userdata, mid, granted_qos):
@@ -24,6 +25,7 @@ def on_subscribe(client, userdata, mid, granted_qos):
 # Define function to publish message
 def on_publish(client, userdata, mid):
     print("Message published with id "+str(mid))
+
 
 def publish_message(topic, sub_topic, message):
     result = mqtt_client.publish(topic + sub_topic, message)
