@@ -45,6 +45,7 @@ def on_connect(client, userdata, flags, rc):
 
 # Define the MQTT on_message event handler
 def on_message(client, userdata, msg):
+    print(f"Topic: {msg.topic} Message: {msg.payload.decode('utf-8')}")
     topic = msg.topic
     payload = msg.payload.decode('utf-8')
     print(f"Topic: {topic} Message: {payload}")
@@ -62,9 +63,10 @@ def on_publish(client, userdata, mid):
 # Define the function to publish the sensor data request
 def publish_sensor_data_request():
     while True:
+        time.sleep(5)
         mqtt_client.publish("house/RoomPlug1/cmnd/STATUS", "10")
         mqtt_client.publish("house/RoomPlug2/cmnd/STATUS", "10")
-        time.sleep(20)
+        
 
 # Initiate MQTT Client
 mqtt_client = mqtt.Client()

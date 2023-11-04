@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt
+import time
 
 # MQTT Broker settings
 MQTT_BROKER = "broker.hivemq.com"
@@ -34,7 +35,7 @@ def publish_message(topic, sub_topic, message):
 
 
 # Initiate MQTT Client
-mqtt_client = mqtt.Client()
+mqtt_client = mqtt.Client('Logger')
 
 # Register event handlers
 mqtt_client.on_connect = on_connect
@@ -47,6 +48,7 @@ TOPIC_PLUG2 = 'house/Room2Plug/'  # Base address for Tasmota Plug MQTT interface
 
 SUB_TOPIC_REQUESTSENSOR = 'cmnd/status'
 SUB_TOPIC_CONTROL = 'cmnd/Power1'
+SUB_TOPIC_DATA_TIMEPERIOD = 'cmnd/TelePeriod'
 SUB_TOPIC_STATUS = 'stat/'
 SUB_TOPIC_ROOM_DATA = 'stat/RoomData'
 SUB_TOPIC_ROOM_PARA = 'stat/RoomParameter'
@@ -56,9 +58,15 @@ SUB_TOPIC_ROOM_PARA = 'stat/RoomParameter'
 # Connect with MQTT Broker
 mqtt_client.connect(MQTT_BROKER, MQTT_PORT, MQTT_KEEPALIVE_INTERVAL)
 
-# Publish message to MQTT Broker
-publish_message(TOPIC_PLUG1, SUB_TOPIC_REQUESTSENSOR, '8')
-publish_message(TOPIC_PLUG2, SUB_TOPIC_REQUESTSENSOR, '8')
+publish_message(TOPIC_PLUG1, SUB_TOPIC_DATA_TIMEPERIOD, '10')
+publish_message(TOPIC_PLUG2, SUB_TOPIC_DATA_TIMEPERIOD, '10')
 
 # Start the loop to process the callbacks
-mqtt_client.loop_forever()
+while True:
+    mqtt_client.loop()
+    # Publish message to MQTT Broker
+    # publish_message(TOPIC_PLUG1, SUB_TOPIC_REQUESTSENSOR, '10')
+    # publish_message(TOPIC_PLUG2, SUB_TOPIC_REQUESTSENSOR, '10')
+    
+    # Wait for 10 seconds
+    time.sleep(1)
