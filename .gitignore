@@ -1,0 +1,11 @@
+# Virtual environment directories
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Folders for compiled python binaries and libraries
+bin/
+lib/
+lib64/
