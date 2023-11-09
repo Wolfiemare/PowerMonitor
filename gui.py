@@ -1,7 +1,42 @@
+import paho.mqtt.client as mqtt
 import tkinter as tk
 import threading
 import random
 import time
+import json
+
+# MQTT Broker settings
+MQTT_BROKER = "broker.hivemq.com"
+MQTT_PORT = 1883
+MQTT_KEEPALIVE_INTERVAL = 60
+
+# Define the MQTT on_connect event handler
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code "+str(rc))
+    update_status("Connected with result code "+str(rc))
+
+    client.subscribe("house/RoomPlug1/stat/STATUS10", qos=0)
+    client.subscribe("house/RoomPlug2/stat/STATUS10", qos=0)
+
+# Define the MQTT on_message event handler
+def on_message(client, userdata, msg):
+    print(f"Topic: {msg.topic} Message: {msg.payload.decode('utf-8')}")
+    topic = msg.topic
+    payload = msg.payload.decode('utf-8')
+    
+    print(f"Topic: {topic} Message: {payload}")
+    update_status(f"Topic: {topic} Message: {payload}")
+
+    data = json.loads(payload)['StatusSNS']['ENERGY']
+    # if 'RoomPlug1' in topic:
+    #     window.write_event_value('-ENERGY1-', data)
+    # elif 'RoomPlug2' in topic:
+    #     window.write_event_value('-ENERGY2-', data)
+
+# Define the MQTT on_publish event handler
+def on_publish(client, userdata, mid):
+    print("Message published with id "+str(mid))
+    update_status("Message published with id "+str(mid))
 
 # Function to update the status bar
 def update_status(message):
@@ -32,6 +67,9 @@ def fetch_data():
             # Schedule the `update_data_field` to run on the main thread
             root.after(0, update_data_field, name, data)
         time.sleep(2)  # Simulate delay for fetching data
+
+        mqtt_client.publish("house/RoomPlug1/cmnd/STATUS", "10")
+        mqtt_client.publish("house/RoomPlug2/cmnd/STATUS", "10")
 
 # Function to update the data fields
 def update_data_field(plug_name, data):
@@ -91,6 +129,18 @@ status_frame = tk.Frame(root, borderwidth=1, relief="sunken")
 status_frame.place(relx=0, rely=0.85, relwidth=1, relheight=0.15)
 status_message = tk.Label(status_frame, text="Status: Ready", bg="white", anchor="w", font=('Helvetica', 10))
 status_message.pack(side="left", fill="both", expand=True)
+
+# Initiate MQTT Client
+mqtt_client = mqtt.Client()
+mqtt_client.on_connect = on_connect
+mqtt_client.on_message = on_message
+mqtt_client.on_publish = on_publish
+
+# Connect with MQTT Broker
+mqtt_client.connect(MQTT_BROKER, MQTT_PORT, MQTT_KEEPALIVE_INTERVAL)
+mqtt_client.loop_start()
+
+
 
 # Start the data fetching in a background thread
 fetch_thread = threading.Thread(target=fetch_data, daemon=True)
