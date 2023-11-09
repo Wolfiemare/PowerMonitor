@@ -84,6 +84,7 @@ root.geometry("800x480")
 
 # Define a list of column names
 column_names = ["Plug 1", "Plug 2", "Plug 3", "Plug 4", "Plug 5"]
+data_labels = ['TOTAL', 'YESTERDAY', 'TODAY', 'POWER', 'APPARENTPOWER', 'REACTIVEPOWER', 'FACTOR', 'VOLTAGE', 'CURRENT']
 data_fields = {name: [] for name in column_names}
 
 # Create a frame for each column and populate it with labels and entry fields
@@ -97,13 +98,13 @@ for i, name in enumerate(column_names):
     label.pack(side="top", fill="x")
 
     # Horizontal frames for data labels and fields
-    for j in range(6):
+    for j in range(9):
         # Frame for each data row
         data_frame = tk.Frame(frame)
         data_frame.pack(side="top", fill="x", padx=2, pady=1)
 
         # Data label
-        data_label = tk.Label(data_frame, text=f"Data {j+1}:", width=8, anchor="w", font=('Helvetica', 8))
+        data_label = tk.Label(data_frame, text=data_labels[j], width=8, anchor="w", font=('Helvetica', 8))
         data_label.pack(side="left")
 
         # Data field
