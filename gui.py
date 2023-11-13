@@ -19,18 +19,27 @@ def on_connect(client, userdata, flags, rc):
     
 # Define the MQTT on_message event handler
 def on_message(client, userdata, msg):
-    print(f"Topic: {msg.topic} Message: {msg.payload.decode('utf-8')}")
     topic = msg.topic
     payload = msg.payload.decode('utf-8')
-    
-    print(f"Topic: {topic} Message: {payload}")
-    update_status(f"Topic: {topic} Message: {payload}")
 
-    data = json.loads(payload)['StatusSNS']['ENERGY']
-    # if 'RoomPlug1' in topic:
-    #     window.write_event_value('-ENERGY1-', data)
-    # elif 'RoomPlug2' in topic:
-    #     window.write_event_value('-ENERGY2-', data)
+    print(f"Topic: {topic} \nMessage: {payload}")
+    print("")
+    # update_status(f"Topic: {topic} Message: {payload}")
+
+    if 'SENSOR' in topic:
+        plug_num_str = topic.split('/')[1].replace('Room', '').replace('Plug', '')
+        print(plug_num_str)
+
+        if plug_num_str.isdigit():
+            plug_num = int(plug_num_str)
+            update_status(f"Plug {plug_num} data received.")
+            energy_data = json.loads(payload)['ENERGY']
+            # energy_data['Time'] = json.loads(payload)['Time']
+
+            # Add the energy data to the list of dictionaries based on the plug number
+            energy_data_list[plug_num-1].append(energy_data)
+
+            print(energy_data_list)
 
 # Define the MQTT on_publish event handler
 def on_publish(client, userdata, mid):
@@ -47,7 +56,6 @@ def function1():
 
 def function2():
     update_status("Function 2 activated.")
-
 def function3():
     update_status("Function 3 activated.")
 
@@ -59,22 +67,53 @@ def function4():
 # Function to fetch data from the plugs
 def fetch_data():
     while True:
-        # Simulate data retrieval with random numbers
-        new_data = {name: random.randint(50, 200) for name in column_names}
-        # Update GUI with new data in a thread-safe way
-        for name, data in new_data.items():
-            # Schedule the `update_data_field` to run on the main thread
-            root.after(0, update_data_field, name, data)
+        # Schedule the `update_data_field` to run on the main thread
+        root.after(0, update_data_fields)
         time.sleep(2)  # Simulate delay for fetching data
 
         # mqtt_client.publish("house/RoomPlug1/cmnd/STATUS", "10")
         # mqtt_client.publish("house/RoomPlug2/cmnd/STATUS", "10")
 
-# Function to update the data fields
-def update_data_field(plug_name, data):
-    for i, entry in enumerate(data_fields[plug_name]):
-        entry.delete(0, tk.END)  # Clear the current entry
-        entry.insert(0, f"{data + i*10}W")    # Insert new data with a unique increment
+# Function to update the data fields with data from energy_data_list
+def update_data_fields():
+    for i, name in enumerate(column_names):
+        energy_data = energy_data_list[i]
+        if energy_data:
+            # Get the latest energy data for the plug
+            latest_energy_data = energy_data[-1]
+
+            # Update the data fields with the latest energy data
+            data_fields[name][0].delete(0, tk.END)
+            data_fields[name][0].insert(0, f"{latest_energy_data['Total']} kWh")
+            data_fields[name][1].delete(0, tk.END)
+            data_fields[name][1].insert(0, f"{latest_energy_data['Yesterday']} kWh")
+            data_fields[name][2].delete(0, tk.END)
+            data_fields[name][2].insert(0, f"{latest_energy_data['Today']} kWh")
+            data_fields[name][3].delete(0, tk.END)
+            data_fields[name][3].insert(0, f"{latest_energy_data['Power']} W")
+            data_fields[name][4].delete(0, tk.END)
+            data_fields[name][4].insert(0, f"{latest_energy_data['ApparentPower']} VA")
+            data_fields[name][5].delete(0, tk.END)
+            data_fields[name][5].insert(0, f"{latest_energy_data['ReactivePower']} VAr")
+            data_fields[name][6].delete(0, tk.END)
+            data_fields[name][6].insert(0, f"{latest_energy_data['Factor']}")
+            data_fields[name][7].delete(0, tk.END)
+            data_fields[name][7].insert(0, f"{latest_energy_data['Voltage']} V")
+            data_fields[name][8].delete(0, tk.END)
+            data_fields[name][8].insert(0, f"{latest_energy_data['Current']} A")
+            data_fields[name][9].delete(0, tk.END)
+            data_fields[name][9].insert(0, f"£{latest_energy_data['Total']*KWH_COST:.2f}")
+            data_fields[name][10].delete(0, tk.END)
+            data_fields[name][10].insert(0, f"£{latest_energy_data['Yesterday']*KWH_COST:.2f}")
+            data_fields[name][11].delete(0, tk.END)
+            data_fields[name][11].insert(0, f"£{latest_energy_data['Today']*KWH_COST:.2f}")
+            
+
+# # Function to update the data fields
+# def update_data_field(plug_name, data):
+#     for i, entry in enumerate(data_fields[plug_name]):
+#         entry.delete(0, tk.END)  # Clear the current entry
+#         entry.insert(0, f"{data + i*10}W")    # Insert new data with a unique increment
 
 # Create the main window
 root = tk.Tk()
@@ -83,8 +122,16 @@ root.geometry("800x480")
 
 # Define a list of column names
 column_names = ["Plug 1", "Plug 2", "Plug 3", "Plug 4", "Plug 5"]
-data_labels = ['TOTAL', 'YESTERDAY', 'TODAY', 'POWER', 'APPARENTPOWER', 'REACTIVEPOWER', 'FACTOR', 'VOLTAGE', 'CURRENT']
+data_labels =  [
+                'TOTAL', 'YESTERDAY', 'TODAY', 'POWER', 'APPARENT POWER', 'REACTIVE POWER', 
+                'FACTOR', 'VOLTAGE', 'CURRENT', 'TOTAL COST', 'YESTERDAY COST', 'TODAY COST' 
+                ]               
+                
+
 data_fields = {name: [] for name in column_names}
+KWH_COST = 0.2889
+
+
 
 # Create a frame for each column and populate it with labels and entry fields
 for i, name in enumerate(column_names):
@@ -93,25 +140,26 @@ for i, name in enumerate(column_names):
     frame.place(relx=i/5, rely=0, relwidth=1/5, relheight=0.75)  # Adjusted for function button area
 
     # Label for the column title
-    label = tk.Label(frame, text=name, font=('Helvetica', 10, 'bold'))
+    label = tk.Label(frame, text=name, font=('Helvetica', 12, 'bold'))
     label.pack(side="top", fill="x")
 
     # Horizontal frames for data labels and fields
-    for j in range(9):
+    for j in range(12):
         # Frame for each data row
         data_frame = tk.Frame(frame)
         data_frame.pack(side="top", fill="x", padx=2, pady=1)
 
         # Data label
-        data_label = tk.Label(data_frame, text=data_labels[j], width=8, anchor="w", font=('Helvetica', 8))
+        data_label = tk.Label(data_frame, text=data_labels[j], width=20, anchor="w", font=('Helvetica', 6))
         data_label.pack(side="left")
 
         # Data field
-        data_field = tk.Entry(data_frame, font=('Helvetica', 8))
+        data_field = tk.Entry(data_frame, font=('Helvetica', 8), width=6)
         data_field.pack(side="left", fill="x", expand=True)
 
         # Save the data field in the dictionary
         data_fields[name].append(data_field)
+        
 
 # Function buttons area
 func_button_frame = tk.Frame(root, borderwidth=1, relief="sunken")
@@ -129,6 +177,9 @@ status_frame = tk.Frame(root, borderwidth=1, relief="sunken")
 status_frame.place(relx=0, rely=0.85, relwidth=1, relheight=0.15)
 status_message = tk.Label(status_frame, text="Status: Ready", bg="white", anchor="w", font=('Helvetica', 10))
 status_message.pack(side="left", fill="both", expand=True)
+
+# Initialize the list of dictionaries for energy data for each plug
+energy_data_list = [list() for _ in range(5)]
 
 # Initiate MQTT Client
 mqtt_client = mqtt.Client('Power Logger')
