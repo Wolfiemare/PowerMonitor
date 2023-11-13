@@ -15,9 +15,8 @@ def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
     update_status("Connected with result code "+str(rc))
 
-    client.subscribe("house/RoomPlug1/stat/STATUS10", qos=0)
-    client.subscribe("house/RoomPlug2/stat/STATUS10", qos=0)
-
+    client.subscribe("house/#")  # Subscribe to all topics within 'house/'
+    
 # Define the MQTT on_message event handler
 def on_message(client, userdata, msg):
     print(f"Topic: {msg.topic} Message: {msg.payload.decode('utf-8')}")
@@ -68,8 +67,8 @@ def fetch_data():
             root.after(0, update_data_field, name, data)
         time.sleep(2)  # Simulate delay for fetching data
 
-        mqtt_client.publish("house/RoomPlug1/cmnd/STATUS", "10")
-        mqtt_client.publish("house/RoomPlug2/cmnd/STATUS", "10")
+        # mqtt_client.publish("house/RoomPlug1/cmnd/STATUS", "10")
+        # mqtt_client.publish("house/RoomPlug2/cmnd/STATUS", "10")
 
 # Function to update the data fields
 def update_data_field(plug_name, data):
@@ -132,7 +131,7 @@ status_message = tk.Label(status_frame, text="Status: Ready", bg="white", anchor
 status_message.pack(side="left", fill="both", expand=True)
 
 # Initiate MQTT Client
-mqtt_client = mqtt.Client()
+mqtt_client = mqtt.Client('Power Logger')
 mqtt_client.on_connect = on_connect
 mqtt_client.on_message = on_message
 mqtt_client.on_publish = on_publish
