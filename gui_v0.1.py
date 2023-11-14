@@ -41,22 +41,6 @@ def on_message(client, userdata, msg):
 
             print(energy_data_list)
 
-    # Check if the plug is online
-    if 'LWT' in topic:
-        plug_num_str = topic.split('/')[1].replace('Room', '').replace('Plug', '')
-        print(plug_num_str)
-
-        if plug_num_str.isdigit():
-            plug_num = int(plug_num_str)
-            if payload == 'Online':
-                plug_online_status[plug_num-1] = True
-                update_status(f"Plug {plug_num} is online.")
-            else:
-                plug_online_status[plug_num-1] = False
-                update_status(f"Plug {plug_num} is offline.")
-
-
-
 # Define the MQTT on_publish event handler
 def on_publish(client, userdata, mid):
     print("Message published with id "+str(mid))
@@ -90,20 +74,36 @@ def fetch_data():
         # mqtt_client.publish("house/RoomPlug1/cmnd/STATUS", "10")
         # mqtt_client.publish("house/RoomPlug2/cmnd/STATUS", "10")
 
+# Function to draw a gauge on a canvas
+def draw_gauge(canvas, current, max_current=13.0):
+    canvas.delete("all")  # Clear the canvas
+
+    width = 100  # Fixed width for the gauge
+    height = 50  # Fixed height for the gauge
+    center_x = width / 2
+    center_y = height / 2
+    radius = min(center_x, center_y) * 0.9
+    angle = 180 * (current / max_current)  # Scale the current value to angle
+
+    # Colors for different current ranges
+    colors = ['green', 'orange', 'red']
+
+    # Draw segments
+    for i in range(3):
+        start_angle = 60 * i
+        extent = min(angle - start_angle, 60) if angle > start_angle else 0
+        canvas.create_arc(center_x - radius, center_y - radius, center_x + radius, center_y + radius,
+                          start=180 - start_angle - extent, extent=extent, fill=colors[i], outline="")
+
+
 # Function to update the data fields with data from energy_data_list
 def update_data_fields():
     for i, name in enumerate(column_names):
         energy_data = energy_data_list[i]
-        
-        data_fields[name][12].delete(0, tk.END)
-        status = "Online" if plug_online_status[i] else "Offline"
-        data_fields[name][12].insert(0, status)
-        data_fields[name][12].config(fg="green" if plug_online_status[i] else "red")
-
         if energy_data:
             # Get the latest energy data for the plug
             latest_energy_data = energy_data[-1]
-        
+
             # Update the data fields with the latest energy data
             data_fields[name][0].delete(0, tk.END)
             data_fields[name][0].insert(0, f"{latest_energy_data['Total']} kWh")
@@ -130,8 +130,19 @@ def update_data_fields():
             data_fields[name][11].delete(0, tk.END)
             data_fields[name][11].insert(0, f"£{latest_energy_data['Today']*KWH_COST:.2f}")
 
+            # Update the gauge with the current value
+            try:
+                current_value = float(energy_data[-1]['Current'])
+                draw_gauge(data_fields[name][-1], current_value)
+            except (KeyError, ValueError):
+                pass  # Handle cases where current data is not available or invalid
 
-            
+
+# # Function to update the data fields
+# def update_data_field(plug_name, data):
+#     for i, entry in enumerate(data_fields[plug_name]):
+#         entry.delete(0, tk.END)  # Clear the current entry
+#         entry.insert(0, f"{data + i*10}W")    # Insert new data with a unique increment
 
 # Create the main window
 root = tk.Tk()
@@ -142,16 +153,12 @@ root.geometry("800x480")
 column_names = ["Plug 1 - Office", "Plug 2 - Bedroom", "Plug 3", "Plug 4", "Plug 5"]
 data_labels =  [
                 'TOTAL', 'YESTERDAY', 'TODAY', 'POWER', 'APPARENT POWER', 'REACTIVE POWER', 
-                'FACTOR', 'VOLTAGE', 'CURRENT', 'TOTAL COST', 'YESTERDAY COST', 'TODAY COST',
-                'STATUS' 
+                'FACTOR', 'VOLTAGE', 'CURRENT', 'TOTAL COST', 'YESTERDAY COST', 'TODAY COST' 
                 ]               
                 
 
 data_fields = {name: [] for name in column_names}
 KWH_COST = 0.2889
-
-# Define the initial online status for the 6 plugs as False
-plug_online_status = [False] * 6
 
 # Create a frame for each column and populate it with labels and entry fields
 for i, name in enumerate(column_names):
@@ -159,12 +166,17 @@ for i, name in enumerate(column_names):
     frame = tk.Frame(root, borderwidth=1, relief="groove")
     frame.place(relx=i/5, rely=0, relwidth=1/5, relheight=0.75)  # Adjusted for function button area
 
+    # Gauge canvas for the current value
+    gauge_canvas = tk.Canvas(frame, width=100, height=50)
+    gauge_canvas.pack(side="top", fill="x", padx=5, pady=5)
+    data_fields[name].append(gauge_canvas)  # Save the canvas in the dictionary
+
     # Label for the column title
     label = tk.Label(frame, text=name, font=('Helvetica', 12, 'bold'))
     label.pack(side="top", fill="x")
 
     # Horizontal frames for data labels and fields
-    for j in range(13):
+    for j in range(12):
         # Frame for each data row
         data_frame = tk.Frame(frame)
         data_frame.pack(side="top", fill="x", padx=2, pady=1)

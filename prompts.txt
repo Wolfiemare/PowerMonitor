@@ -1,0 +1,6 @@
+can we create a online status variable for the 6 plugs and initially set them false.   If we receive a mqtt message indicating the plug (1 to 5) is online then we set this status for the plug to true.  The topic/message will look like this
+Topic: house/Room2Plug/tele/LWT 
+Message: Online
+
+
+Can we add a new label and field on each smart plug column below the last label/filed called Online Status.   The field will display Offline if false and Online if true.    The Offline message should be in red font and the online message should be in green font.
