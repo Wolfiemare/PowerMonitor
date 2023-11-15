@@ -96,7 +96,7 @@ def update_data_fields():
         energy_data = energy_data_list[i]
         
         data_fields[name][12].delete(0, tk.END)
-        status = "Online" if plug_online_status[i] else "Offline"
+        status = "ONLINE" if plug_online_status[i] else "OFFLINE"
         data_fields[name][12].insert(0, status)
         data_fields[name][12].config(fg="green" if plug_online_status[i] else "red")
 
@@ -136,7 +136,7 @@ def update_data_fields():
             data_fields[name][10].insert(0, f"£{latest_energy_data['Yesterday']*KWH_COST:.2f}")
             data_fields[name][11].delete(0, tk.END)
             data_fields[name][11].insert(0, f"£{latest_energy_data['Today']*KWH_COST:.2f}")
-          
+         
 
 # Create the main window
 root = tk.Tk()
