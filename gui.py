@@ -121,17 +121,22 @@ def update_data_fields():
             data_fields[name][6].insert(0, f"{latest_energy_data['Factor']}")
             data_fields[name][7].delete(0, tk.END)
             data_fields[name][7].insert(0, f"{latest_energy_data['Voltage']} V")
+            current = latest_energy_data['Current']
             data_fields[name][8].delete(0, tk.END)
-            data_fields[name][8].insert(0, f"{latest_energy_data['Current']} A")
+            data_fields[name][8].insert(0, f"{current} A")
+            if current < 4.3:
+                data_fields[name][8].config(font=('Helvetica', 10, 'bold'),bg="green", fg="white")
+            elif 4.31 <= current <= 8.3:
+                data_fields[name][8].config(font=('Helvetica', 10, 'bold'), bg="#FF6600", fg="white")
+            else:
+                data_fields[name][8].config(font=('Helvetica', 10, 'bold'), bg="red", fg="white")
             data_fields[name][9].delete(0, tk.END)
             data_fields[name][9].insert(0, f"£{latest_energy_data['Total']*KWH_COST:.2f}")
             data_fields[name][10].delete(0, tk.END)
             data_fields[name][10].insert(0, f"£{latest_energy_data['Yesterday']*KWH_COST:.2f}")
             data_fields[name][11].delete(0, tk.END)
             data_fields[name][11].insert(0, f"£{latest_energy_data['Today']*KWH_COST:.2f}")
-
-
-            
+          
 
 # Create the main window
 root = tk.Tk()
@@ -174,7 +179,7 @@ for i, name in enumerate(column_names):
         data_label.pack(side="left")
 
         # Data field
-        data_field = tk.Entry(data_frame, font=('Helvetica', 8), width=6)
+        data_field = tk.Entry(data_frame, font=('Helvetica', 9), width=6)
         data_field.pack(side="left", fill="x", expand=True)
 
         # Save the data field in the dictionary
