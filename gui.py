@@ -167,71 +167,29 @@ def fetch_data():
 
 # Function to update the data fields with data from energy_data_list
 def update_data_fields():
-        """
-        Update the GUI data fields with the latest energy data for each plug.
+    """
+    Update the GUI data fields with the latest energy data for each plug.
 
-        For each column in the GUI table, this function retrieves the latest energy data
-        from the corresponding energy data list, and updates the data fields with the
-        following information:
-        - Total energy consumption (in kWh)
-        - Energy consumption yesterday (in kWh)
-        - Energy consumption today (in kWh)
-        - Power consumption (in W)
-        - Apparent power consumption (in VA)
-        - Reactive power consumption (in VAr)
-        - Power factor
-        - Voltage (in V)
-        - Current (in A)
-        - Online status (either "ONLINE" or "OFFLINE")
-        - Total cost (based on the energy consumption and the KWH_COST constant)
-        - Cost yesterday (based on the energy consumption and the KWH_COST constant)
-        - Cost today (based on the energy consumption and the KWH_COST constant)
+    For each column in the GUI table, get the latest energy data for the corresponding plug,
+    and update the data fields with the following information:
+    - Total energy consumption (in kWh)
+    - Energy consumption yesterday (in kWh)
+    - Energy consumption today (in kWh)
+    - Power consumption (in W)
+    - Apparent power consumption (in VA)
+    - Reactive power consumption (in VAr)
+    - Power factor
+    - Voltage (in V)
+    - Current (in A)
+    - Online status (either "ONLINE" or "OFFLINE")
+    - Total cost (in £) based on the energy consumption and the KWH_COST constant
+        (which should be defined elsewhere in the code)
 
-        The current value of the current field is used to set the background color of the
-        field, according to the following thresholds:
-        - If the current is less than 4.3 A, the background color is green
-        - If the current is between 4.31 A and 8.3 A, the background color is orange
-        - If the current is greater than 8.3 A, the background color is red
-
-        The online status is displayed in green if the plug is online, and in red if it is
-        offline.
-
-        This function assumes that the following variables are defined:
-        - column_names: a list of strings representing the names of the columns in the GUI table
-        - energy_data_list: a list of lists, where each inner list contains the energy data
-            for a plug (in the format returned by the get_energy_data function)
-        - plug_online_status: a list of booleans representing the online status of each plug
-        - data_fields: a dictionary of dictionaries, where the keys are the column names and
-            the values are dictionaries containing the data fields for each plug (in the format
-            returned by the create_data_fields function)
-        - KWH_COST: a float representing the cost of 1 kWh of energy (in pounds)
-        """
-def update_data_fields():
-        """
-        Update the GUI data fields with the latest energy data for each plug.
-
-        For each column in the GUI table, get the latest energy data for the corresponding plug,
-        and update the data fields with the following information:
-        - Total energy consumption (in kWh)
-        - Energy consumption yesterday (in kWh)
-        - Energy consumption today (in kWh)
-        - Power consumption (in W)
-        - Apparent power consumption (in VA)
-        - Reactive power consumption (in VAr)
-        - Power factor
-        - Voltage (in V)
-        - Current (in A)
-        - Online status (either "ONLINE" or "OFFLINE")
-        - Total cost (in £) based on the energy consumption and the KWH_COST constant
-            (which should be defined elsewhere in the code)
-
-        The current field is highlighted with different colors depending on its value:
-        - Green if the current is less than 4.3 A
-        - Orange if the current is between 4.31 A and 8.3 A
-        - Red if the current is greater than 8.3 A
-        """
-        # function body here
-def update_data_fields():
+    The current field is highlighted with different colors depending on its value:
+    - Green if the current is less than 4.3 A
+    - Orange if the current is between 4.31 A and 8.3 A
+    - Red if the current is greater than 8.3 A
+    """
     for i, name in enumerate(column_names):
         energy_data = energy_data_list[i]
         
@@ -276,7 +234,65 @@ def update_data_fields():
             data_fields[name][10].insert(0, f"£{latest_energy_data['Yesterday']*KWH_COST:.2f}")
             data_fields[name][11].delete(0, tk.END)
             data_fields[name][11].insert(0, f"£{latest_energy_data['Today']*KWH_COST:.2f}")
-         
+
+# Function to create the GUI
+def create_gui():
+    # Create a frame for each column and populate it with labels and entry fields
+    for i, name in enumerate(column_names):
+        # Frame for the column
+        frame = tk.Frame(root, borderwidth=1, relief="groove")
+        frame.place(relx=i/5, rely=0, relwidth=1/5, relheight=0.75)  # Adjusted for function button area
+
+        # Label for the column title
+        label = tk.Label(frame, text=name, font=('Helvetica', 12, 'bold'))
+        label.pack(side="top", fill="x")
+
+        # Horizontal frames for data labels and fields
+        for j in range(13):
+            # Frame for each data row
+            data_frame = tk.Frame(frame)
+            data_frame.pack(side="top", fill="x", padx=2, pady=1)
+
+            # Data label
+            data_label = tk.Label(data_frame, text=data_labels[j], width=20, anchor="w", font=('Helvetica', 6))
+            data_label.pack(side="left")
+
+            # Data field
+            data_field = tk.Entry(data_frame, font=('Helvetica', 9), width=6)
+            data_field.pack(side="left", fill="x", expand=True)
+
+            # Save the data field in the dictionary
+            data_fields[name].append(data_field)
+
+        # Frame for buttons
+        button_frame = tk.Frame(frame, borderwidth=1, relief="sunken")
+        button_frame.pack(side="bottom", fill="x", padx=2, pady=1)
+
+        # Creating buttons and assigning commands
+        # ON button
+        on_button = tk.Button(button_frame, text="ON", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "ON"))
+        on_button.pack(side="left", padx=2)
+
+        # OFF button
+        off_button = tk.Button(button_frame, text="OFF", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "OFF"))
+        off_button.pack(side="left", padx=2)
+
+    # Function buttons area
+    func_button_frame = tk.Frame(root, borderwidth=1, relief="sunken")
+    func_button_frame.place(relx=0, rely=0.75, relwidth=1, relheight=0.1)
+
+    # Creating function buttons and assigning commands
+    func_buttons = [function1, function2, function3, function4]  # function4 is the exit function
+    button_texts = ["Function 1", "Function 2", "Function 3", "Exit"]
+    for i, (func, text) in enumerate(zip(func_buttons, button_texts)):
+        btn = tk.Button(func_button_frame, text=text, font=('Helvetica', 10), command=func)
+        btn.pack(side="left", expand=True, fill="x", padx=5, pady=2)
+    
+    # status_frame = tk.Frame(root, borderwidth=1, relief="sunken")
+    # status_frame.place(relx=0, rely=0.85, relwidth=1, relheight=0.15)
+    # status_message = tk.Label(status_frame, text="Status: Ready", bg="white", anchor="w", font=('Helvetica', 10))
+    # status_message.pack(side="left", fill="both", expand=True)
+
 # Create the main window
 root = tk.Tk()
 root.title("Tasmota Power Data Display")
@@ -284,12 +300,13 @@ root.geometry("800x480")
 
 # Define a list of column names
 column_names = ["Plug 1 - Office", "Plug 2 - Bedroom", "Plug 3", "Plug 4", "Plug 5"]
+
+# Define a list of data labels
 data_labels =  [
                 'TOTAL', 'YESTERDAY', 'TODAY', 'POWER', 'APPARENT POWER', 'REACTIVE POWER', 
                 'FACTOR', 'VOLTAGE', 'CURRENT', 'TOTAL COST', 'YESTERDAY COST', 'TODAY COST',
                 'STATUS' 
                 ]                      
-
 
 # Create a dictionary of dictionaries to store the data fields
 data_fields = {name: [] for name in column_names}
@@ -302,66 +319,16 @@ TELEMETRY_PERIOD = 60   # In seconds
 # Define the initial online status for the 6 plugs as False
 plug_online_status = [False] * 6
 
-# Create a frame for each column and populate it with labels and entry fields
-for i, name in enumerate(column_names):
-    # Frame for the column
-    frame = tk.Frame(root, borderwidth=1, relief="groove")
-    frame.place(relx=i/5, rely=0, relwidth=1/5, relheight=0.75)  # Adjusted for function button area
+# Initialize the list of dictionaries for energy data for each plug
+energy_data_list = [list() for _ in range(5)]
 
-    # Label for the column title
-    label = tk.Label(frame, text=name, font=('Helvetica', 12, 'bold'))
-    label.pack(side="top", fill="x")
-
-    # Horizontal frames for data labels and fields
-    for j in range(13):
-        # Frame for each data row
-        data_frame = tk.Frame(frame)
-        data_frame.pack(side="top", fill="x", padx=2, pady=1)
-
-        # Data label
-        data_label = tk.Label(data_frame, text=data_labels[j], width=20, anchor="w", font=('Helvetica', 6))
-        data_label.pack(side="left")
-
-        # Data field
-        data_field = tk.Entry(data_frame, font=('Helvetica', 9), width=6)
-        data_field.pack(side="left", fill="x", expand=True)
-
-        # Save the data field in the dictionary
-        data_fields[name].append(data_field)
-
-    # Frame for buttons
-    button_frame = tk.Frame(frame, borderwidth=1, relief="sunken")
-    button_frame.pack(side="bottom", fill="x", padx=2, pady=1)
-
-    # Creating buttons and assigning commands
-    # ON button
-    on_button = tk.Button(button_frame, text="ON", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "ON"))
-    on_button.pack(side="left", padx=2)
-
-    # OFF button
-    off_button = tk.Button(button_frame, text="OFF", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "OFF"))
-    off_button.pack(side="left", padx=2)
- 
-
-# Function buttons area
-func_button_frame = tk.Frame(root, borderwidth=1, relief="sunken")
-func_button_frame.place(relx=0, rely=0.75, relwidth=1, relheight=0.1)
-
-# Creating function buttons and assigning commands
-func_buttons = [function1, function2, function3, function4]  # function4 is the exit function
-button_texts = ["Function 1", "Function 2", "Function 3", "Exit"]
-for i, (func, text) in enumerate(zip(func_buttons, button_texts)):
-    btn = tk.Button(func_button_frame, text=text, font=('Helvetica', 10), command=func)
-    btn.pack(side="left", expand=True, fill="x", padx=5, pady=2)
+create_gui()
 
 # Status message box
 status_frame = tk.Frame(root, borderwidth=1, relief="sunken")
 status_frame.place(relx=0, rely=0.85, relwidth=1, relheight=0.15)
 status_message = tk.Label(status_frame, text="Status: Ready", bg="white", anchor="w", font=('Helvetica', 10))
 status_message.pack(side="left", fill="both", expand=True)
-
-# Initialize the list of dictionaries for energy data for each plug
-energy_data_list = [list() for _ in range(5)]
 
 # Initiate MQTT Client
 mqtt_client = mqtt.Client('Power Logger')
