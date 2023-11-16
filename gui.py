@@ -241,7 +241,7 @@ def create_gui():
     for i, name in enumerate(column_names):
         # Frame for the column
         frame = tk.Frame(root, borderwidth=1, relief="groove")
-        frame.place(relx=i/5, rely=0, relwidth=1/5, relheight=0.75)  # Adjusted for function button area
+        frame.place(relx=i/5, rely=0, relwidth=1/5, relheight=0.85)  # Adjusted for function button area
 
         # Label for the column title
         label = tk.Label(frame, text=name, font=('Helvetica', 12, 'bold'))
@@ -279,7 +279,7 @@ def create_gui():
 
     # Function buttons area
     func_button_frame = tk.Frame(root, borderwidth=1, relief="sunken")
-    func_button_frame.place(relx=0, rely=0.75, relwidth=1, relheight=0.1)
+    func_button_frame.place(relx=0, rely=0.86, relwidth=1, relheight=0.1)
 
     # Creating function buttons and assigning commands
     func_buttons = [function1, function2, function3, function4]  # function4 is the exit function
@@ -296,7 +296,7 @@ def create_gui():
 # Create the main window
 root = tk.Tk()
 root.title("Tasmota Power Data Display")
-root.geometry("800x480")
+root.geometry("800x400")
 
 # Define a list of column names
 column_names = ["Plug 1 - Office", "Plug 2 - Bedroom", "Plug 3", "Plug 4", "Plug 5"]
@@ -326,8 +326,8 @@ create_gui()
 
 # Status message box
 status_frame = tk.Frame(root, borderwidth=1, relief="sunken")
-status_frame.place(relx=0, rely=0.85, relwidth=1, relheight=0.15)
-status_message = tk.Label(status_frame, text="Status: Ready", bg="white", anchor="w", font=('Helvetica', 10))
+status_frame.place(relx=0, rely=0.95, relwidth=1, relheight=0.05)
+status_message = tk.Label(status_frame, text="Status: Ready", bg="white", anchor="w", font=('Helvetica', 8))
 status_message.pack(side="left", fill="both", expand=True)
 
 # Initiate MQTT Client
