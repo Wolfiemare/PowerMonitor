@@ -10,6 +10,34 @@ MQTT_BROKER = "broker.hivemq.com"
 MQTT_PORT = 1883
 MQTT_KEEPALIVE_INTERVAL = 60
 
+def turn_plug_on_off(plug_num, condition):
+    """
+    Turns a Tasmota smart plug on or off using MQTT.
+
+    Args:
+        plug_num (int): The number of the plug to turn on or off.
+        condition (str): The condition to set the plug to, either "On" or "Off".
+    """
+    if plug_online_status[plug_num-1]:
+        topic = f"house/Room{plug_num}Plug/cmnd/Power"
+        mqtt_client.publish(topic, condition)
+        update_status(f"Plug {plug_num} turned {condition}.")
+    else:
+        update_status(f"Plug {plug_num} is offline.")
+
+
+def set_telemetry_period(plug_num, tele_period):
+    """
+    Sets the telemetry period for a specific plug.
+
+    Args:
+        plug_num (int): The number of the plug to set the telemetry period for.
+        tele_period (int): The telemetry period to set, in seconds.
+    """
+    topic = f"house/Room{plug_num}Plug/cmnd/TelePeriod"
+    mqtt_client.publish(topic, tele_period)
+    update_status(f"Telemetry period for plug {plug_num} set to {tele_period} seconds.")
+
 # Define the MQTT on_connect event handler
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
@@ -51,9 +79,11 @@ def on_message(client, userdata, msg):
             if payload == 'Online':
                 plug_online_status[plug_num-1] = True
                 update_status(f"Plug {plug_num} is online.")
+                set_telemetry_period(plug_num, TELEMETRY_PERIOD)
             else:
                 plug_online_status[plug_num-1] = False
                 update_status(f"Plug {plug_num} is offline.")
+
 
 
 
@@ -154,6 +184,7 @@ data_labels =  [
 
 data_fields = {name: [] for name in column_names}
 KWH_COST = 0.2889
+TELEMETRY_PERIOD = 60   # In seconds
 
 # Define the initial online status for the 6 plugs as False
 plug_online_status = [False] * 6
@@ -184,7 +215,20 @@ for i, name in enumerate(column_names):
 
         # Save the data field in the dictionary
         data_fields[name].append(data_field)
-        
+
+    # Frame for buttons
+    button_frame = tk.Frame(frame, borderwidth=1, relief="sunken")
+    button_frame.pack(side="bottom", fill="x", padx=2, pady=1)
+
+    # Creating buttons and assigning commands
+    # ON button
+    on_button = tk.Button(button_frame, text="ON", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "ON"))
+    on_button.pack(side="left", padx=2)
+
+    # OFF button
+    off_button = tk.Button(button_frame, text="OFF", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "OFF"))
+    off_button.pack(side="left", padx=2)
+ 
 
 # Function buttons area
 func_button_frame = tk.Frame(root, borderwidth=1, relief="sunken")

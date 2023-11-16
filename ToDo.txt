@@ -13,3 +13,32 @@ mqtt_client.publish(topic, tele_period)
 
 # Disconnect from the MQTT broker
 mqtt_client.disconnect()
+
+
+
+
+
+        # ON button
+        on_button = tk.Button(data_frame, text="ON", font=('Helvetica', 6), command=lambda plug_number=i+1: on_off(plug_number, "ON"))
+        on_button.pack(side="left", padx=2)
+
+        # OFF button
+        off_button = tk.Button(data_frame, text="OFF", font=('Helvetica', 6), command=lambda plug_number=i+1: on_off(plug_number, "OFF"))
+        off_button.pack(side="left", padx=2)
+
+
+    # Frame for ON/OFF buttons
+    button_frame = tk.Frame(data_frame)
+    button_frame.pack(side="bottom", fill="x", padx=2, pady=1)
+
+    # ON button
+    on_button = tk.Button(button_frame, text="ON", font=('Helvetica', 6), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "ON"))
+    on_button.pack(side="left", padx=2)
+
+    # OFF button
+    off_button = tk.Button(button_frame, text="OFF", font=('Helvetica', 6), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "OFF"))
+    off_button.pack(side="left", padx=2)
+
+    # Add the button frame to the data frame
+    data_frame.pack(side="top", fill="x", padx=2, pady=1)
+    button_frame.pack(side="bottom", fill="x", padx=2, pady=1)
