@@ -10,6 +10,7 @@ MQTT_BROKER = "broker.hivemq.com"
 MQTT_PORT = 1883
 MQTT_KEEPALIVE_INTERVAL = 60
 
+# Define the MQTT on_connect event handler
 def turn_plug_on_off(plug_num, condition):
     """
     Turns a Tasmota smart plug on or off using MQTT.
@@ -25,7 +26,7 @@ def turn_plug_on_off(plug_num, condition):
     else:
         update_status(f"Plug {plug_num} is offline.")
 
-
+# Define the MQTT on_connect event handler
 def set_telemetry_period(plug_num, tele_period):
     """
     Sets the telemetry period for a specific plug.
@@ -40,6 +41,14 @@ def set_telemetry_period(plug_num, tele_period):
 
 # Define the MQTT on_connect event handler
 def on_connect(client, userdata, flags, rc):
+    """
+    Callback function that is called when the client connects to the broker.
+
+    :param client: The client instance that is connecting.
+    :param userdata: Any user data that was specified during connection.
+    :param flags: Response flags sent by the broker.
+    :param rc: The connection result code.
+    """
     print("Connected with result code "+str(rc))
     update_status("Connected with result code "+str(rc))
 
@@ -47,6 +56,21 @@ def on_connect(client, userdata, flags, rc):
     
 # Define the MQTT on_message event handler
 def on_message(client, userdata, msg):
+    """
+    Callback function that is called when a message is received on a subscribed topic.
+    Parses the topic and payload of the message, and updates the status of the plug accordingly.
+    If the message is related to energy data, the energy data is added to a list of dictionaries
+    based on the plug number. If the message is related to the plug's online status, the plug's
+    online status is updated and the telemetry period is set accordingly.
+
+    Args:
+        client: The client instance that received the message.
+        userdata: User-defined data that is passed as an argument to the client constructor.
+        msg: The message that was received, including the topic and payload.
+
+    Returns:
+        None
+    """
     topic = msg.topic
     payload = msg.payload.decode('utf-8')
 
@@ -84,16 +108,30 @@ def on_message(client, userdata, msg):
                 plug_online_status[plug_num-1] = False
                 update_status(f"Plug {plug_num} is offline.")
 
-
-
-
 # Define the MQTT on_publish event handler
 def on_publish(client, userdata, mid):
+    """
+    Callback function that is called when a message is successfully published to the broker.
+
+    Parameters:
+    client (paho.mqtt.client.Client): The client instance that triggered this callback.
+    userdata: The private user data as set in Client() or userdata_set().
+    mid (int): The message ID of the published message.
+
+    Returns:
+    None
+    """
     print("Message published with id "+str(mid))
     update_status("Message published with id "+str(mid))
 
 # Function to update the status bar
 def update_status(message):
+    """
+    Updates the status message displayed in the GUI.
+
+    Args:
+        message (str): The message to display in the status bar.
+    """
     status_message.config(text=f"Status: {message}")
 
 # Dummy functions for the function buttons
@@ -102,25 +140,97 @@ def function1():
 
 def function2():
     update_status("Function 2 activated.")
+
 def function3():
     update_status("Function 3 activated.")
 
 # Function for the exit button
 def function4():
+    """
+    This function stops the mainloop and destroys all widgets to close the window.
+    """
     root.quit()  # This will stop the mainloop
     root.destroy()  # This will destroy all widgets and close the window
 
 # Function to fetch data from the plugs
 def fetch_data():
+    """
+    Continuously fetches data and updates the GUI every 2 seconds.
+
+    This function schedules the `update_data_fields` function to run on the main thread
+    every 2 seconds to update the GUI with the latest data.
+    """
     while True:
         # Schedule the `update_data_field` to run on the main thread
         root.after(0, update_data_fields)
         time.sleep(2)  # Simulate delay for fetching data
 
-        # mqtt_client.publish("house/RoomPlug1/cmnd/STATUS", "10")
-        # mqtt_client.publish("house/RoomPlug2/cmnd/STATUS", "10")
-
 # Function to update the data fields with data from energy_data_list
+def update_data_fields():
+        """
+        Update the GUI data fields with the latest energy data for each plug.
+
+        For each column in the GUI table, this function retrieves the latest energy data
+        from the corresponding energy data list, and updates the data fields with the
+        following information:
+        - Total energy consumption (in kWh)
+        - Energy consumption yesterday (in kWh)
+        - Energy consumption today (in kWh)
+        - Power consumption (in W)
+        - Apparent power consumption (in VA)
+        - Reactive power consumption (in VAr)
+        - Power factor
+        - Voltage (in V)
+        - Current (in A)
+        - Online status (either "ONLINE" or "OFFLINE")
+        - Total cost (based on the energy consumption and the KWH_COST constant)
+        - Cost yesterday (based on the energy consumption and the KWH_COST constant)
+        - Cost today (based on the energy consumption and the KWH_COST constant)
+
+        The current value of the current field is used to set the background color of the
+        field, according to the following thresholds:
+        - If the current is less than 4.3 A, the background color is green
+        - If the current is between 4.31 A and 8.3 A, the background color is orange
+        - If the current is greater than 8.3 A, the background color is red
+
+        The online status is displayed in green if the plug is online, and in red if it is
+        offline.
+
+        This function assumes that the following variables are defined:
+        - column_names: a list of strings representing the names of the columns in the GUI table
+        - energy_data_list: a list of lists, where each inner list contains the energy data
+            for a plug (in the format returned by the get_energy_data function)
+        - plug_online_status: a list of booleans representing the online status of each plug
+        - data_fields: a dictionary of dictionaries, where the keys are the column names and
+            the values are dictionaries containing the data fields for each plug (in the format
+            returned by the create_data_fields function)
+        - KWH_COST: a float representing the cost of 1 kWh of energy (in pounds)
+        """
+def update_data_fields():
+        """
+        Update the GUI data fields with the latest energy data for each plug.
+
+        For each column in the GUI table, get the latest energy data for the corresponding plug,
+        and update the data fields with the following information:
+        - Total energy consumption (in kWh)
+        - Energy consumption yesterday (in kWh)
+        - Energy consumption today (in kWh)
+        - Power consumption (in W)
+        - Apparent power consumption (in VA)
+        - Reactive power consumption (in VAr)
+        - Power factor
+        - Voltage (in V)
+        - Current (in A)
+        - Online status (either "ONLINE" or "OFFLINE")
+        - Total cost (in £) based on the energy consumption and the KWH_COST constant
+            (which should be defined elsewhere in the code)
+
+        The current field is highlighted with different colors depending on its value:
+        - Green if the current is less than 4.3 A
+        - Orange if the current is between 4.31 A and 8.3 A
+        - Red if the current is greater than 8.3 A
+        """
+        # function body here
 def update_data_fields():
     for i, name in enumerate(column_names):
         energy_data = energy_data_list[i]
@@ -167,7 +277,6 @@ def update_data_fields():
             data_fields[name][11].delete(0, tk.END)
             data_fields[name][11].insert(0, f"£{latest_energy_data['Today']*KWH_COST:.2f}")
          
-
 # Create the main window
 root = tk.Tk()
 root.title("Tasmota Power Data Display")
@@ -179,11 +288,15 @@ data_labels =  [
                 'TOTAL', 'YESTERDAY', 'TODAY', 'POWER', 'APPARENT POWER', 'REACTIVE POWER', 
                 'FACTOR', 'VOLTAGE', 'CURRENT', 'TOTAL COST', 'YESTERDAY COST', 'TODAY COST',
                 'STATUS' 
-                ]               
-                
+                ]                      
 
+
+# Create a dictionary of dictionaries to store the data fields
 data_fields = {name: [] for name in column_names}
+
+# Define the cost of 1 kWh of energy (in pounds)
 KWH_COST = 0.2889
+# Define the telemetry period (in seconds)
 TELEMETRY_PERIOD = 60   # In seconds
 
 # Define the initial online status for the 6 plugs as False
@@ -259,8 +372,6 @@ mqtt_client.on_publish = on_publish
 # Connect with MQTT Broker
 mqtt_client.connect(MQTT_BROKER, MQTT_PORT, MQTT_KEEPALIVE_INTERVAL)
 mqtt_client.loop_start()
-
-
 
 # Start the data fetching in a background thread
 fetch_thread = threading.Thread(target=fetch_data, daemon=True)
