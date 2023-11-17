@@ -40,6 +40,22 @@ def set_telemetry_period(plug_num, tele_period):
     update_status(f"Telemetry period for plug {plug_num} set to {tele_period} seconds.")
 
 # Define the MQTT on_connect event handler
+def set_power_on_state(plug_num, state=1):
+    """
+    Set the power on state for a specific plug.
+
+    Args:
+        plug_num (int): The number of the plug.
+        state (int, optional): The power on state to set. Defaults to 1.
+
+    Returns:
+        None
+    """
+    topic = f"house/Room{plug_num}Plug/cmnd/PowerOnState"
+    mqtt_client.publish(topic, state)
+    update_status(f"Power On State for plug {plug_num} set to {state}.")
+
+# Define the MQTT on_connect event handler
 def on_connect(client, userdata, flags, rc):
     """
     Callback function that is called when the client connects to the broker.
@@ -91,7 +107,7 @@ def on_message(client, userdata, msg):
             # Add the energy data to the list of dictionaries based on the plug number
             energy_data_list[plug_num-1].append(energy_data)
 
-            print(energy_data_list)
+            # print(energy_data_list)
 
     # Check if the plug is online
     if 'LWT' in topic:
@@ -104,6 +120,7 @@ def on_message(client, userdata, msg):
                 plug_online_status[plug_num-1] = True
                 update_status(f"Plug {plug_num} is online.")
                 set_telemetry_period(plug_num, TELEMETRY_PERIOD)
+                set_power_on_state(plug_num) # Set the power on state to ON
             else:
                 plug_online_status[plug_num-1] = False
                 update_status(f"Plug {plug_num} is offline.")
@@ -314,7 +331,7 @@ data_fields = {name: [] for name in column_names}
 # Define the cost of 1 kWh of energy (in pounds)
 KWH_COST = 0.2889
 # Define the telemetry period (in seconds)
-TELEMETRY_PERIOD = 60   # In seconds
+TELEMETRY_PERIOD = 20   # In seconds
 
 # Define the initial online status for the 6 plugs as False
 plug_online_status = [False] * 6
