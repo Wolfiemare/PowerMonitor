@@ -1,44 +1,22 @@
-import paho.mqtt.client as mqtt
+# Initialize the list with a default status, assuming all plugs are initially off.
+# The list index corresponds to the plug number minus 1 (e.g., index 0 corresponds to plug 1).
+power_status_list = ['OFF', 'OFF', 'OFF', 'OFF', 'OFF']
 
-# Set up MQTT client
-mqtt_client = mqtt.Client("Room1-Heater-Plug")
+def on_message(client, userdata, msg):
+    # Your existing code for other message types...
+    
+    topic = msg.topic
+    payload = msg.payload.decode('utf-8')
 
-# Connect to the MQTT broker
-mqtt_client.connect("broker.hivermq.com", 1883, 60)
-
-# Set the telemetry period
-tele_period = 60  # The desired telemetry period in seconds
-topic = "house/Room1Plug/cmnd/TelePeriod"
-mqtt_client.publish(topic, tele_period)
-
-# Disconnect from the MQTT broker
-mqtt_client.disconnect()
-
-
-
-
-
-        # ON button
-        on_button = tk.Button(data_frame, text="ON", font=('Helvetica', 6), command=lambda plug_number=i+1: on_off(plug_number, "ON"))
-        on_button.pack(side="left", padx=2)
-
-        # OFF button
-        off_button = tk.Button(data_frame, text="OFF", font=('Helvetica', 6), command=lambda plug_number=i+1: on_off(plug_number, "OFF"))
-        off_button.pack(side="left", padx=2)
-
-
-    # Frame for ON/OFF buttons
-    button_frame = tk.Frame(data_frame)
-    button_frame.pack(side="bottom", fill="x", padx=2, pady=1)
-
-    # ON button
-    on_button = tk.Button(button_frame, text="ON", font=('Helvetica', 6), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "ON"))
-    on_button.pack(side="left", padx=2)
-
-    # OFF button
-    off_button = tk.Button(button_frame, text="OFF", font=('Helvetica', 6), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "OFF"))
-    off_button.pack(side="left", padx=2)
-
-    # Add the button frame to the data frame
-    data_frame.pack(side="top", fill="x", padx=2, pady=1)
-    button_frame.pack(side="bottom", fill="x", padx=2, pady=1)
+    topic_parts = topic.split('/')
+    if len(topic_parts) == 3 and topic_parts[2] == 'POWER':
+        # Assuming topic structure is 'house/RoomXPlug/POWER'
+        plug_num_str = topic_parts[1].replace('Room', '').replace('Plug', '')
+        if plug_num_str.isdigit():
+            plug_num = int(plug_num_str)
+            if 1 <= plug_num <= len(power_status_list):  # Validate plug number
+                power_status = payload  # This should be "ON" or "OFF"
+                power_status_list[plug_num - 1] = power_status  # Update the corresponding status in the list
+                print(f"Updated power status list: {power_status_list}")
+            else:
+                print(f"Received power status for unknown plug number: {plug_num}")

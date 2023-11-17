@@ -124,6 +124,47 @@ def on_message(client, userdata, msg):
             else:
                 plug_online_status[plug_num-1] = False
                 update_status(f"Plug {plug_num} is offline.")
+         
+    # Check if the plug is providing power or not (i.e. if it is on or off)
+    if 'STATE' in topic:
+        plug_num_str = topic.split('/')[1].replace('Room', '').replace('Plug', '')
+        print(plug_num_str)
+
+        if plug_num_str.isdigit():
+            plug_num = int(plug_num_str)
+                        # Parse the JSON payload
+            try:
+                payload_dict = json.loads(payload)
+                power_state = payload_dict.get('POWER', 'UNKNOWN')  # Default to 'UNKNOWN' if key is not present
+                
+                # Update the power status in the list
+                power_status_list[plug_num - 1] = power_state
+                print(f"Plug {plug_num} power status updated to: {power_state}")
+                print(f"Current power status list: {power_status_list}")
+                
+            except json.JSONDecodeError:
+                print("Error: Payload is not valid JSON")
+
+   # Check if the plug has been turn on or off
+    if 'RESULT' in topic:
+        plug_num_str = topic.split('/')[1].replace('Room', '').replace('Plug', '')
+        print(plug_num_str)
+
+        if plug_num_str.isdigit():
+            plug_num = int(plug_num_str)     
+            try:
+                payload_dict = json.loads(payload)
+                if 'POWER' in payload_dict:
+                    # The JSON payload has a 'POWER' key
+                    power_state = payload_dict['POWER']
+                    power_status_list[plug_num - 1] = power_state
+
+                    print(f"Plug {plug_num} power status updated to: {power_state}")
+                    print(f"Current power status list: {power_status_list}")
+                
+            except json.JSONDecodeError:
+                print("Error: Payload is not valid JSON")
+
 
 # Define the MQTT on_publish event handler
 def on_publish(client, userdata, mid):
@@ -215,30 +256,35 @@ def update_data_fields():
         data_fields[name][12].insert(0, status)
         data_fields[name][12].config(fg="green" if plug_online_status[i] else "red")
 
+        data_fields[name][13].delete(0, tk.END)
+        data_fields[name][13].insert(0, f"{power_status_list[i]}")
+        data_fields[name][13].config(fg="green" if power_status_list[i] =='ON' else "red")
+
+
         if energy_data:
             # Get the latest energy data for the plug
             latest_energy_data = energy_data[-1]
         
             # Update the data fields with the latest energy data
             data_fields[name][0].delete(0, tk.END)
-            data_fields[name][0].insert(0, f"{latest_energy_data['Total']} kWh")
+            data_fields[name][0].insert(0, f"{latest_energy_data['Total']}")
             data_fields[name][1].delete(0, tk.END)
-            data_fields[name][1].insert(0, f"{latest_energy_data['Yesterday']} kWh")
+            data_fields[name][1].insert(0, f"{latest_energy_data['Yesterday']}")
             data_fields[name][2].delete(0, tk.END)
-            data_fields[name][2].insert(0, f"{latest_energy_data['Today']} kWh")
+            data_fields[name][2].insert(0, f"{latest_energy_data['Today']}")
             data_fields[name][3].delete(0, tk.END)
-            data_fields[name][3].insert(0, f"{latest_energy_data['Power']} W")
+            data_fields[name][3].insert(0, f"{latest_energy_data['Power']}")
             data_fields[name][4].delete(0, tk.END)
-            data_fields[name][4].insert(0, f"{latest_energy_data['ApparentPower']} VA")
+            data_fields[name][4].insert(0, f"{latest_energy_data['ApparentPower']}")
             data_fields[name][5].delete(0, tk.END)
-            data_fields[name][5].insert(0, f"{latest_energy_data['ReactivePower']} VAr")
+            data_fields[name][5].insert(0, f"{latest_energy_data['ReactivePower']}")
             data_fields[name][6].delete(0, tk.END)
             data_fields[name][6].insert(0, f"{latest_energy_data['Factor']}")
             data_fields[name][7].delete(0, tk.END)
-            data_fields[name][7].insert(0, f"{latest_energy_data['Voltage']} V")
+            data_fields[name][7].insert(0, f"{latest_energy_data['Voltage']}")
             current = latest_energy_data['Current']
             data_fields[name][8].delete(0, tk.END)
-            data_fields[name][8].insert(0, f"{current} A")
+            data_fields[name][8].insert(0, f"{current}")
             if current < 4.3:
                 data_fields[name][8].config(font=('Helvetica', 10, 'bold'),bg="green", fg="white")
             elif 4.31 <= current <= 8.3:
@@ -252,6 +298,7 @@ def update_data_fields():
             data_fields[name][11].delete(0, tk.END)
             data_fields[name][11].insert(0, f"£{latest_energy_data['Today']*KWH_COST:.2f}")
 
+
 # Function to create the GUI
 def create_gui():
     # Create a frame for each column and populate it with labels and entry fields
@@ -261,11 +308,11 @@ def create_gui():
         frame.place(relx=i/5, rely=0, relwidth=1/5, relheight=0.85)  # Adjusted for function button area
 
         # Label for the column title
-        label = tk.Label(frame, text=name, font=('Helvetica', 12, 'bold'))
+        label = tk.Label(frame, text=name, font=('Helvetica', 11, 'bold'))
         label.pack(side="top", fill="x")
 
         # Horizontal frames for data labels and fields
-        for j in range(13):
+        for j in range(14):
             # Frame for each data row
             data_frame = tk.Frame(frame)
             data_frame.pack(side="top", fill="x", padx=2, pady=1)
@@ -280,7 +327,7 @@ def create_gui():
 
             # Save the data field in the dictionary
             data_fields[name].append(data_field)
-
+     
         # Frame for buttons
         button_frame = tk.Frame(frame, borderwidth=1, relief="sunken")
         button_frame.pack(side="bottom", fill="x", padx=2, pady=1)
@@ -313,17 +360,20 @@ def create_gui():
 # Create the main window
 root = tk.Tk()
 root.title("Tasmota Power Data Display")
-root.geometry("800x400")
+root.geometry("800x470")
 
 # Define a list of column names
-column_names = ["Plug 1 - Office", "Plug 2 - Hallway", "Plug 3 - Lounge", "Plug 4", "Plug 5"]
+column_names = ["Plug 1 - Office", "Plug 2 - Hallway", "Plug 3 - Lounge", "Plug 4 - Upstairs Hall", "Plug 5 - Bedroom"]
 
 # Define a list of data labels
 data_labels =  [
-                'TOTAL', 'YESTERDAY', 'TODAY', 'POWER', 'APPARENT POWER', 'REACTIVE POWER', 
-                'FACTOR', 'VOLTAGE', 'CURRENT', 'TOTAL COST', 'YESTERDAY COST', 'TODAY COST',
-                'STATUS' 
-                ]                      
+                'TOTAL (kWh)', 'YESTERDAY (kWh)', 'TODAY (kWh)', 'POWER (W)', 'APPARENT POWER (VA)', 'REACTIVE POWER (VAr)', 
+                'FACTOR', 'VOLTAGE (V)', 'CURRENT (A)', 'TOTAL COST', 'YESTERDAY COST', 'TODAY COST',
+                'STATUS', 'POWER STATE'
+                ]       
+
+
+power_status_list = ['OFF', 'OFF', 'OFF', 'OFF', 'OFF']  # Replace with the actual initial states
 
 # Create a dictionary of dictionaries to store the data fields
 data_fields = {name: [] for name in column_names}
