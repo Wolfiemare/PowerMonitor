@@ -299,7 +299,7 @@ root.title("Tasmota Power Data Display")
 root.geometry("800x400")
 
 # Define a list of column names
-column_names = ["Plug 1 - Office", "Plug 2 - Bedroom", "Plug 3", "Plug 4", "Plug 5"]
+column_names = ["Plug 1 - Office", "Plug 2 - Hallway", "Plug 3 - Lounge", "Plug 4", "Plug 5"]
 
 # Define a list of data labels
 data_labels =  [
