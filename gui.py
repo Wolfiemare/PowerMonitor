@@ -73,19 +73,18 @@ def on_connect(client, userdata, flags, rc):
 # Define the MQTT on_message event handler
 def on_message(client, userdata, msg):
     """
-    Callback function that is called when a message is received on a subscribed topic.
-    Parses the topic and payload of the message, and updates the status of the plug accordingly.
-    If the message is related to energy data, the energy data is added to a list of dictionaries
-    based on the plug number. If the message is related to the plug's online status, the plug's
-    online status is updated and the telemetry period is set accordingly.
+    Callback function that is called when a message is received from the MQTT broker.
 
-    Args:
-        client: The client instance that received the message.
-        userdata: User-defined data that is passed as an argument to the client constructor.
-        msg: The message that was received, including the topic and payload.
+    Parameters:
+    - client: The MQTT client instance that received the message.
+    - userdata: Any custom data that was specified when setting up the MQTT client.
+    - msg: The received message, containing the topic and payload.
 
     Returns:
-        None
+    None
+
+    This function processes the received message and performs actions based on the topic and payload.
+    It updates the status, energy data, plug online status, power status, and handles any errors in the payload.
     """
     topic = msg.topic
     payload = msg.payload.decode('utf-8')
@@ -106,8 +105,6 @@ def on_message(client, userdata, msg):
 
             # Add the energy data to the list of dictionaries based on the plug number
             energy_data_list[plug_num-1].append(energy_data)
-
-            # print(energy_data_list)
 
     # Check if the plug is online
     if 'LWT' in topic:
@@ -145,7 +142,7 @@ def on_message(client, userdata, msg):
             except json.JSONDecodeError:
                 print("Error: Payload is not valid JSON")
 
-   # Check if the plug has been turn on or off
+    # Check if the plug has been turn on or off
     if 'RESULT' in topic:
         plug_num_str = topic.split('/')[1].replace('Room', '').replace('Plug', '')
         print(plug_num_str)
@@ -164,7 +161,6 @@ def on_message(client, userdata, msg):
                 
             except json.JSONDecodeError:
                 print("Error: Payload is not valid JSON")
-
 
 # Define the MQTT on_publish event handler
 def on_publish(client, userdata, mid):
@@ -193,8 +189,13 @@ def update_status(message):
     status_message.config(text=f"Status: {message}")
 
 # Dummy functions for the function buttons
-def function1():
-    update_status("Function 1 activated.")
+def set_night_mode():
+    # turn off all plugs that are set to sleep in the plugs_to_sleep list
+    for i, plug in enumerate(plugs_to_sleep):
+        if plug:
+            turn_plug_on_off(i+1, "OFF")    # Turn off the plug
+            print(f"Plug {i+1} turned off.")
+    update_status("Plugs turn off ready for bed.")
 
 def function2():
     update_status("Function 2 activated.")
@@ -260,7 +261,6 @@ def update_data_fields():
         data_fields[name][13].insert(0, f"{power_status_list[i]}")
         data_fields[name][13].config(fg="green" if power_status_list[i] =='ON' else "red")
 
-
         if energy_data:
             # Get the latest energy data for the plug
             latest_energy_data = energy_data[-1]
@@ -297,7 +297,6 @@ def update_data_fields():
             data_fields[name][10].insert(0, f"£{latest_energy_data['Yesterday']*KWH_COST:.2f}")
             data_fields[name][11].delete(0, tk.END)
             data_fields[name][11].insert(0, f"£{latest_energy_data['Today']*KWH_COST:.2f}")
-
 
 # Function to create the GUI
 def create_gui():
@@ -346,8 +345,8 @@ def create_gui():
     func_button_frame.place(relx=0, rely=0.86, relwidth=1, relheight=0.1)
 
     # Creating function buttons and assigning commands
-    func_buttons = [function1, function2, function3, function4]  # function4 is the exit function
-    button_texts = ["Function 1", "Function 2", "Function 3", "Exit"]
+    func_buttons = [set_night_mode, function2, function3, function4]  # function4 is the exit function
+    button_texts = ["Night, Night", "Function 2", "Function 3", "Exit"]
     for i, (func, text) in enumerate(zip(func_buttons, button_texts)):
         btn = tk.Button(func_button_frame, text=text, font=('Helvetica', 10), command=func)
         btn.pack(side="left", expand=True, fill="x", padx=5, pady=2)
@@ -372,22 +371,23 @@ data_labels =  [
                 'STATUS', 'POWER STATE'
                 ]       
 
+power_status_list = ['OFF', 'OFF', 'OFF', 'OFF', 'OFF']  # Plugs ON/OFF status
 
-power_status_list = ['OFF', 'OFF', 'OFF', 'OFF', 'OFF']  # Replace with the actual initial states
+plugs_to_sleep = [True, True, True, True, False]   # SHould a plug turn off when the Sleep button is pressed?
+
+# Define the initial online status for the 6 plugs as False
+plug_online_status = [False] * 5
 
 # Create a dictionary of dictionaries to store the data fields
 data_fields = {name: [] for name in column_names}
+
+# Initialize the list of dictionaries for energy data for each plug
+energy_data_list = [list() for _ in range(5)]
 
 # Define the cost of 1 kWh of energy (in pounds)
 KWH_COST = 0.2889
 # Define the telemetry period (in seconds)
 TELEMETRY_PERIOD = 20   # In seconds
-
-# Define the initial online status for the 6 plugs as False
-plug_online_status = [False] * 6
-
-# Initialize the list of dictionaries for energy data for each plug
-energy_data_list = [list() for _ in range(5)]
 
 create_gui()
 
