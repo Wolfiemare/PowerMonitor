@@ -4,3 +4,5 @@ Message: Online
 
 
 Can we add a new label and field on each smart plug column below the last label/filed called Online Status.   The field will display Offline if false and Online if true.    The Offline message should be in red font and the online message should be in green font.
+
+HI, Can yopu help me design a python data structure to store power usage data (kWh) and Cost (£0.00) from my smart plugs.   I have 5 smart plugs providing data (already in my code).   I want to store the data every hour (kwH and Cost) for every plug (5 off), so we will have 24 data entries by 5 sets of entries for each day.    I want to store a 'rolling' year of data so from the 1st Jan to 31st Decemeber.   Once we reach the Ist January I wish to start overwriting the data so we only keep 1 year of data.   I would like to hold this data in lists & dictionaries and then be able to save this data to a json file on the OS file system.  I am using a Raspberry Pi Model 3.

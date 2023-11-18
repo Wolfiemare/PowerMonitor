@@ -5,6 +5,7 @@ import time
 import datetime
 import json
 import schedule
+from collections import OrderedDict
 
 # MQTT Broker settings
 MQTT_BROKER = "broker.hivemq.com"
@@ -73,15 +74,18 @@ def setup_schedules():
     # Schedule for weekends
     for day in ['saturday', 'sunday']:
         schedule.every().day.at(weekend_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekend')
+    
+    # schedule data update every hour   
+    schedule.every().hour.do(update_all_plugs).tag('update_data')
 
 # Turn on all plugs that are set to sleep in the plugs_to_sleep list
 def wake_up_and_turn_on_plugs():
-    for i, plug in enumerate(plugs_to_sleep):
+    for i, plug in enumerate(plugs_to_wake):
         if plug:
             turn_plug_on_off(i+1, "ON")    # Turn on the plug
             print(f"Plug {i+1} turned on.")
-    update_status("Good Morning - I have turned the heaters turned on.")
-    return schedule.CancelJob  # This will cancel the job after it's run once
+    update_status("Good Morning - I have turned the heaters on.")
+    return # schedule.CancelJob  # This will cancel the job after it's run once
 
 # Define the MQTT on_connect event handler
 def on_connect(client, userdata, flags, rc):
@@ -385,6 +389,93 @@ def create_gui():
     # status_message = tk.Label(status_frame, text="Status: Ready", bg="white", anchor="w", font=('Helvetica', 10))
     # status_message.pack(side="left", fill="both", expand=True)
 
+# Update the historical data for all plugs
+def update_all_plugs():
+    """
+    Update the historical data for all plugs.
+
+    This function retrieves the current energy consumption data for each plug,
+    calculates the cost based on the energy consumption, and updates the historical
+    data dictionary with the new values.
+
+    Parameters:
+    None
+
+    Returns:
+    None
+    """
+    # Get today's date and current hour
+    date = datetime.now().strftime('%Y-%m-%d')
+    hour = datetime.now().hour
+
+    # Loop over all plugs
+    for i in range(5):
+        # If today's date is not in the data, add it
+        if date not in historical_data[i+1]:
+            historical_data[i+1][date] = {}
+
+        # Update the data
+        kWh = energy_data_list[i]['Today']
+        cost = kWh * KWH_COST
+        historical_data[i+1][date][hour] = {'kWh': kWh, 'Cost': cost}
+
+        # If there are more than 365 entries, remove the oldest one
+        if len(historical_data[i+1]) > 365:
+            historical_data[i+1].popitem(last=False)
+
+# Save the historical data to a file
+def save_historical_data():
+    """
+    Save the historical data to a file.
+
+    This function writes the historical data to a JSON file named 'historical_data.json'.
+
+    Parameters:
+    None
+
+    Returns:
+    None
+    """
+    # Write the data to a file
+    with open('historical_data.json', 'w') as f:
+        json.dump(historical_data, f)
+
+# Load the historical data from a file
+def load_historical_data():
+    """
+    Load the historical data from the 'historical_data.json' file.
+
+    If the file doesn't exist, return an empty data structure.
+
+    Returns:
+        dict: A dictionary containing the loaded historical data.
+    """
+    try:
+        with open('historical_data.json', 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {i: {'online': False, 'historical_data': OrderedDict()} for i in range(1, 6)}
+
+# Get the data for a specific plug and date from the historical data
+def get_data_for_day(plug_num, date):
+    """
+    Retrieve the data for a specific plug and date from the historical data.
+
+    Args:
+        plug_num (int): The number of the plug.
+        date (str): The date in the format 'YYYY-MM-DD'.
+
+    Returns:
+        dict: The data for the specified plug and date. If the plug or date are not in the data, an empty dictionary is returned.
+    """
+    # Check if the plug and date are in the data
+    if plug_num in historical_data and date in historical_data[plug_num]:
+        # Return the data for the plug and date
+        return historical_data[plug_num][date]
+    else:
+        # If the plug or date are not in the data, return an empty dictionary
+        return {}
+    
 # Create the main window
 root = tk.Tk()
 root.title("Tasmota Power Data Display")
@@ -404,6 +495,8 @@ power_status_list = ['OFF', 'OFF', 'OFF', 'OFF', 'OFF']  # Plugs ON/OFF status
 
 plugs_to_sleep = [True, True, True, True, False]   # SHould a plug turn off when the Sleep button is pressed?
 
+plugs_to_wake = [False, True, True, True, False]   # SHould a plug turn on when the Wake schedule runs?
+
 # Define the initial online status for the 6 plugs as False
 plug_online_status = [False] * 5
 
@@ -412,6 +505,9 @@ data_fields = {name: [] for name in column_names}
 
 # Initialize the list of dictionaries for energy data for each plug
 energy_data_list = [list() for _ in range(5)]
+
+# Load the historical data from a file
+historical_data = load_historical_data()
 
 # 'weekday_wake_up_time' for Monday to Friday
 weekday_wake_up_time = '07:39'
