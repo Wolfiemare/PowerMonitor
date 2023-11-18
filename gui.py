@@ -1,9 +1,10 @@
 import paho.mqtt.client as mqtt
 import tkinter as tk
 import threading
-import random
 import time
+import datetime
 import json
+import schedule
 
 # MQTT Broker settings
 MQTT_BROKER = "broker.hivemq.com"
@@ -54,6 +55,33 @@ def set_power_on_state(plug_num, state=1):
     topic = f"house/Room{plug_num}Plug/cmnd/PowerOnState"
     mqtt_client.publish(topic, state)
     update_status(f"Power On State for plug {plug_num} set to {state}.")
+
+# Set up the schedules
+def setup_schedules():
+    """
+    Set up schedules for waking up and turning on plugs on weekdays and weekends.
+    Existing jobs are cleared before setting up new schedules.
+    """
+    # Clear any existing jobs if this function might be run multiple times
+    schedule.clear('weekday')
+    schedule.clear('weekend')
+    
+    # Schedule for weekdays
+    for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:
+        schedule.every().day.at(weekday_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekday')
+
+    # Schedule for weekends
+    for day in ['saturday', 'sunday']:
+        schedule.every().day.at(weekend_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekend')
+
+# Turn on all plugs that are set to sleep in the plugs_to_sleep list
+def wake_up_and_turn_on_plugs():
+    for i, plug in enumerate(plugs_to_sleep):
+        if plug:
+            turn_plug_on_off(i+1, "ON")    # Turn on the plug
+            print(f"Plug {i+1} turned on.")
+    update_status("Good Morning - I have turned the heaters turned on.")
+    return schedule.CancelJob  # This will cancel the job after it's run once
 
 # Define the MQTT on_connect event handler
 def on_connect(client, userdata, flags, rc):
@@ -188,7 +216,7 @@ def update_status(message):
     """
     status_message.config(text=f"Status: {message}")
 
-# Dummy functions for the function buttons
+# Night,Night mode turns of heaters until the morning when the schedule turns them back on
 def set_night_mode():
     # turn off all plugs that are set to sleep in the plugs_to_sleep list
     for i, plug in enumerate(plugs_to_sleep):
@@ -222,6 +250,7 @@ def fetch_data():
     while True:
         # Schedule the `update_data_field` to run on the main thread
         root.after(0, update_data_fields)
+        schedule.run_pending()
         time.sleep(2)  # Simulate delay for fetching data
 
 # Function to update the data fields with data from energy_data_list
@@ -259,7 +288,7 @@ def update_data_fields():
 
         data_fields[name][13].delete(0, tk.END)
         data_fields[name][13].insert(0, f"{power_status_list[i]}")
-        data_fields[name][13].config(fg="green" if power_status_list[i] =='ON' else "red")
+        data_fields[name][13].config(bg="green" if power_status_list[i] =='ON' else "red", fg="white", font=('Helvetica', 10, 'bold'))
 
         if energy_data:
             # Get the latest energy data for the plug
@@ -267,11 +296,11 @@ def update_data_fields():
         
             # Update the data fields with the latest energy data
             data_fields[name][0].delete(0, tk.END)
-            data_fields[name][0].insert(0, f"{latest_energy_data['Total']}")
+            data_fields[name][0].insert(0, f"{latest_energy_data['Total']:.2f}")
             data_fields[name][1].delete(0, tk.END)
-            data_fields[name][1].insert(0, f"{latest_energy_data['Yesterday']}")
+            data_fields[name][1].insert(0, f"{latest_energy_data['Yesterday']:.2f}")
             data_fields[name][2].delete(0, tk.END)
-            data_fields[name][2].insert(0, f"{latest_energy_data['Today']}")
+            data_fields[name][2].insert(0, f"{latest_energy_data['Today']:.2f}")
             data_fields[name][3].delete(0, tk.END)
             data_fields[name][3].insert(0, f"{latest_energy_data['Power']}")
             data_fields[name][4].delete(0, tk.END)
@@ -384,6 +413,12 @@ data_fields = {name: [] for name in column_names}
 # Initialize the list of dictionaries for energy data for each plug
 energy_data_list = [list() for _ in range(5)]
 
+# 'weekday_wake_up_time' for Monday to Friday
+weekday_wake_up_time = '07:39'
+
+# 'weekend_wake_up_time' for Saturday and Sunday
+weekend_wake_up_time = '09:00'
+
 # Define the cost of 1 kWh of energy (in pounds)
 KWH_COST = 0.2889
 # Define the telemetry period (in seconds)
@@ -406,6 +441,9 @@ mqtt_client.on_publish = on_publish
 # Connect with MQTT Broker
 mqtt_client.connect(MQTT_BROKER, MQTT_PORT, MQTT_KEEPALIVE_INTERVAL)
 mqtt_client.loop_start()
+
+# Set up the schedules for turning on the heaters in the morning
+setup_schedules()
 
 # Start the data fetching in a background thread
 fetch_thread = threading.Thread(target=fetch_data, daemon=True)
