@@ -66,6 +66,7 @@ def setup_schedules():
     # Clear any existing jobs if this function might be run multiple times
     schedule.clear('weekday')
     schedule.clear('weekend')
+    schedule.clear('update_data')
     
     # Schedule for weekdays
     for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:
@@ -76,7 +77,7 @@ def setup_schedules():
         schedule.every().day.at(weekend_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekend')
     
     # schedule data update every hour   
-    schedule.every().hour.do(update_all_plugs).tag('update_data')
+    schedule.every().minute.do(update_all_plugs).tag('update_data')
 
 # Turn on all plugs that are set to sleep in the plugs_to_sleep list
 def wake_up_and_turn_on_plugs():
@@ -422,6 +423,10 @@ def update_all_plugs():
         # If there are more than 365 entries, remove the oldest one
         if len(historical_data[i+1]) > 365:
             historical_data[i+1].popitem(last=False)
+        
+    # Save the historical data to a file
+    save_historical_data()  
+    print("Historical data updated.")   
 
 # Save the historical data to a file
 def save_historical_data():
@@ -439,6 +444,8 @@ def save_historical_data():
     # Write the data to a file
     with open('historical_data.json', 'w') as f:
         json.dump(historical_data, f)
+    
+    print("####### Historical data saved to file ############.")
 
 # Load the historical data from a file
 def load_historical_data():
