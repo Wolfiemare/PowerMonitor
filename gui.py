@@ -9,11 +9,6 @@ import schedule
 import os
 import pandas as pd
 
-# MQTT Broker settings
-MQTT_BROKER = "broker.hivemq.com"
-MQTT_PORT = 1883
-MQTT_KEEPALIVE_INTERVAL = 60
-
 # Define the MQTT on_connect event handler
 def turn_plug_on_off(plug_num, condition):
     """
@@ -514,17 +509,6 @@ def display_historical_data(plug):
     exit_button = tk.Button(window, text="Exit", command=window.destroy, font=('Arial', 8))
     exit_button.grid(row=0, column=len(headers) + 1, rowspan=len(data) + 1, sticky='ns', padx=1, pady=0)
 
-
-
-def on_plug_selected(event):
-    # Retrieve the selected plug
-    selected_plug = plug_selector.get()
-    # Call display_historical_data function with the selected plug
-    display_historical_data(selected_plug)
-
-
-
-
 # Function to create initial data structure
 def create_initial_data():
     """
@@ -643,6 +627,11 @@ def get_data_for_day(plug_id, date=None):
 
     return smart_plug_data[plug_id][date]
 
+# MQTT Broker settings
+MQTT_BROKER = "broker.hivemq.com"
+MQTT_PORT = 1883
+MQTT_KEEPALIVE_INTERVAL = 60
+
 # Create the main window
 root = tk.Tk()
 root.title("Tasmota Power Data Display")
@@ -673,7 +662,6 @@ data_fields = {name: [] for name in column_names}
 # Initialize the list of dictionaries for energy data for each plug
 energy_data_list = [list() for _ in range(5)]
 
-
 # 'weekday_wake_up_time' for Monday to Friday
 weekday_wake_up_time = '06:30'
 
@@ -689,9 +677,10 @@ TELEMETRY_PERIOD = 10   # In seconds
 # File path for the JSON file
 file_path = "smart_plug_data.json"
 
-# Initialize the data structure
+# Initialize the data structure for storing historical power consumption data
 smart_plug_data = initialize_data(file_path)
 
+# Create the GUI
 create_gui()
 
 # Status message box
