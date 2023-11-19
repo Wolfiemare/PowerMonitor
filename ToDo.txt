@@ -20,3 +20,27 @@ def on_message(client, userdata, msg):
                 print(f"Updated power status list: {power_status_list}")
             else:
                 print(f"Received power status for unknown plug number: {plug_num}")
+
+
+
+Exception in thread Thread-2 (fetch_data):
+Traceback (most recent call last):
+  File "/usr/lib/python3.11/threading.py", line 1038, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.11/threading.py", line 975, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/wolfie/GitHub/PowerMonitor/gui.py", line 264, in fetch_data
+    schedule.run_pending()
+  File "/home/wolfie/GitHub/PowerMonitor/venv/lib/python3.11/site-packages/schedule/__init__.py", line 822, in run_pending
+    default_scheduler.run_pending()
+  File "/home/wolfie/GitHub/PowerMonitor/venv/lib/python3.11/site-packages/schedule/__init__.py", line 100, in run_pending
+    self._run_job(job)
+  File "/home/wolfie/GitHub/PowerMonitor/venv/lib/python3.11/site-packages/schedule/__init__.py", line 172, in _run_job
+    ret = job.run()
+          ^^^^^^^^^
+  File "/home/wolfie/GitHub/PowerMonitor/venv/lib/python3.11/site-packages/schedule/__init__.py", line 693, in run
+    ret = self.job_func()
+          ^^^^^^^^^^^^^^^
+  File "/home/wolfie/GitHub/PowerMonitor/gui.py", line 421, in update_all_plugs
+    if date not in historical_data[i+1]:
+                   ~~~~~~~~~~~~~~~^^^^^

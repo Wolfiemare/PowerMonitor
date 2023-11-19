@@ -2,10 +2,12 @@ import paho.mqtt.client as mqtt
 import tkinter as tk
 import threading
 import time
-import datetime
+from datetime import datetime, timedelta
 import json
 import schedule
-from collections import OrderedDict
+# from collections import OrderedDict
+import os
+import pandas as pd
 
 # MQTT Broker settings
 MQTT_BROKER = "broker.hivemq.com"
@@ -67,7 +69,7 @@ def setup_schedules():
     schedule.clear('weekday')
     schedule.clear('weekend')
     schedule.clear('update_data')
-    
+
     # Schedule for weekdays
     for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:
         schedule.every().day.at(weekday_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekday')
@@ -75,9 +77,9 @@ def setup_schedules():
     # Schedule for weekends
     for day in ['saturday', 'sunday']:
         schedule.every().day.at(weekend_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekend')
-    
-    # schedule data update every hour   
-    schedule.every().minute.do(update_all_plugs).tag('update_data')
+
+    # Schedule data update every hour   
+    schedule.every(10).minutes.do(update_all_plugs).tag('update_data')
 
 # Turn on all plugs that are set to sleep in the plugs_to_sleep list
 def wake_up_and_turn_on_plugs():
@@ -119,8 +121,13 @@ def on_message(client, userdata, msg):
     This function processes the received message and performs actions based on the topic and payload.
     It updates the status, energy data, plug online status, power status, and handles any errors in the payload.
     """
+
     topic = msg.topic
-    payload = msg.payload.decode('utf-8')
+    try:
+        payload = msg.payload.decode('utf-8')   # Convert the payload to a string
+    except UnicodeDecodeError:
+        print("Error: Payload is not UTF-8 encoded")
+        return  
 
     print(f"Topic: {topic} \nMessage: {payload}")
     print("")
@@ -128,7 +135,7 @@ def on_message(client, userdata, msg):
 
     if 'SENSOR' in topic:
         plug_num_str = topic.split('/')[1].replace('Room', '').replace('Plug', '')
-        print(plug_num_str)
+        #print(plug_num_str)
 
         if plug_num_str.isdigit():
             plug_num = int(plug_num_str)
@@ -138,6 +145,7 @@ def on_message(client, userdata, msg):
 
             # Add the energy data to the list of dictionaries based on the plug number
             energy_data_list[plug_num-1].append(energy_data)
+            #print(energy_data_list)
 
     # Check if the plug is online
     if 'LWT' in topic:
@@ -169,8 +177,8 @@ def on_message(client, userdata, msg):
                 
                 # Update the power status in the list
                 power_status_list[plug_num - 1] = power_state
-                print(f"Plug {plug_num} power status updated to: {power_state}")
-                print(f"Current power status list: {power_status_list}")
+                #print(f"Plug {plug_num} power status updated to: {power_state}")
+                #print(f"Current power status list: {power_status_list}")
                 
             except json.JSONDecodeError:
                 print("Error: Payload is not valid JSON")
@@ -189,8 +197,8 @@ def on_message(client, userdata, msg):
                     power_state = payload_dict['POWER']
                     power_status_list[plug_num - 1] = power_state
 
-                    print(f"Plug {plug_num} power status updated to: {power_state}")
-                    print(f"Current power status list: {power_status_list}")
+                    #print(f"Plug {plug_num} power status updated to: {power_state}")
+                    #print(f"Current power status list: {power_status_list}")
                 
             except json.JSONDecodeError:
                 print("Error: Payload is not valid JSON")
@@ -230,12 +238,24 @@ def set_night_mode():
             print(f"Plug {i+1} turned off.")
     update_status("Plugs turn off ready for bed.")
 
-def function2():
-    update_status("Function 2 activated.")
+# Wake up mode turns on all plugs that are set to wake in the plugs_to_wake list
+def wake_up():
+    """
+    Turns on all plugs that are set to wake in the plugs_to_wake list.
+
+    This function iterates over the plugs_to_wake list and turns on the plugs that are set to wake.
+    Each plug is identified by its index in the list, starting from 0.
+    After turning on a plug, it prints a message indicating which plug was turned on.
+    """
+    for i, plug in enumerate(plugs_to_wake):
+        if plug:
+            turn_plug_on_off(i+1, "ON")    # Turn on the plug
+            print(f"Plug {i+1} turned on.")
 
 def function3():
     update_status("Function 3 activated.")
-
+    display_historical_data("Plug3")   
+    
 # Function for the exit button
 def function4():
     """
@@ -367,37 +387,74 @@ def create_gui():
 
         # Creating buttons and assigning commands
         # ON button
-        on_button = tk.Button(button_frame, text="ON", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "ON"))
-        on_button.pack(side="left", padx=2)
+        on_button = tk.Button(button_frame, text="ON", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "ON"), bg="dark grey")
+        on_button.pack(side="left", fill="both", expand=True, padx=2)
 
         # OFF button
-        off_button = tk.Button(button_frame, text="OFF", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "OFF"))
-        off_button.pack(side="left", padx=2)
+        off_button = tk.Button(button_frame, text="OFF", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "OFF"), bg="dark grey")
+        off_button.pack(side="left", fill="both", expand=True, padx=2)
 
     # Function buttons area
     func_button_frame = tk.Frame(root, borderwidth=1, relief="sunken")
     func_button_frame.place(relx=0, rely=0.86, relwidth=1, relheight=0.1)
 
     # Creating function buttons and assigning commands
-    func_buttons = [set_night_mode, function2, function3, function4]  # function4 is the exit function
-    button_texts = ["Night, Night", "Function 2", "Function 3", "Exit"]
+    func_buttons = [set_night_mode, wake_up, function3, function4]  # function4 is the exit function
+    button_texts = ["Night, Night", "Wake Up", "Function 3", "Exit"]
     for i, (func, text) in enumerate(zip(func_buttons, button_texts)):
         btn = tk.Button(func_button_frame, text=text, font=('Helvetica', 10), command=func)
         btn.pack(side="left", expand=True, fill="x", padx=5, pady=2)
-    
-    # status_frame = tk.Frame(root, borderwidth=1, relief="sunken")
-    # status_frame.place(relx=0, rely=0.85, relwidth=1, relheight=0.15)
-    # status_message = tk.Label(status_frame, text="Status: Ready", bg="white", anchor="w", font=('Helvetica', 10))
-    # status_message.pack(side="left", fill="both", expand=True)
+
+# Add data to the smart_plug_data dictionary
+def add_data(plug, kWh, cost, timestamp=None):
+    """
+    Add data for a specific plug to the smart_plug_data dictionary.
+
+    Args:
+        plug (str): The name of the plug.
+        kWh (float): The energy consumption in kilowatt-hours.
+        cost (float): The cost of the energy consumption.
+        timestamp (str, optional): The timestamp of the data entry in ISO 8601 format. 
+            If not provided, the current timestamp will be used.
+
+    Returns:
+        None
+    """
+    if timestamp is None:
+        timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M")
+    else:
+        timestamp = datetime.fromisoformat(timestamp).strftime("%Y-%m-%dT%H:%M")
+    hour = datetime.fromisoformat(timestamp).hour
+    if len(smart_plug_data[plug]) >= HOURS_IN_YEAR:
+        smart_plug_data[plug].pop(0)
+    smart_plug_data[plug].append({"timestamp": timestamp, "hour": hour, "kWh": round(kWh, 2), "Cost": round(cost, 2)})
+
+# Get the data for a specific plug and date
+def get_data_for_day(plug_id, date=None):
+    """
+    Retrieve the data for a specific day for a given plug.
+
+    Args:
+        plug_id (str): The ID of the plug.
+        date (str, optional): The date in the format "%m-%d". If not provided, today's date will be used.
+
+    Returns:
+        dict: The data for the specified day for the given plug.
+    """
+    # If no date is provided, use today's date
+    if date is None:
+        date = datetime.now().strftime("%m-%d")
+
+    return smart_plug_data[plug_id][date]
 
 # Update the historical data for all plugs
 def update_all_plugs():
     """
-    Update the historical data for all plugs.
+    Update the energy data for all plugs.
 
-    This function retrieves the current energy consumption data for each plug,
-    calculates the cost based on the energy consumption, and updates the historical
-    data dictionary with the new values.
+    This function loops over all plugs and retrieves the latest energy data.
+    It calculates the kWh and cost for each plug and updates the smart_plug_data dictionary.
+    Finally, it saves the updated data to a file and prints the data for Plug3.
 
     Parameters:
     None
@@ -405,84 +462,187 @@ def update_all_plugs():
     Returns:
     None
     """
-    # Get today's date and current hour
-    date = datetime.now().strftime('%Y-%m-%d')
-    hour = datetime.now().hour
-
     # Loop over all plugs
     for i in range(5):
-        # If today's date is not in the data, add it
-        if date not in historical_data[i+1]:
-            historical_data[i+1][date] = {}
+        if energy_data_list[i]:
+            # Get the latest energy data for the plug
+            latest_energy_data = energy_data_list[i][-1]
+            # Get the kWh and cost
+            kWh = round(latest_energy_data['Today'], 2)
+            cost = kWh * KWH_COST
 
-        # Update the data
-        kWh = energy_data_list[i]['Today']
-        cost = kWh * KWH_COST
-        historical_data[i+1][date][hour] = {'kWh': kWh, 'Cost': cost}
-
-        # If there are more than 365 entries, remove the oldest one
-        if len(historical_data[i+1]) > 365:
-            historical_data[i+1].popitem(last=False)
-        
-    # Save the historical data to a file
-    save_historical_data()  
-    print("Historical data updated.")   
-
-# Save the historical data to a file
-def save_historical_data():
-    """
-    Save the historical data to a file.
-
-    This function writes the historical data to a JSON file named 'historical_data.json'.
-
-    Parameters:
-    None
-
-    Returns:
-    None
-    """
-    # Write the data to a file
-    with open('historical_data.json', 'w') as f:
-        json.dump(historical_data, f)
+            # Add the data to the smart_plug_data dictionary
+            update_record(f"Plug{i+1}", kWh, cost)
     
-    print("####### Historical data saved to file ############.")
+    # save_data(file_path, smart_plug_data)  # Save the updated data to the file
+    # print('*************************************************************************************************')
+    # print(get_data_for_day('Plug3'))
+    # print('*************************************************************************************************')
+          
+# spawn a child tkinter window to display historical data trend for a specific plug
+def display_historical_data(plug):
+    # Create a new window
+    window = tk.Toplevel(root)
+    window.title(f"{plug} Power Data")
+    window.geometry("800x470")
 
-# Load the historical data from a file
-def load_historical_data():
+    # Assuming get_data_for_day returns a list of dictionaries
+    data = get_data_for_day(plug)
+
+    # Define column headers
+    headers = ['Hour', 'kWh', 'Cost']
+
+    # Create header labels with smaller font and fixed width, minimal padding
+    for j, header in enumerate(headers):
+        header_label = tk.Label(window, text=header, font=('Arial', 8, 'bold'), width=10)
+        header_label.grid(row=0, column=j, sticky='w', padx=1, pady=0)
+
+    # Create a table in the window with smaller font, fixed width for labels, and minimal padding
+    for i, record in enumerate(data):
+        # Format hour labels as '00:00 - 01:00', '01:00 - 02:00', etc.
+        hour_label_text = f"{i:02d}:00 - {i+1:02d}:00"
+        hour_label = tk.Label(window, text=hour_label_text, font=('Arial', 8), width=15)
+        hour_label.grid(row=i+1, column=0, sticky='w', padx=1, pady=0)
+
+        # kWh and Cost columns
+        for j, key in enumerate(['kWh', 'Cost']):
+            cell_value = record[key]
+            cell = tk.Label(window, text=f"{cell_value:.2f}", font=('Arial', 8), width=10)
+            cell.grid(row=i+1, column=j+1, sticky='w', padx=1, pady=0)
+
+    # Add an exit button in a column to the right of the data table with minimal padding
+    exit_button = tk.Button(window, text="Exit", command=window.destroy, font=('Arial', 8))
+    exit_button.grid(row=0, column=len(headers) + 1, rowspan=len(data) + 1, sticky='ns', padx=1, pady=0)
+
+
+
+def on_plug_selected(event):
+    # Retrieve the selected plug
+    selected_plug = plug_selector.get()
+    # Call display_historical_data function with the selected plug
+    display_historical_data(selected_plug)
+
+
+
+
+# Function to create initial data structure
+def create_initial_data():
     """
-    Load the historical data from the 'historical_data.json' file.
-
-    If the file doesn't exist, return an empty data structure.
+    Creates an initial data structure for storing historical power consumption data.
 
     Returns:
-        dict: A dictionary containing the loaded historical data.
+        dict: A dictionary containing the initial data structure.
+            The keys are the names of the smart plugs, and the values are dictionaries.
+            Each inner dictionary represents the power consumption data for a specific smart plug.
+            The keys of the inner dictionary are the dates in the format "mm-dd",
+            and the values are lists of dictionaries representing the power consumption data for each hour of the day.
+            Each hour dictionary contains the keys "kWh" and "Cost" with initial values of 0.00.
     """
-    try:
-        with open('historical_data.json', 'r') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return {i: {'online': False, 'historical_data': OrderedDict()} for i in range(1, 6)}
+    smart_plugs = ["Plug1", "Plug2", "Plug3", "Plug4", "Plug5"]
+    data_structure = {plug: {} for plug in smart_plugs}
 
-# Get the data for a specific plug and date from the historical data
-def get_data_for_day(plug_num, date):
+    start_date = datetime(2024, 1, 1)
+    end_date = datetime(2024, 12, 31)
+    delta = timedelta(days=1)
+
+    while start_date <= end_date:
+        date_str = start_date.strftime("%m-%d")
+        for plug in smart_plugs:
+            data_structure[plug][date_str] = [{"kWh": 0.00, "Cost": 0.00} for _ in range(24)]
+        start_date += delta
+
+    return data_structure
+
+# Function to save data to JSON
+def save_data(file_path, data):
     """
-    Retrieve the data for a specific plug and date from the historical data.
+    Save data to a file.
 
     Args:
-        plug_num (int): The number of the plug.
-        date (str): The date in the format 'YYYY-MM-DD'.
+        file_path (str): The path to the file where the data will be saved.
+        data (dict): The data to be saved.
 
     Returns:
-        dict: The data for the specified plug and date. If the plug or date are not in the data, an empty dictionary is returned.
+        None
     """
-    # Check if the plug and date are in the data
-    if plug_num in historical_data and date in historical_data[plug_num]:
-        # Return the data for the plug and date
-        return historical_data[plug_num][date]
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4)
+
+# Function to load data from JSON
+def load_data(file_path):
+    """
+    Load data from a JSON file.
+
+    Args:
+        file_path (str): The path to the JSON file.
+
+    Returns:
+        dict: The loaded data as a dictionary.
+    """
+    with open(file_path, 'r') as file:
+        return json.load(file)
+
+# Function to check for existing data or create new data
+def initialize_data(file_path):
+    """
+    Initializes the data structure by either loading it from an existing file or creating a new one.
+
+    Args:
+        file_path (str): The path to the file containing the data structure.
+
+    Returns:
+        dict: The initialized data structure.
+
+    """
+    if os.path.exists(file_path):
+        data_structure = load_data(file_path)
     else:
-        # If the plug or date are not in the data, return an empty dictionary
-        return {}
-    
+        data_structure = create_initial_data()
+        save_data(file_path, data_structure)  # Save the initial data to the file
+    return data_structure
+
+# Function to update the record for a specific smart plug
+def update_record(plug_id, kWh, cost, date=None, hour=None):
+    """
+    Update the record for a specific smart plug.
+
+    Args:
+        plug_id (int): The ID of the smart plug.
+        kWh (float): The energy consumption in kilowatt-hours.
+        cost (float): The cost of the energy consumption.
+        date (str, optional): The date of the record in the format "mm-dd". If not provided, the current date is used.
+        hour (int, optional): The hour of the record. If not provided, the current hour is used.
+
+    Returns:
+        None
+    """
+    # If date and hour are not provided, use current date and time
+    if date is None:
+        date = datetime.now().strftime("%m-%d")
+    if hour is None:
+        hour = datetime.now().hour
+
+    # Update the record
+    smart_plug_data[plug_id][date][hour] = {"kWh": round(kWh, 2), "Cost": round(cost, 2)}
+
+# Function to get the data for a specific plug and date
+def get_data_for_day(plug_id, date=None):
+    """
+    Retrieves the data for a specific plug on a given day.
+
+    Args:
+        plug_id (str): The ID of the plug.
+        date (str, optional): The date in the format "%m-%d". If not provided, today's date will be used.
+
+    Returns:
+        dict: The data for the specified plug on the given day.
+    """
+    # If no date is provided, use today's date
+    if date is None:
+        date = datetime.now().strftime("%m-%d")
+
+    return smart_plug_data[plug_id][date]
+
 # Create the main window
 root = tk.Tk()
 root.title("Tasmota Power Data Display")
@@ -513,19 +673,24 @@ data_fields = {name: [] for name in column_names}
 # Initialize the list of dictionaries for energy data for each plug
 energy_data_list = [list() for _ in range(5)]
 
-# Load the historical data from a file
-historical_data = load_historical_data()
 
 # 'weekday_wake_up_time' for Monday to Friday
-weekday_wake_up_time = '07:39'
+weekday_wake_up_time = '06:30'
 
 # 'weekend_wake_up_time' for Saturday and Sunday
 weekend_wake_up_time = '09:00'
 
 # Define the cost of 1 kWh of energy (in pounds)
 KWH_COST = 0.2889
+
 # Define the telemetry period (in seconds)
-TELEMETRY_PERIOD = 20   # In seconds
+TELEMETRY_PERIOD = 10   # In seconds
+
+# File path for the JSON file
+file_path = "smart_plug_data.json"
+
+# Initialize the data structure
+smart_plug_data = initialize_data(file_path)
 
 create_gui()
 

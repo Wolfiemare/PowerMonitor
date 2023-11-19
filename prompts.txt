@@ -6,3 +6,21 @@ Message: Online
 Can we add a new label and field on each smart plug column below the last label/filed called Online Status.   The field will display Offline if false and Online if true.    The Offline message should be in red font and the online message should be in green font.
 
 HI, Can yopu help me design a python data structure to store power usage data (kWh) and Cost (£0.00) from my smart plugs.   I have 5 smart plugs providing data (already in my code).   I want to store the data every hour (kwH and Cost) for every plug (5 off), so we will have 24 data entries by 5 sets of entries for each day.    I want to store a 'rolling' year of data so from the 1st Jan to 31st Decemeber.   Once we reach the Ist January I wish to start overwriting the data so we only keep 1 year of data.   I would like to hold this data in lists & dictionaries and then be able to save this data to a json file on the OS file system.  I am using a Raspberry Pi Model 3.
+
+
+
+The data will be individual hourly records containing the following data
+
+1. The data in the format YYYY-MM-DD
+2. The hour of the day (HH)
+3. (kWh) and (Cost)
+
+This data will be repeated for 5 x Tasmota Smart Plugs.
+
+I want to store the data in the programme such that it can be saved and retrieved to a JSON file (when the progam starts up for example).
+
+I want the structure to only have on entry for each day/hour, by which I mean there will 24 entries per day per smart plug.   When we add an entry the routine should overwrite that entry if it already exists.
+
+I want to store a year's worth of data (i.e 01st Jan to the 31st December).   When the program first runs I would like to set up the entry data structure with with dates, hours and the kWH and Cost data set to 0.00.
+
+The kWh and Cost data should be limited to two decimal places.
