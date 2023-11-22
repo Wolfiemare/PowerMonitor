@@ -7,7 +7,6 @@ import json
 import schedule
 # from collections import OrderedDict
 import os
-import pandas as pd
 
 # Define the MQTT on_connect event handler
 def turn_plug_on_off(plug_num, condition):
@@ -66,12 +65,15 @@ def setup_schedules():
     schedule.clear('update_data')
 
     # Schedule for weekdays
-    for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:
-        schedule.every().day.at(weekday_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekday')
+    schedule.every().monday.at(weekday_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekday')
+    schedule.every().tuesday.at(weekday_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekday')
+    schedule.every().wednesday.at(weekday_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekday')
+    schedule.every().thursday.at(weekday_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekday')
+    schedule.every().friday.at(weekday_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekday')
 
     # Schedule for weekends
-    for day in ['saturday', 'sunday']:
-        schedule.every().day.at(weekend_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekend')
+    schedule.every().saturday.at(weekend_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekend')
+    schedule.every().sunday.at(weekend_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekend')
 
     # Schedule data update every hour   
     schedule.every(10).minutes.do(update_all_plugs).tag('update_data')
