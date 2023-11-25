@@ -2183,3 +2183,747 @@
 2023-11-25 08:43:53,513 INFO __main__ Plug 3 data received.
 2023-11-25 08:43:53,560 INFO __main__ Plug 1 data received.
 2023-11-25 08:43:53,818 INFO __main__ Plug 5 data received.
+2023-11-25 08:50:29,885 INFO __main__ Application started.
+2023-11-25 08:50:29,912 INFO __main__ Existing Data loaded from smart_plug_data.json
+2023-11-25 08:50:29,962 DEBUG schedule Deleting all jobs tagged "weekday"
+2023-11-25 08:50:29,962 DEBUG schedule Deleting all jobs tagged "weekend"
+2023-11-25 08:50:29,963 DEBUG schedule Deleting all jobs tagged "update_data"
+2023-11-25 08:50:30,086 INFO __main__ Connected with result code 0
+2023-11-25 08:50:30,173 INFO __main__ Plug 2 is online.
+2023-11-25 08:50:30,173 INFO __main__ Telemetry period for plug 2 set to 10 seconds.
+2023-11-25 08:50:30,173 INFO __main__ Telemetry period for plug 2 set to 10 seconds.
+2023-11-25 08:50:30,174 INFO __main__ Power On State for plug 2 set to 1.
+2023-11-25 08:50:30,175 INFO __main__ Power On State for plug 2 set to 1.
+2023-11-25 08:50:30,188 INFO __main__ Plug 1 is online.
+2023-11-25 08:50:30,188 INFO __main__ Telemetry period for plug 1 set to 10 seconds.
+2023-11-25 08:50:30,189 INFO __main__ Telemetry period for plug 1 set to 10 seconds.
+2023-11-25 08:50:30,189 INFO __main__ Power On State for plug 1 set to 1.
+2023-11-25 08:50:30,193 INFO __main__ Power On State for plug 1 set to 1.
+2023-11-25 08:50:30,198 INFO __main__ Message published with id 2
+2023-11-25 08:50:30,199 INFO __main__ Message published with id 3
+2023-11-25 08:50:30,199 INFO __main__ Message published with id 4
+2023-11-25 08:50:30,201 INFO __main__ Message published with id 5
+2023-11-25 08:50:30,202 INFO __main__ Plug 4 is online.
+2023-11-25 08:50:30,202 INFO __main__ Telemetry period for plug 4 set to 10 seconds.
+2023-11-25 08:50:30,202 INFO __main__ Telemetry period for plug 4 set to 10 seconds.
+2023-11-25 08:50:30,202 INFO __main__ Power On State for plug 4 set to 1.
+2023-11-25 08:50:30,203 INFO __main__ Power On State for plug 4 set to 1.
+2023-11-25 08:50:30,204 INFO __main__ Message published with id 6
+2023-11-25 08:50:30,204 INFO __main__ Message published with id 7
+2023-11-25 08:50:30,205 INFO __main__ Plug 3 is online.
+2023-11-25 08:50:30,205 INFO __main__ Telemetry period for plug 3 set to 10 seconds.
+2023-11-25 08:50:30,205 INFO __main__ Telemetry period for plug 3 set to 10 seconds.
+2023-11-25 08:50:30,205 INFO __main__ Power On State for plug 3 set to 1.
+2023-11-25 08:50:30,206 INFO __main__ Power On State for plug 3 set to 1.
+2023-11-25 08:50:30,208 INFO __main__ Message published with id 8
+2023-11-25 08:50:30,209 INFO __main__ Message published with id 9
+2023-11-25 08:50:30,210 INFO __main__ Plug 5 is online.
+2023-11-25 08:50:30,210 INFO __main__ Telemetry period for plug 5 set to 10 seconds.
+2023-11-25 08:50:30,211 INFO __main__ Telemetry period for plug 5 set to 10 seconds.
+2023-11-25 08:50:30,211 INFO __main__ Power On State for plug 5 set to 1.
+2023-11-25 08:50:30,211 INFO __main__ Power On State for plug 5 set to 1.
+2023-11-25 08:50:30,212 INFO __main__ Message published with id 10
+2023-11-25 08:50:30,212 INFO __main__ Message published with id 11
+2023-11-25 08:50:30,467 INFO __main__ Plug 3 data received.
+2023-11-25 08:50:30,507 INFO __main__ Plug 1 data received.
+2023-11-25 08:50:30,790 INFO __main__ Plug 5 data received.
+2023-11-25 08:50:31,277 INFO __main__ Plug 4 data received.
+2023-11-25 08:50:31,410 INFO __main__ Plug 2 data received.
+2023-11-25 08:50:33,568 INFO __main__ Function 3 activated.
+2023-11-25 08:50:33,614 INFO __main__ Data for Plug5 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.49, 'Cost': 0.72}, {'kWh': 0.19, 'Cost': 0.05}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:50:40,484 INFO __main__ Plug 3 data received.
+2023-11-25 08:50:40,528 INFO __main__ Plug 1 data received.
+2023-11-25 08:50:40,776 INFO __main__ Plug 5 data received.
+2023-11-25 08:50:41,274 INFO __main__ Plug 4 data received.
+2023-11-25 08:50:41,420 INFO __main__ Plug 2 data received.
+2023-11-25 08:50:41,637 INFO __main__ Data for Plug1 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:50:45,083 INFO __main__ Data for Plug2 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:50:50,430 INFO __main__ Plug 3 data received.
+2023-11-25 08:50:50,503 INFO __main__ Plug 1 data received.
+2023-11-25 08:50:50,711 INFO __main__ Data for Plug3 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.69, 'Cost': 0.78}, {'kWh': 2.69, 'Cost': 0.78}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:50:50,887 INFO __main__ Plug 5 data received.
+2023-11-25 08:50:51,254 INFO __main__ Plug 4 data received.
+2023-11-25 08:50:51,489 INFO __main__ Plug 2 data received.
+2023-11-25 08:50:54,396 INFO __main__ Data for Plug4 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 1.53, 'Cost': 0.44}, {'kWh': 1.53, 'Cost': 0.44}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:50:57,937 INFO __main__ Data for Plug5 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.49, 'Cost': 0.72}, {'kWh': 0.19, 'Cost': 0.05}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:51:00,426 INFO __main__ Plug 3 data received.
+2023-11-25 08:51:00,504 INFO __main__ Plug 1 data received.
+2023-11-25 08:51:00,943 INFO __main__ Plug 5 data received.
+2023-11-25 08:51:01,312 INFO __main__ Plug 4 data received.
+2023-11-25 08:51:01,503 INFO __main__ Plug 2 data received.
+2023-11-25 08:51:11,146 INFO __main__ Plug 1 data received.
+2023-11-25 08:51:11,195 INFO __main__ Plug 5 data received.
+2023-11-25 08:51:11,253 INFO __main__ Plug 4 data received.
+2023-11-25 08:51:11,428 INFO __main__ Plug 3 data received.
+2023-11-25 08:51:11,430 INFO __main__ Plug 2 data received.
+2023-11-25 08:51:17,363 INFO __main__ Data for Plug1 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:51:20,124 INFO __main__ Data for Plug2 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:51:20,443 INFO __main__ Plug 3 data received.
+2023-11-25 08:51:20,480 INFO __main__ Plug 1 data received.
+2023-11-25 08:51:20,884 INFO __main__ Plug 5 data received.
+2023-11-25 08:51:21,266 INFO __main__ Plug 4 data received.
+2023-11-25 08:51:21,439 INFO __main__ Plug 2 data received.
+2023-11-25 08:51:26,930 INFO __main__ Data for Plug3 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.69, 'Cost': 0.78}, {'kWh': 2.69, 'Cost': 0.78}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:51:30,130 DEBUG schedule Running job Job(interval=1, unit=minutes, do=update_all_plugs, args=(), kwargs={})
+2023-11-25 08:51:30,133 INFO __main__ Updating data for all plugs...
+2023-11-25 08:51:30,145 INFO __main__ Record updated for Plug1 on 11-25 at 8:00
+2023-11-25 08:51:30,145 INFO __main__ Current record: {'kWh': 0.0, 'Cost': 0.0}
+2023-11-25 08:51:30,145 INFO __main__ Record updated for Plug2 on 11-25 at 8:00
+2023-11-25 08:51:30,145 INFO __main__ Current record: {'kWh': 2.62, 'Cost': 0.76}
+2023-11-25 08:51:30,145 INFO __main__ Record updated for Plug3 on 11-25 at 8:00
+2023-11-25 08:51:30,145 INFO __main__ Current record: {'kWh': 2.69, 'Cost': 0.78}
+2023-11-25 08:51:30,146 INFO __main__ Record updated for Plug4 on 11-25 at 8:00
+2023-11-25 08:51:30,146 INFO __main__ Current record: {'kWh': 1.53, 'Cost': 0.44}
+2023-11-25 08:51:30,146 INFO __main__ Record updated for Plug5 on 11-25 at 8:00
+2023-11-25 08:51:30,146 INFO __main__ Current record: {'kWh': 0.22, 'Cost': 0.06}
+2023-11-25 08:51:30,350 INFO __main__ Data saved to smart_plug_data.json
+2023-11-25 08:51:30,440 INFO __main__ Plug 3 data received.
+2023-11-25 08:51:30,506 INFO __main__ Plug 1 data received.
+2023-11-25 08:51:30,847 INFO __main__ Plug 5 data received.
+2023-11-25 08:51:31,260 INFO __main__ Plug 4 data received.
+2023-11-25 08:51:31,615 INFO __main__ Plug 2 data received.
+2023-11-25 08:51:32,284 INFO __main__ Data for Plug4 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 1.53, 'Cost': 0.44}, {'kWh': 1.53, 'Cost': 0.44}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:51:37,565 INFO __main__ Data for Plug5 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.49, 'Cost': 0.72}, {'kWh': 0.22, 'Cost': 0.06}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:51:40,473 INFO __main__ Plug 3 data received.
+2023-11-25 08:51:40,511 INFO __main__ Plug 1 data received.
+2023-11-25 08:51:40,819 INFO __main__ Plug 5 data received.
+2023-11-25 08:51:41,214 INFO __main__ Plug 4 data received.
+2023-11-25 08:51:41,478 INFO __main__ Plug 2 data received.
+2023-11-25 08:51:50,385 INFO __main__ Function 3 activated.
+2023-11-25 08:51:50,420 INFO __main__ Data for Plug5 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.49, 'Cost': 0.72}, {'kWh': 0.22, 'Cost': 0.06}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:51:50,504 INFO __main__ Plug 3 data received.
+2023-11-25 08:51:50,518 INFO __main__ Plug 1 data received.
+2023-11-25 08:51:50,812 INFO __main__ Plug 5 data received.
+2023-11-25 08:51:51,257 INFO __main__ Plug 4 data received.
+2023-11-25 08:51:51,445 INFO __main__ Plug 2 data received.
+2023-11-25 08:51:53,229 INFO __main__ Data for Plug1 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:51:57,460 INFO __main__ Data for Plug2 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:52:00,491 INFO __main__ Plug 3 data received.
+2023-11-25 08:52:00,506 INFO __main__ Plug 1 data received.
+2023-11-25 08:52:00,911 INFO __main__ Plug 5 data received.
+2023-11-25 08:52:01,303 INFO __main__ Plug 4 data received.
+2023-11-25 08:52:01,451 INFO __main__ Plug 2 data received.
+2023-11-25 08:52:10,503 INFO __main__ Plug 1 data received.
+2023-11-25 08:52:10,533 INFO __main__ Plug 3 data received.
+2023-11-25 08:52:10,772 INFO __main__ Plug 5 data received.
+2023-11-25 08:52:11,214 INFO __main__ Plug 4 data received.
+2023-11-25 08:52:11,411 INFO __main__ Plug 2 data received.
+2023-11-25 08:52:15,880 INFO __main__ Function 3 activated.
+2023-11-25 08:52:15,916 INFO __main__ Data for Plug5 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.49, 'Cost': 0.72}, {'kWh': 0.22, 'Cost': 0.06}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:52:19,512 INFO __main__ Data for Plug1 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:52:20,461 INFO __main__ Plug 3 data received.
+2023-11-25 08:52:20,472 INFO __main__ Plug 1 data received.
+2023-11-25 08:52:20,880 INFO __main__ Plug 5 data received.
+2023-11-25 08:52:21,249 INFO __main__ Plug 4 data received.
+2023-11-25 08:52:21,450 INFO __main__ Plug 2 data received.
+2023-11-25 08:52:22,182 INFO __main__ Data for Plug2 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:52:30,384 DEBUG schedule Running job Job(interval=1, unit=minutes, do=update_all_plugs, args=(), kwargs={})
+2023-11-25 08:52:30,389 INFO __main__ Updating data for all plugs...
+2023-11-25 08:52:30,397 INFO __main__ Record updated for Plug1 on 11-25 at 8:00
+2023-11-25 08:52:30,398 INFO __main__ Current record: {'kWh': 0.0, 'Cost': 0.0}
+2023-11-25 08:52:30,398 INFO __main__ Record updated for Plug2 on 11-25 at 8:00
+2023-11-25 08:52:30,398 INFO __main__ Current record: {'kWh': 2.62, 'Cost': 0.76}
+2023-11-25 08:52:30,398 INFO __main__ Record updated for Plug3 on 11-25 at 8:00
+2023-11-25 08:52:30,398 INFO __main__ Current record: {'kWh': 2.69, 'Cost': 0.78}
+2023-11-25 08:52:30,398 INFO __main__ Record updated for Plug4 on 11-25 at 8:00
+2023-11-25 08:52:30,399 INFO __main__ Current record: {'kWh': 1.53, 'Cost': 0.44}
+2023-11-25 08:52:30,399 INFO __main__ Record updated for Plug5 on 11-25 at 8:00
+2023-11-25 08:52:30,399 INFO __main__ Current record: {'kWh': 0.23, 'Cost': 0.07}
+2023-11-25 08:52:30,413 INFO __main__ Plug 3 data received.
+2023-11-25 08:52:30,612 INFO __main__ Data saved to smart_plug_data.json
+2023-11-25 08:52:30,621 INFO __main__ Plug 1 data received.
+2023-11-25 08:52:30,831 INFO __main__ Plug 5 data received.
+2023-11-25 08:52:31,312 INFO __main__ Plug 4 data received.
+2023-11-25 08:52:31,504 INFO __main__ Plug 2 data received.
+2023-11-25 08:52:40,163 INFO __main__ Function 3 activated.
+2023-11-25 08:52:40,204 INFO __main__ Data for Plug5 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.49, 'Cost': 0.72}, {'kWh': 0.23, 'Cost': 0.07}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:52:40,460 INFO __main__ Plug 3 data received.
+2023-11-25 08:52:40,499 INFO __main__ Plug 1 data received.
+2023-11-25 08:52:40,755 INFO __main__ Plug 5 data received.
+2023-11-25 08:52:41,212 INFO __main__ Plug 4 data received.
+2023-11-25 08:52:41,466 INFO __main__ Plug 2 data received.
+2023-11-25 08:53:32,202 INFO __main__ Application started.
+2023-11-25 08:53:32,228 INFO __main__ Existing Data loaded from smart_plug_data.json
+2023-11-25 08:53:32,278 DEBUG schedule Deleting all jobs tagged "weekday"
+2023-11-25 08:53:32,278 DEBUG schedule Deleting all jobs tagged "weekend"
+2023-11-25 08:53:32,279 DEBUG schedule Deleting all jobs tagged "update_data"
+2023-11-25 08:53:32,312 INFO __main__ Connected with result code 0
+2023-11-25 08:53:32,470 INFO __main__ Plug 2 is online.
+2023-11-25 08:53:32,471 INFO __main__ Telemetry period for plug 2 set to 10 seconds.
+2023-11-25 08:53:32,483 INFO __main__ Telemetry period for plug 2 set to 10 seconds.
+2023-11-25 08:53:32,484 INFO __main__ Power On State for plug 2 set to 1.
+2023-11-25 08:53:32,484 INFO __main__ Power On State for plug 2 set to 1.
+2023-11-25 08:53:32,489 INFO __main__ Plug 1 is online.
+2023-11-25 08:53:32,490 INFO __main__ Telemetry period for plug 1 set to 10 seconds.
+2023-11-25 08:53:32,493 INFO __main__ Telemetry period for plug 1 set to 10 seconds.
+2023-11-25 08:53:32,493 INFO __main__ Power On State for plug 1 set to 1.
+2023-11-25 08:53:32,493 INFO __main__ Power On State for plug 1 set to 1.
+2023-11-25 08:53:32,495 INFO __main__ Message published with id 2
+2023-11-25 08:53:32,495 INFO __main__ Message published with id 3
+2023-11-25 08:53:32,496 INFO __main__ Message published with id 4
+2023-11-25 08:53:32,496 INFO __main__ Message published with id 5
+2023-11-25 08:53:32,496 INFO __main__ Plug 4 is online.
+2023-11-25 08:53:32,496 INFO __main__ Telemetry period for plug 4 set to 10 seconds.
+2023-11-25 08:53:32,498 INFO __main__ Telemetry period for plug 4 set to 10 seconds.
+2023-11-25 08:53:32,498 INFO __main__ Power On State for plug 4 set to 1.
+2023-11-25 08:53:32,498 INFO __main__ Power On State for plug 4 set to 1.
+2023-11-25 08:53:32,499 INFO __main__ Message published with id 6
+2023-11-25 08:53:32,499 INFO __main__ Message published with id 7
+2023-11-25 08:53:32,499 INFO __main__ Plug 3 is online.
+2023-11-25 08:53:32,499 INFO __main__ Telemetry period for plug 3 set to 10 seconds.
+2023-11-25 08:53:32,500 INFO __main__ Telemetry period for plug 3 set to 10 seconds.
+2023-11-25 08:53:32,500 INFO __main__ Power On State for plug 3 set to 1.
+2023-11-25 08:53:32,500 INFO __main__ Power On State for plug 3 set to 1.
+2023-11-25 08:53:32,501 INFO __main__ Message published with id 8
+2023-11-25 08:53:32,501 INFO __main__ Message published with id 9
+2023-11-25 08:53:32,502 INFO __main__ Plug 5 is online.
+2023-11-25 08:53:32,503 INFO __main__ Telemetry period for plug 5 set to 10 seconds.
+2023-11-25 08:53:32,503 INFO __main__ Telemetry period for plug 5 set to 10 seconds.
+2023-11-25 08:53:32,503 INFO __main__ Power On State for plug 5 set to 1.
+2023-11-25 08:53:32,503 INFO __main__ Power On State for plug 5 set to 1.
+2023-11-25 08:53:32,503 INFO __main__ Message published with id 10
+2023-11-25 08:53:32,504 INFO __main__ Message published with id 11
+2023-11-25 08:53:33,232 INFO __main__ Plug 4 data received.
+2023-11-25 08:53:33,409 INFO __main__ Plug 3 data received.
+2023-11-25 08:53:33,428 INFO __main__ Plug 2 data received.
+2023-11-25 08:53:33,481 INFO __main__ Plug 1 data received.
+2023-11-25 08:53:33,781 INFO __main__ Plug 5 data received.
+2023-11-25 08:53:35,641 INFO __main__ Function 3 activated.
+2023-11-25 08:53:35,689 INFO __main__ Data for Plug5 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.49, 'Cost': 0.72}, {'kWh': 0.23, 'Cost': 0.07}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 08:53:43,201 INFO __main__ Plug 4 data received.
+2023-11-25 08:53:43,432 INFO __main__ Plug 2 data received.
+2023-11-25 08:53:43,444 INFO __main__ Plug 3 data received.
+2023-11-25 08:53:43,477 INFO __main__ Plug 1 data received.
+2023-11-25 08:53:43,779 INFO __main__ Plug 5 data received.
+2023-11-25 08:53:53,199 INFO __main__ Plug 4 data received.
+2023-11-25 08:53:53,431 INFO __main__ Plug 2 data received.
+2023-11-25 08:53:53,490 INFO __main__ Plug 3 data received.
+2023-11-25 08:53:53,504 INFO __main__ Plug 1 data received.
+2023-11-25 08:53:53,786 INFO __main__ Plug 5 data received.
+2023-11-25 08:54:03,402 INFO __main__ Plug 4 data received.
+2023-11-25 08:54:03,558 INFO __main__ Plug 2 data received.
+2023-11-25 08:54:03,580 INFO __main__ Plug 3 data received.
+2023-11-25 08:54:03,609 INFO __main__ Plug 1 data received.
+2023-11-25 08:54:03,842 INFO __main__ Plug 5 data received.
+2023-11-25 08:54:13,301 INFO __main__ Plug 4 data received.
+2023-11-25 08:54:13,413 INFO __main__ Plug 2 data received.
+2023-11-25 08:54:13,425 INFO __main__ Plug 3 data received.
+2023-11-25 08:54:13,475 INFO __main__ Plug 1 data received.
+2023-11-25 08:54:13,767 INFO __main__ Plug 5 data received.
+2023-11-25 08:54:23,240 INFO __main__ Plug 4 data received.
+2023-11-25 08:54:23,466 INFO __main__ Plug 3 data received.
+2023-11-25 08:54:23,469 INFO __main__ Plug 2 data received.
+2023-11-25 08:54:23,506 INFO __main__ Plug 1 data received.
+2023-11-25 08:54:23,771 INFO __main__ Plug 5 data received.
+2023-11-25 08:54:32,448 DEBUG schedule Running job Job(interval=1, unit=minutes, do=update_all_plugs, args=(), kwargs={})
+2023-11-25 08:54:32,453 INFO __main__ Updating data for all plugs...
+2023-11-25 08:54:32,469 INFO __main__ Record updated for Plug1 on 11-25 at 8:00
+2023-11-25 08:54:32,469 INFO __main__ Current record: {'kWh': 0.0, 'Cost': 0.0}
+2023-11-25 08:54:32,470 INFO __main__ Record updated for Plug2 on 11-25 at 8:00
+2023-11-25 08:54:32,470 INFO __main__ Current record: {'kWh': 2.62, 'Cost': 0.76}
+2023-11-25 08:54:32,470 INFO __main__ Record updated for Plug3 on 11-25 at 8:00
+2023-11-25 08:54:32,470 INFO __main__ Current record: {'kWh': 2.69, 'Cost': 0.78}
+2023-11-25 08:54:32,470 INFO __main__ Record updated for Plug4 on 11-25 at 8:00
+2023-11-25 08:54:32,471 INFO __main__ Current record: {'kWh': 1.53, 'Cost': 0.44}
+2023-11-25 08:54:32,471 INFO __main__ Record updated for Plug5 on 11-25 at 8:00
+2023-11-25 08:54:32,471 INFO __main__ Current record: {'kWh': 0.26, 'Cost': 0.08}
+2023-11-25 08:54:32,738 INFO __main__ Data saved to smart_plug_data.json
+2023-11-25 08:54:33,295 INFO __main__ Plug 4 data received.
+2023-11-25 08:54:33,487 INFO __main__ Plug 2 data received.
+2023-11-25 08:54:33,500 INFO __main__ Plug 3 data received.
+2023-11-25 08:54:33,548 INFO __main__ Plug 1 data received.
+2023-11-25 08:54:33,858 INFO __main__ Plug 5 data received.
+2023-11-25 08:54:43,223 INFO __main__ Plug 4 data received.
+2023-11-25 08:54:43,405 INFO __main__ Plug 3 data received.
+2023-11-25 08:54:43,422 INFO __main__ Plug 2 data received.
+2023-11-25 08:54:43,468 INFO __main__ Plug 1 data received.
+2023-11-25 08:54:43,749 INFO __main__ Plug 5 data received.
+2023-11-25 08:54:53,263 INFO __main__ Plug 4 data received.
+2023-11-25 08:54:53,416 INFO __main__ Plug 3 data received.
+2023-11-25 08:54:53,433 INFO __main__ Plug 2 data received.
+2023-11-25 08:54:53,505 INFO __main__ Plug 1 data received.
+2023-11-25 08:54:53,800 INFO __main__ Plug 5 data received.
+2023-11-25 08:55:03,268 INFO __main__ Plug 4 data received.
+2023-11-25 08:55:03,470 INFO __main__ Plug 2 data received.
+2023-11-25 08:55:03,500 INFO __main__ Plug 1 data received.
+2023-11-25 08:55:03,571 INFO __main__ Plug 3 data received.
+2023-11-25 08:55:03,824 INFO __main__ Plug 5 data received.
+2023-11-25 08:55:13,230 INFO __main__ Plug 4 data received.
+2023-11-25 08:55:13,372 INFO __main__ Plug 2 data received.
+2023-11-25 08:55:13,427 INFO __main__ Plug 3 data received.
+2023-11-25 08:55:13,459 INFO __main__ Plug 1 data received.
+2023-11-25 08:55:13,952 INFO __main__ Plug 5 data received.
+2023-11-25 08:55:23,213 INFO __main__ Plug 4 data received.
+2023-11-25 08:55:23,398 INFO __main__ Plug 3 data received.
+2023-11-25 08:55:23,407 INFO __main__ Plug 2 data received.
+2023-11-25 08:55:23,482 INFO __main__ Plug 1 data received.
+2023-11-25 08:55:23,780 INFO __main__ Plug 5 data received.
+2023-11-25 08:55:32,783 DEBUG schedule Running job Job(interval=1, unit=minutes, do=update_all_plugs, args=(), kwargs={})
+2023-11-25 08:55:32,789 INFO __main__ Updating data for all plugs...
+2023-11-25 08:55:32,789 INFO __main__ Record updated for Plug1 on 11-25 at 8:00
+2023-11-25 08:55:32,789 INFO __main__ Current record: {'kWh': 0.0, 'Cost': 0.0}
+2023-11-25 08:55:32,789 INFO __main__ Record updated for Plug2 on 11-25 at 8:00
+2023-11-25 08:55:32,790 INFO __main__ Current record: {'kWh': 2.62, 'Cost': 0.76}
+2023-11-25 08:55:32,790 INFO __main__ Record updated for Plug3 on 11-25 at 8:00
+2023-11-25 08:55:32,790 INFO __main__ Current record: {'kWh': 2.69, 'Cost': 0.78}
+2023-11-25 08:55:32,790 INFO __main__ Record updated for Plug4 on 11-25 at 8:00
+2023-11-25 08:55:32,791 INFO __main__ Current record: {'kWh': 1.53, 'Cost': 0.44}
+2023-11-25 08:55:32,791 INFO __main__ Record updated for Plug5 on 11-25 at 8:00
+2023-11-25 08:55:32,791 INFO __main__ Current record: {'kWh': 0.28, 'Cost': 0.08}
+2023-11-25 08:55:33,001 INFO __main__ Data saved to smart_plug_data.json
+2023-11-25 08:55:33,290 INFO __main__ Plug 4 data received.
+2023-11-25 08:55:33,446 INFO __main__ Plug 2 data received.
+2023-11-25 08:55:33,491 INFO __main__ Plug 1 data received.
+2023-11-25 08:55:33,658 INFO __main__ Plug 3 data received.
+2023-11-25 08:55:33,838 INFO __main__ Plug 5 data received.
+2023-11-25 08:55:43,225 INFO __main__ Plug 4 data received.
+2023-11-25 08:55:43,398 INFO __main__ Plug 2 data received.
+2023-11-25 08:55:43,419 INFO __main__ Plug 3 data received.
+2023-11-25 08:55:43,464 INFO __main__ Plug 1 data received.
+2023-11-25 08:55:43,978 INFO __main__ Plug 5 data received.
+2023-11-25 08:55:53,189 INFO __main__ Plug 4 data received.
+2023-11-25 08:55:53,392 INFO __main__ Plug 2 data received.
+2023-11-25 08:55:53,419 INFO __main__ Plug 3 data received.
+2023-11-25 08:55:53,477 INFO __main__ Plug 1 data received.
+2023-11-25 08:55:53,771 INFO __main__ Plug 5 data received.
+2023-11-25 08:56:03,238 INFO __main__ Plug 4 data received.
+2023-11-25 08:56:03,452 INFO __main__ Plug 3 data received.
+2023-11-25 08:56:03,468 INFO __main__ Plug 2 data received.
+2023-11-25 08:56:03,494 INFO __main__ Plug 1 data received.
+2023-11-25 08:56:03,867 INFO __main__ Plug 5 data received.
+2023-11-25 08:56:13,191 INFO __main__ Plug 4 data received.
+2023-11-25 08:56:13,401 INFO __main__ Plug 2 data received.
+2023-11-25 08:56:13,438 INFO __main__ Plug 3 data received.
+2023-11-25 08:56:13,461 INFO __main__ Plug 1 data received.
+2023-11-25 08:56:13,977 INFO __main__ Plug 5 data received.
+2023-11-25 08:56:23,224 INFO __main__ Plug 4 data received.
+2023-11-25 08:56:23,411 INFO __main__ Plug 3 data received.
+2023-11-25 08:56:23,426 INFO __main__ Plug 2 data received.
+2023-11-25 08:56:23,469 INFO __main__ Plug 1 data received.
+2023-11-25 08:56:23,756 INFO __main__ Plug 5 data received.
+2023-11-25 08:56:33,026 DEBUG schedule Running job Job(interval=1, unit=minutes, do=update_all_plugs, args=(), kwargs={})
+2023-11-25 08:56:33,031 INFO __main__ Updating data for all plugs...
+2023-11-25 08:56:33,045 INFO __main__ Record updated for Plug1 on 11-25 at 8:00
+2023-11-25 08:56:33,045 INFO __main__ Current record: {'kWh': 0.0, 'Cost': 0.0}
+2023-11-25 08:56:33,045 INFO __main__ Record updated for Plug2 on 11-25 at 8:00
+2023-11-25 08:56:33,045 INFO __main__ Current record: {'kWh': 2.62, 'Cost': 0.76}
+2023-11-25 08:56:33,045 INFO __main__ Record updated for Plug3 on 11-25 at 8:00
+2023-11-25 08:56:33,045 INFO __main__ Current record: {'kWh': 2.69, 'Cost': 0.78}
+2023-11-25 08:56:33,045 INFO __main__ Record updated for Plug4 on 11-25 at 8:00
+2023-11-25 08:56:33,045 INFO __main__ Current record: {'kWh': 1.53, 'Cost': 0.44}
+2023-11-25 08:56:33,046 INFO __main__ Record updated for Plug5 on 11-25 at 8:00
+2023-11-25 08:56:33,046 INFO __main__ Current record: {'kWh': 0.29, 'Cost': 0.08}
+2023-11-25 08:56:33,245 INFO __main__ Data saved to smart_plug_data.json
+2023-11-25 08:56:33,404 INFO __main__ Plug 4 data received.
+2023-11-25 08:56:33,491 INFO __main__ Plug 1 data received.
+2023-11-25 08:56:33,574 INFO __main__ Plug 3 data received.
+2023-11-25 08:56:33,613 INFO __main__ Plug 2 data received.
+2023-11-25 08:56:33,826 INFO __main__ Plug 5 data received.
+2023-11-25 08:56:43,222 INFO __main__ Plug 4 data received.
+2023-11-25 08:56:43,386 INFO __main__ Plug 3 data received.
+2023-11-25 08:56:43,393 INFO __main__ Plug 2 data received.
+2023-11-25 08:56:43,481 INFO __main__ Plug 1 data received.
+2023-11-25 08:56:43,757 INFO __main__ Plug 5 data received.
+2023-11-25 08:56:53,187 INFO __main__ Plug 4 data received.
+2023-11-25 08:56:53,401 INFO __main__ Plug 2 data received.
+2023-11-25 08:56:53,429 INFO __main__ Plug 3 data received.
+2023-11-25 08:56:53,487 INFO __main__ Plug 1 data received.
+2023-11-25 08:56:53,756 INFO __main__ Plug 5 data received.
+2023-11-25 08:57:03,163 INFO __main__ Plug 4 data received.
+2023-11-25 08:57:03,455 INFO __main__ Plug 1 data received.
+2023-11-25 08:57:03,474 INFO __main__ Plug 2 data received.
+2023-11-25 08:57:03,572 INFO __main__ Plug 3 data received.
+2023-11-25 08:57:03,854 INFO __main__ Plug 5 data received.
+2023-11-25 08:57:13,214 INFO __main__ Plug 4 data received.
+2023-11-25 08:57:13,435 INFO __main__ Plug 2 data received.
+2023-11-25 08:57:13,439 INFO __main__ Plug 3 data received.
+2023-11-25 08:57:13,462 INFO __main__ Plug 1 data received.
+2023-11-25 08:57:14,042 INFO __main__ Plug 5 data received.
+2023-11-25 08:57:23,168 INFO __main__ Plug 4 data received.
+2023-11-25 08:57:23,405 INFO __main__ Plug 2 data received.
+2023-11-25 08:57:23,421 INFO __main__ Plug 3 data received.
+2023-11-25 08:57:23,478 INFO __main__ Plug 1 data received.
+2023-11-25 08:57:23,721 INFO __main__ Plug 5 data received.
+2023-11-25 08:57:33,167 INFO __main__ Plug 4 data received.
+2023-11-25 08:57:33,271 DEBUG schedule Running job Job(interval=1, unit=minutes, do=update_all_plugs, args=(), kwargs={})
+2023-11-25 08:57:33,277 INFO __main__ Updating data for all plugs...
+2023-11-25 08:57:33,286 INFO __main__ Record updated for Plug1 on 11-25 at 8:00
+2023-11-25 08:57:33,286 INFO __main__ Current record: {'kWh': 0.0, 'Cost': 0.0}
+2023-11-25 08:57:33,286 INFO __main__ Record updated for Plug2 on 11-25 at 8:00
+2023-11-25 08:57:33,286 INFO __main__ Current record: {'kWh': 2.62, 'Cost': 0.76}
+2023-11-25 08:57:33,286 INFO __main__ Record updated for Plug3 on 11-25 at 8:00
+2023-11-25 08:57:33,287 INFO __main__ Current record: {'kWh': 2.69, 'Cost': 0.78}
+2023-11-25 08:57:33,287 INFO __main__ Record updated for Plug4 on 11-25 at 8:00
+2023-11-25 08:57:33,287 INFO __main__ Current record: {'kWh': 1.53, 'Cost': 0.44}
+2023-11-25 08:57:33,287 INFO __main__ Record updated for Plug5 on 11-25 at 8:00
+2023-11-25 08:57:33,288 INFO __main__ Current record: {'kWh': 0.3, 'Cost': 0.09}
+2023-11-25 08:57:33,390 INFO __main__ Plug 2 data received.
+2023-11-25 08:57:33,450 INFO __main__ Plug 1 data received.
+2023-11-25 08:57:33,556 INFO __main__ Data saved to smart_plug_data.json
+2023-11-25 08:57:33,608 INFO __main__ Plug 3 data received.
+2023-11-25 08:57:33,976 INFO __main__ Plug 5 data received.
+2023-11-25 08:57:43,265 INFO __main__ Plug 4 data received.
+2023-11-25 08:57:43,377 INFO __main__ Plug 3 data received.
+2023-11-25 08:57:43,420 INFO __main__ Plug 2 data received.
+2023-11-25 08:57:43,451 INFO __main__ Plug 1 data received.
+2023-11-25 08:57:43,721 INFO __main__ Plug 5 data received.
+2023-11-25 08:57:53,245 INFO __main__ Plug 4 data received.
+2023-11-25 08:57:53,407 INFO __main__ Plug 3 data received.
+2023-11-25 08:57:53,489 INFO __main__ Plug 1 data received.
+2023-11-25 08:57:53,586 INFO __main__ Plug 2 data received.
+2023-11-25 08:57:53,745 INFO __main__ Plug 5 data received.
+2023-11-25 08:58:03,166 INFO __main__ Plug 4 data received.
+2023-11-25 08:58:03,419 INFO __main__ Plug 2 data received.
+2023-11-25 08:58:03,444 INFO __main__ Plug 1 data received.
+2023-11-25 08:58:03,477 INFO __main__ Plug 3 data received.
+2023-11-25 08:58:03,873 INFO __main__ Plug 5 data received.
+2023-11-25 08:58:13,325 INFO __main__ Plug 4 data received.
+2023-11-25 08:58:13,390 INFO __main__ Plug 3 data received.
+2023-11-25 08:58:13,458 INFO __main__ Plug 1 data received.
+2023-11-25 08:58:13,475 INFO __main__ Plug 2 data received.
+2023-11-25 08:58:13,754 INFO __main__ Plug 5 data received.
+2023-11-25 08:58:23,151 INFO __main__ Plug 4 data received.
+2023-11-25 08:58:23,377 INFO __main__ Plug 3 data received.
+2023-11-25 08:58:23,402 INFO __main__ Plug 2 data received.
+2023-11-25 08:58:23,466 INFO __main__ Plug 1 data received.
+2023-11-25 08:58:23,752 INFO __main__ Plug 5 data received.
+2023-11-25 08:58:33,266 INFO __main__ Plug 4 data received.
+2023-11-25 08:58:33,384 INFO __main__ Plug 2 data received.
+2023-11-25 08:58:33,433 INFO __main__ Plug 1 data received.
+2023-11-25 08:58:33,589 DEBUG schedule Running job Job(interval=1, unit=minutes, do=update_all_plugs, args=(), kwargs={})
+2023-11-25 08:58:33,595 INFO __main__ Updating data for all plugs...
+2023-11-25 08:58:33,606 INFO __main__ Record updated for Plug1 on 11-25 at 8:00
+2023-11-25 08:58:33,606 INFO __main__ Plug 3 data received.
+2023-11-25 08:58:33,606 INFO __main__ Current record: {'kWh': 0.0, 'Cost': 0.0}
+2023-11-25 08:58:33,606 INFO __main__ Record updated for Plug2 on 11-25 at 8:00
+2023-11-25 08:58:33,606 INFO __main__ Current record: {'kWh': 2.62, 'Cost': 0.76}
+2023-11-25 08:58:33,606 INFO __main__ Record updated for Plug3 on 11-25 at 8:00
+2023-11-25 08:58:33,607 INFO __main__ Current record: {'kWh': 2.69, 'Cost': 0.78}
+2023-11-25 08:58:33,607 INFO __main__ Record updated for Plug4 on 11-25 at 8:00
+2023-11-25 08:58:33,607 INFO __main__ Current record: {'kWh': 1.53, 'Cost': 0.44}
+2023-11-25 08:58:33,607 INFO __main__ Record updated for Plug5 on 11-25 at 8:00
+2023-11-25 08:58:33,607 INFO __main__ Current record: {'kWh': 0.31, 'Cost': 0.09}
+2023-11-25 08:58:33,740 INFO __main__ Plug 5 data received.
+2023-11-25 08:58:33,809 INFO __main__ Data saved to smart_plug_data.json
+2023-11-25 08:58:43,216 INFO __main__ Plug 4 data received.
+2023-11-25 08:58:43,388 INFO __main__ Plug 3 data received.
+2023-11-25 08:58:43,435 INFO __main__ Plug 2 data received.
+2023-11-25 08:58:43,444 INFO __main__ Plug 1 data received.
+2023-11-25 08:58:43,743 INFO __main__ Plug 5 data received.
+2023-11-25 08:58:53,200 INFO __main__ Plug 4 data received.
+2023-11-25 08:58:53,383 INFO __main__ Plug 2 data received.
+2023-11-25 08:58:53,415 INFO __main__ Plug 3 data received.
+2023-11-25 08:58:53,462 INFO __main__ Plug 1 data received.
+2023-11-25 08:58:53,751 INFO __main__ Plug 5 data received.
+2023-11-25 08:59:03,184 INFO __main__ Plug 4 data received.
+2023-11-25 08:59:03,380 INFO __main__ Plug 2 data received.
+2023-11-25 08:59:03,398 INFO __main__ Plug 3 data received.
+2023-11-25 08:59:03,478 INFO __main__ Plug 1 data received.
+2023-11-25 08:59:03,711 INFO __main__ Plug 5 data received.
+2023-11-25 08:59:13,235 INFO __main__ Plug 4 data received.
+2023-11-25 08:59:13,397 INFO __main__ Plug 3 data received.
+2023-11-25 08:59:13,432 INFO __main__ Plug 1 data received.
+2023-11-25 08:59:13,468 INFO __main__ Plug 2 data received.
+2023-11-25 08:59:13,856 INFO __main__ Plug 5 data received.
+2023-11-25 08:59:23,190 INFO __main__ Plug 4 data received.
+2023-11-25 08:59:23,367 INFO __main__ Plug 2 data received.
+2023-11-25 08:59:23,389 INFO __main__ Plug 3 data received.
+2023-11-25 08:59:23,452 INFO __main__ Plug 1 data received.
+2023-11-25 08:59:23,756 INFO __main__ Plug 5 data received.
+2023-11-25 08:59:28,731 INFO __main__ Application started.
+2023-11-25 08:59:28,757 INFO __main__ Existing Data loaded from smart_plug_data.json
+2023-11-25 08:59:28,831 DEBUG schedule Deleting all jobs tagged "weekday"
+2023-11-25 08:59:28,831 DEBUG schedule Deleting all jobs tagged "weekend"
+2023-11-25 08:59:28,831 DEBUG schedule Deleting all jobs tagged "update_data"
+2023-11-25 08:59:28,867 INFO __main__ Connected with result code 0
+2023-11-25 08:59:29,075 INFO __main__ Plug 2 is online.
+2023-11-25 08:59:29,075 INFO __main__ Telemetry period for plug 2 set to 10 seconds.
+2023-11-25 08:59:29,075 INFO __main__ Telemetry period for plug 2 set to 10 seconds.
+2023-11-25 08:59:29,076 INFO __main__ Power On State for plug 2 set to 1.
+2023-11-25 08:59:29,076 INFO __main__ Power On State for plug 2 set to 1.
+2023-11-25 08:59:29,077 INFO __main__ Plug 1 is online.
+2023-11-25 08:59:29,077 INFO __main__ Telemetry period for plug 1 set to 10 seconds.
+2023-11-25 08:59:29,077 INFO __main__ Telemetry period for plug 1 set to 10 seconds.
+2023-11-25 08:59:29,077 INFO __main__ Power On State for plug 1 set to 1.
+2023-11-25 08:59:29,077 INFO __main__ Power On State for plug 1 set to 1.
+2023-11-25 08:59:29,077 INFO __main__ Message published with id 2
+2023-11-25 08:59:29,079 INFO __main__ Message published with id 3
+2023-11-25 08:59:29,079 INFO __main__ Message published with id 4
+2023-11-25 08:59:29,081 INFO __main__ Message published with id 5
+2023-11-25 08:59:29,082 INFO __main__ Plug 4 is online.
+2023-11-25 08:59:29,082 INFO __main__ Telemetry period for plug 4 set to 10 seconds.
+2023-11-25 08:59:29,083 INFO __main__ Telemetry period for plug 4 set to 10 seconds.
+2023-11-25 08:59:29,083 INFO __main__ Power On State for plug 4 set to 1.
+2023-11-25 08:59:29,083 INFO __main__ Power On State for plug 4 set to 1.
+2023-11-25 08:59:29,084 INFO __main__ Message published with id 6
+2023-11-25 08:59:29,084 INFO __main__ Message published with id 7
+2023-11-25 08:59:29,084 INFO __main__ Plug 3 is online.
+2023-11-25 08:59:29,085 INFO __main__ Telemetry period for plug 3 set to 10 seconds.
+2023-11-25 08:59:29,085 INFO __main__ Telemetry period for plug 3 set to 10 seconds.
+2023-11-25 08:59:29,085 INFO __main__ Power On State for plug 3 set to 1.
+2023-11-25 08:59:29,085 INFO __main__ Power On State for plug 3 set to 1.
+2023-11-25 08:59:29,085 INFO __main__ Message published with id 8
+2023-11-25 08:59:29,086 INFO __main__ Message published with id 9
+2023-11-25 08:59:29,087 INFO __main__ Plug 5 is online.
+2023-11-25 08:59:29,087 INFO __main__ Telemetry period for plug 5 set to 10 seconds.
+2023-11-25 08:59:29,088 INFO __main__ Telemetry period for plug 5 set to 10 seconds.
+2023-11-25 08:59:29,088 INFO __main__ Power On State for plug 5 set to 1.
+2023-11-25 08:59:29,088 INFO __main__ Power On State for plug 5 set to 1.
+2023-11-25 08:59:29,088 INFO __main__ Message published with id 10
+2023-11-25 08:59:29,088 INFO __main__ Message published with id 11
+2023-11-25 08:59:29,373 INFO __main__ Plug 3 data received.
+2023-11-25 08:59:29,440 INFO __main__ Plug 2 data received.
+2023-11-25 08:59:29,458 INFO __main__ Plug 1 data received.
+2023-11-25 08:59:29,767 INFO __main__ Plug 5 data received.
+2023-11-25 08:59:30,192 INFO __main__ Plug 4 data received.
+2023-11-25 08:59:35,065 INFO __main__ Function 3 activated.
+2023-11-25 08:59:39,390 INFO __main__ Plug 3 data received.
+2023-11-25 08:59:39,401 INFO __main__ Plug 2 data received.
+2023-11-25 08:59:39,474 INFO __main__ Plug 1 data received.
+2023-11-25 08:59:39,748 INFO __main__ Plug 5 data received.
+2023-11-25 08:59:40,180 INFO __main__ Plug 4 data received.
+2023-11-25 08:59:49,390 INFO __main__ Plug 3 data received.
+2023-11-25 08:59:49,409 INFO __main__ Plug 2 data received.
+2023-11-25 08:59:49,436 INFO __main__ Plug 1 data received.
+2023-11-25 08:59:49,759 INFO __main__ Plug 5 data received.
+2023-11-25 08:59:50,160 INFO __main__ Plug 4 data received.
+2023-11-25 08:59:59,398 INFO __main__ Plug 2 data received.
+2023-11-25 08:59:59,410 INFO __main__ Plug 3 data received.
+2023-11-25 08:59:59,448 INFO __main__ Plug 1 data received.
+2023-11-25 08:59:59,797 INFO __main__ Plug 5 data received.
+2023-11-25 09:00:00,234 INFO __main__ Plug 4 data received.
+2023-11-25 09:00:00,956 DEBUG schedule Running job Job(interval=1, unit=weeks, do=wake_up_and_turn_on_plugs, args=(), kwargs={})
+2023-11-25 09:00:00,956 INFO __main__ Plug 2 turned ON.
+2023-11-25 09:00:00,958 INFO __main__ Message published with id 12
+2023-11-25 09:00:00,958 INFO __main__ Plug 2 turned ON.
+2023-11-25 09:00:00,958 INFO __main__ Plug 2 turned on.
+2023-11-25 09:00:00,958 INFO __main__ Plug 3 turned ON.
+2023-11-25 09:00:00,966 INFO __main__ Plug 3 turned ON.
+2023-11-25 09:00:00,966 INFO __main__ Message published with id 13
+2023-11-25 09:00:00,966 INFO __main__ Plug 3 turned on.
+2023-11-25 09:00:00,966 INFO __main__ Plug 4 turned ON.
+2023-11-25 09:00:00,967 INFO __main__ Plug 4 turned ON.
+2023-11-25 09:00:00,967 INFO __main__ Plug 4 turned on.
+2023-11-25 09:00:00,967 INFO __main__ Message published with id 14
+2023-11-25 09:00:00,967 INFO __main__ Good Morning - I have turned the heaters on.
+2023-11-25 09:00:09,400 INFO __main__ Plug 2 data received.
+2023-11-25 09:00:09,411 INFO __main__ Plug 3 data received.
+2023-11-25 09:00:09,466 INFO __main__ Plug 1 data received.
+2023-11-25 09:00:09,760 INFO __main__ Plug 5 data received.
+2023-11-25 09:00:10,198 INFO __main__ Plug 4 data received.
+2023-11-25 09:00:19,373 INFO __main__ Plug 2 data received.
+2023-11-25 09:00:19,389 INFO __main__ Plug 3 data received.
+2023-11-25 09:00:19,627 INFO __main__ Plug 1 data received.
+2023-11-25 09:00:19,762 INFO __main__ Plug 5 data received.
+2023-11-25 09:00:20,199 INFO __main__ Plug 4 data received.
+2023-11-25 09:00:28,984 DEBUG schedule Running job Job(interval=1, unit=minutes, do=update_all_plugs, args=(), kwargs={})
+2023-11-25 09:00:28,988 INFO __main__ Updating data for all plugs...
+2023-11-25 09:00:28,998 INFO __main__ Record updated for Plug1 on 11-25 at 9:00
+2023-11-25 09:00:28,998 INFO __main__ Current record: {'kWh': 0.0, 'Cost': 0.0}
+2023-11-25 09:00:28,998 INFO __main__ Record updated for Plug2 on 11-25 at 9:00
+2023-11-25 09:00:28,998 INFO __main__ Current record: {'kWh': 2.63, 'Cost': 0.76}
+2023-11-25 09:00:28,998 INFO __main__ Record updated for Plug3 on 11-25 at 9:00
+2023-11-25 09:00:28,999 INFO __main__ Current record: {'kWh': 2.7, 'Cost': 0.78}
+2023-11-25 09:00:28,999 INFO __main__ Record updated for Plug4 on 11-25 at 9:00
+2023-11-25 09:00:28,999 INFO __main__ Current record: {'kWh': 1.54, 'Cost': 0.44}
+2023-11-25 09:00:28,999 INFO __main__ Record updated for Plug5 on 11-25 at 9:00
+2023-11-25 09:00:28,999 INFO __main__ Current record: {'kWh': 0.34, 'Cost': 0.1}
+2023-11-25 09:00:29,206 INFO __main__ Data saved to smart_plug_data.json
+2023-11-25 09:00:29,392 INFO __main__ Plug 3 data received.
+2023-11-25 09:00:29,396 INFO __main__ Plug 2 data received.
+2023-11-25 09:00:29,449 INFO __main__ Plug 1 data received.
+2023-11-25 09:00:29,813 INFO __main__ Plug 5 data received.
+2023-11-25 09:00:30,208 INFO __main__ Plug 4 data received.
+2023-11-25 09:00:39,454 INFO __main__ Plug 2 data received.
+2023-11-25 09:00:39,468 INFO __main__ Plug 1 data received.
+2023-11-25 09:00:39,519 INFO __main__ Plug 3 data received.
+2023-11-25 09:00:39,725 INFO __main__ Plug 5 data received.
+2023-11-25 09:00:40,244 INFO __main__ Plug 4 data received.
+2023-11-25 09:00:49,370 INFO __main__ Plug 2 data received.
+2023-11-25 09:00:49,385 INFO __main__ Plug 3 data received.
+2023-11-25 09:00:49,431 INFO __main__ Plug 1 data received.
+2023-11-25 09:00:50,157 INFO __main__ Plug 4 data received.
+2023-11-25 09:00:51,047 INFO __main__ Plug 5 data received.
+2023-11-25 09:01:00,785 INFO __main__ Application started.
+2023-11-25 09:01:00,810 INFO __main__ Existing Data loaded from smart_plug_data.json
+2023-11-25 09:01:00,858 DEBUG schedule Deleting all jobs tagged "weekday"
+2023-11-25 09:01:00,858 DEBUG schedule Deleting all jobs tagged "weekend"
+2023-11-25 09:01:00,858 DEBUG schedule Deleting all jobs tagged "update_data"
+2023-11-25 09:01:00,971 INFO __main__ Connected with result code 0
+2023-11-25 09:01:01,068 INFO __main__ Plug 2 is online.
+2023-11-25 09:01:01,068 INFO __main__ Telemetry period for plug 2 set to 10 seconds.
+2023-11-25 09:01:01,068 INFO __main__ Telemetry period for plug 2 set to 10 seconds.
+2023-11-25 09:01:01,068 INFO __main__ Power On State for plug 2 set to 1.
+2023-11-25 09:01:01,069 INFO __main__ Power On State for plug 2 set to 1.
+2023-11-25 09:01:01,069 INFO __main__ Plug 1 is online.
+2023-11-25 09:01:01,069 INFO __main__ Telemetry period for plug 1 set to 10 seconds.
+2023-11-25 09:01:01,070 INFO __main__ Telemetry period for plug 1 set to 10 seconds.
+2023-11-25 09:01:01,070 INFO __main__ Power On State for plug 1 set to 1.
+2023-11-25 09:01:01,070 INFO __main__ Power On State for plug 1 set to 1.
+2023-11-25 09:01:01,071 INFO __main__ Message published with id 2
+2023-11-25 09:01:01,071 INFO __main__ Message published with id 3
+2023-11-25 09:01:01,071 INFO __main__ Message published with id 4
+2023-11-25 09:01:01,072 INFO __main__ Message published with id 5
+2023-11-25 09:01:01,072 INFO __main__ Plug 4 is online.
+2023-11-25 09:01:01,072 INFO __main__ Telemetry period for plug 4 set to 10 seconds.
+2023-11-25 09:01:01,072 INFO __main__ Telemetry period for plug 4 set to 10 seconds.
+2023-11-25 09:01:01,072 INFO __main__ Power On State for plug 4 set to 1.
+2023-11-25 09:01:01,073 INFO __main__ Power On State for plug 4 set to 1.
+2023-11-25 09:01:01,073 INFO __main__ Message published with id 6
+2023-11-25 09:01:01,073 INFO __main__ Message published with id 7
+2023-11-25 09:01:01,092 INFO __main__ Plug 3 is online.
+2023-11-25 09:01:01,093 INFO __main__ Telemetry period for plug 3 set to 10 seconds.
+2023-11-25 09:01:01,093 INFO __main__ Telemetry period for plug 3 set to 10 seconds.
+2023-11-25 09:01:01,093 INFO __main__ Power On State for plug 3 set to 1.
+2023-11-25 09:01:01,093 INFO __main__ Power On State for plug 3 set to 1.
+2023-11-25 09:01:01,098 INFO __main__ Message published with id 8
+2023-11-25 09:01:01,098 INFO __main__ Message published with id 9
+2023-11-25 09:01:01,103 INFO __main__ Plug 5 is online.
+2023-11-25 09:01:01,103 INFO __main__ Telemetry period for plug 5 set to 10 seconds.
+2023-11-25 09:01:01,103 INFO __main__ Telemetry period for plug 5 set to 10 seconds.
+2023-11-25 09:01:01,103 INFO __main__ Power On State for plug 5 set to 1.
+2023-11-25 09:01:01,104 INFO __main__ Power On State for plug 5 set to 1.
+2023-11-25 09:01:01,105 INFO __main__ Message published with id 10
+2023-11-25 09:01:01,106 INFO __main__ Message published with id 11
+2023-11-25 09:01:01,358 INFO __main__ Plug 2 data received.
+2023-11-25 09:01:01,468 INFO __main__ Plug 1 data received.
+2023-11-25 09:01:01,766 INFO __main__ Plug 5 data received.
+2023-11-25 09:01:02,270 INFO __main__ Plug 4 data received.
+2023-11-25 09:01:02,305 INFO __main__ Function 3 activated.
+2023-11-25 09:01:02,348 INFO __main__ Data for Plug5 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.49, 'Cost': 0.72}, {'kWh': 0.31, 'Cost': 0.09}, {'kWh': 0.34, 'Cost': 0.1}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:01:02,450 INFO __main__ Plug 3 data received.
+2023-11-25 09:01:08,486 INFO __main__ Data for Plug1 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:01:11,348 INFO __main__ Data for Plug2 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.63, 'Cost': 0.76}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:01:11,420 INFO __main__ Plug 2 data received.
+2023-11-25 09:01:11,459 INFO __main__ Plug 1 data received.
+2023-11-25 09:01:11,717 INFO __main__ Plug 5 data received.
+2023-11-25 09:01:12,194 INFO __main__ Plug 4 data received.
+2023-11-25 09:01:12,375 INFO __main__ Plug 3 data received.
+2023-11-25 09:01:18,080 INFO __main__ Data for Plug3 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.69, 'Cost': 0.78}, {'kWh': 2.69, 'Cost': 0.78}, {'kWh': 2.7, 'Cost': 0.78}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:01:21,394 INFO __main__ Plug 2 data received.
+2023-11-25 09:01:21,451 INFO __main__ Plug 1 data received.
+2023-11-25 09:01:21,888 INFO __main__ Plug 5 data received.
+2023-11-25 09:01:22,211 INFO __main__ Plug 4 data received.
+2023-11-25 09:01:22,436 INFO __main__ Plug 3 data received.
+2023-11-25 09:01:26,687 INFO __main__ Data for Plug4 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 1.53, 'Cost': 0.44}, {'kWh': 1.53, 'Cost': 0.44}, {'kWh': 1.54, 'Cost': 0.44}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:01:31,450 INFO __main__ Plug 2 data received.
+2023-11-25 09:01:31,456 INFO __main__ Plug 1 data received.
+2023-11-25 09:01:31,564 INFO __main__ Data for Plug5 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.49, 'Cost': 0.72}, {'kWh': 0.31, 'Cost': 0.09}, {'kWh': 0.34, 'Cost': 0.1}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:01:31,779 INFO __main__ Plug 5 data received.
+2023-11-25 09:01:32,258 INFO __main__ Plug 4 data received.
+2023-11-25 09:01:32,557 INFO __main__ Plug 3 data received.
+2023-11-25 09:01:37,511 INFO __main__ Data for Plug1 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:01:41,424 INFO __main__ Plug 2 data received.
+2023-11-25 09:01:41,473 INFO __main__ Plug 1 data received.
+2023-11-25 09:01:41,730 INFO __main__ Plug 5 data received.
+2023-11-25 09:01:42,182 INFO __main__ Plug 4 data received.
+2023-11-25 09:01:42,393 INFO __main__ Plug 3 data received.
+2023-11-25 09:01:51,374 INFO __main__ Plug 2 data received.
+2023-11-25 09:01:51,423 INFO __main__ Plug 1 data received.
+2023-11-25 09:01:52,159 INFO __main__ Plug 4 data received.
+2023-11-25 09:01:52,387 INFO __main__ Plug 3 data received.
+2023-11-25 09:01:52,806 INFO __main__ Plug 5 data received.
+2023-11-25 09:03:18,679 INFO __main__ Application started.
+2023-11-25 09:03:18,709 INFO __main__ Existing Data loaded from smart_plug_data.json
+2023-11-25 09:03:18,760 DEBUG schedule Deleting all jobs tagged "weekday"
+2023-11-25 09:03:18,760 DEBUG schedule Deleting all jobs tagged "weekend"
+2023-11-25 09:03:18,761 DEBUG schedule Deleting all jobs tagged "update_data"
+2023-11-25 09:03:18,797 INFO __main__ Connected with result code 0
+2023-11-25 09:03:18,884 INFO __main__ Plug 2 is online.
+2023-11-25 09:03:18,885 INFO __main__ Telemetry period for plug 2 set to 10 seconds.
+2023-11-25 09:03:18,887 INFO __main__ Telemetry period for plug 2 set to 10 seconds.
+2023-11-25 09:03:18,887 INFO __main__ Power On State for plug 2 set to 1.
+2023-11-25 09:03:18,889 INFO __main__ Power On State for plug 2 set to 1.
+2023-11-25 09:03:18,891 INFO __main__ Plug 1 is online.
+2023-11-25 09:03:18,891 INFO __main__ Telemetry period for plug 1 set to 10 seconds.
+2023-11-25 09:03:18,987 INFO __main__ Telemetry period for plug 1 set to 10 seconds.
+2023-11-25 09:03:18,988 INFO __main__ Power On State for plug 1 set to 1.
+2023-11-25 09:03:18,988 INFO __main__ Power On State for plug 1 set to 1.
+2023-11-25 09:03:18,989 INFO __main__ Message published with id 2
+2023-11-25 09:03:19,002 INFO __main__ Message published with id 3
+2023-11-25 09:03:19,005 INFO __main__ Message published with id 4
+2023-11-25 09:03:19,005 INFO __main__ Message published with id 5
+2023-11-25 09:03:19,009 INFO __main__ Plug 4 is online.
+2023-11-25 09:03:19,010 INFO __main__ Telemetry period for plug 4 set to 10 seconds.
+2023-11-25 09:03:19,011 INFO __main__ Telemetry period for plug 4 set to 10 seconds.
+2023-11-25 09:03:19,011 INFO __main__ Power On State for plug 4 set to 1.
+2023-11-25 09:03:19,012 INFO __main__ Power On State for plug 4 set to 1.
+2023-11-25 09:03:19,012 INFO __main__ Message published with id 6
+2023-11-25 09:03:19,013 INFO __main__ Message published with id 7
+2023-11-25 09:03:19,015 INFO __main__ Plug 3 is online.
+2023-11-25 09:03:19,015 INFO __main__ Telemetry period for plug 3 set to 10 seconds.
+2023-11-25 09:03:19,015 INFO __main__ Telemetry period for plug 3 set to 10 seconds.
+2023-11-25 09:03:19,015 INFO __main__ Power On State for plug 3 set to 1.
+2023-11-25 09:03:19,015 INFO __main__ Power On State for plug 3 set to 1.
+2023-11-25 09:03:19,016 INFO __main__ Message published with id 8
+2023-11-25 09:03:19,017 INFO __main__ Message published with id 9
+2023-11-25 09:03:19,019 INFO __main__ Plug 5 is online.
+2023-11-25 09:03:19,019 INFO __main__ Telemetry period for plug 5 set to 10 seconds.
+2023-11-25 09:03:19,020 INFO __main__ Telemetry period for plug 5 set to 10 seconds.
+2023-11-25 09:03:19,020 INFO __main__ Power On State for plug 5 set to 1.
+2023-11-25 09:03:19,020 INFO __main__ Power On State for plug 5 set to 1.
+2023-11-25 09:03:19,021 INFO __main__ Message published with id 10
+2023-11-25 09:03:19,021 INFO __main__ Message published with id 11
+2023-11-25 09:03:19,390 INFO __main__ Plug 2 data received.
+2023-11-25 09:03:19,407 INFO __main__ Plug 3 data received.
+2023-11-25 09:03:19,424 INFO __main__ Plug 1 data received.
+2023-11-25 09:03:19,685 INFO __main__ Plug 5 data received.
+2023-11-25 09:03:20,125 INFO __main__ Plug 4 data received.
+2023-11-25 09:03:21,135 INFO __main__ Function 3 activated.
+2023-11-25 09:03:21,179 INFO __main__ Data for Plug5 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.49, 'Cost': 0.72}, {'kWh': 0.31, 'Cost': 0.09}, {'kWh': 0.34, 'Cost': 0.1}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:03:26,417 INFO __main__ Data for Plug1 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:03:28,465 INFO __main__ Data for Plug2 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.63, 'Cost': 0.76}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:03:29,348 INFO __main__ Plug 3 data received.
+2023-11-25 09:03:29,479 INFO __main__ Plug 2 data received.
+2023-11-25 09:03:29,524 INFO __main__ Plug 1 data received.
+2023-11-25 09:03:29,720 INFO __main__ Plug 5 data received.
+2023-11-25 09:03:30,198 INFO __main__ Plug 4 data received.
+2023-11-25 09:03:30,712 INFO __main__ Data for Plug2 on 11-24: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:03:32,514 INFO __main__ Data for Plug2 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.63, 'Cost': 0.76}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:03:34,523 INFO __main__ Data for Plug2 on 11-26: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:03:37,023 INFO __main__ Data for Plug2 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.63, 'Cost': 0.76}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:03:39,341 INFO __main__ Plug 2 data received.
+2023-11-25 09:03:39,343 INFO __main__ Plug 3 data received.
+2023-11-25 09:03:39,442 INFO __main__ Plug 1 data received.
+2023-11-25 09:03:39,697 INFO __main__ Plug 5 data received.
+2023-11-25 09:03:40,181 INFO __main__ Plug 4 data received.
+2023-11-25 09:03:49,434 INFO __main__ Plug 3 data received.
+2023-11-25 09:03:49,550 INFO __main__ Plug 1 data received.
+2023-11-25 09:03:49,609 INFO __main__ Plug 2 data received.
+2023-11-25 09:03:49,759 INFO __main__ Plug 5 data received.
+2023-11-25 09:03:50,204 INFO __main__ Plug 4 data received.
+2023-11-25 09:03:51,315 INFO __main__ Data for Plug2 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.63, 'Cost': 0.76}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:03:53,054 INFO __main__ Data for Plug2 on 11-26: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:03:54,348 INFO __main__ Data for Plug2 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.62, 'Cost': 0.76}, {'kWh': 2.63, 'Cost': 0.76}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:03:59,330 INFO __main__ Plug 2 data received.
+2023-11-25 09:03:59,395 INFO __main__ Plug 3 data received.
+2023-11-25 09:03:59,425 INFO __main__ Plug 1 data received.
+2023-11-25 09:03:59,739 INFO __main__ Plug 5 data received.
+2023-11-25 09:04:00,153 INFO __main__ Plug 4 data received.
+2023-11-25 09:04:02,111 INFO __main__ Data for Plug4 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 1.53, 'Cost': 0.44}, {'kWh': 1.53, 'Cost': 0.44}, {'kWh': 1.54, 'Cost': 0.44}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:04:08,885 INFO __main__ Data for Plug1 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:04:09,374 INFO __main__ Plug 2 data received.
+2023-11-25 09:04:09,415 INFO __main__ Plug 3 data received.
+2023-11-25 09:04:09,469 INFO __main__ Plug 1 data received.
+2023-11-25 09:04:09,704 INFO __main__ Plug 5 data received.
+2023-11-25 09:04:10,160 INFO __main__ Plug 4 data received.
+2023-11-25 09:04:12,471 INFO __main__ Data for Plug1 on 11-23: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:04:15,131 INFO __main__ Data for Plug1 on 11-29: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-25 09:04:18,964 DEBUG schedule Running job Job(interval=1, unit=minutes, do=update_all_plugs, args=(), kwargs={})
+2023-11-25 09:04:18,969 INFO __main__ Updating data for all plugs...
+2023-11-25 09:04:18,981 INFO __main__ Record updated for Plug1 on 11-25 at 9:00
+2023-11-25 09:04:18,981 INFO __main__ Current record: {'kWh': 0.0, 'Cost': 0.0}
+2023-11-25 09:04:18,981 INFO __main__ Record updated for Plug2 on 11-25 at 9:00
+2023-11-25 09:04:18,982 INFO __main__ Current record: {'kWh': 2.7, 'Cost': 0.78}
+2023-11-25 09:04:18,982 INFO __main__ Record updated for Plug3 on 11-25 at 9:00
+2023-11-25 09:04:18,982 INFO __main__ Current record: {'kWh': 2.77, 'Cost': 0.8}
+2023-11-25 09:04:18,982 INFO __main__ Record updated for Plug4 on 11-25 at 9:00
+2023-11-25 09:04:18,983 INFO __main__ Current record: {'kWh': 1.59, 'Cost': 0.46}
+2023-11-25 09:04:18,983 INFO __main__ Record updated for Plug5 on 11-25 at 9:00
+2023-11-25 09:04:18,983 INFO __main__ Current record: {'kWh': 0.36, 'Cost': 0.1}
+2023-11-25 09:04:19,181 INFO __main__ Data saved to smart_plug_data.json
+2023-11-25 09:04:19,356 INFO __main__ Plug 2 data received.
+2023-11-25 09:04:19,461 INFO __main__ Plug 1 data received.
+2023-11-25 09:04:19,464 INFO __main__ Plug 3 data received.
+2023-11-25 09:04:19,824 INFO __main__ Plug 5 data received.
+2023-11-25 09:04:20,311 INFO __main__ Plug 4 data received.

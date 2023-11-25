@@ -464,61 +464,80 @@ def update_all_plugs():
     # print(get_data_for_day('Plug3'))
     # print('*************************************************************************************************')
           
-# spawn a child tkinter window to display historical data trend for a specific plug
 def display_historical_data(plug):
-# def display_data_window(data):
     # Create a new Tkinter window
     window = tk.Toplevel(root)
     window.title("Smart Plug Data")
     window.geometry("800x470")
 
-    data = get_data_for_day(plug)
+    # Function to create headers for data
+    def create_headers(row_offset):
+        headers = ['Hour', 'kWh', 'Cost']
+        for idx, header in enumerate(headers):
+            tk.Label(window, text=header, font=('Arial', 10, 'bold')).grid(row=row_offset, column=idx, padx=5, pady=0)
+            tk.Label(window, text=header, font=('Arial', 10, 'bold')).grid(row=row_offset, column=idx+4, padx=5, pady=0)
 
     # Function to create labels for data
     def create_data_labels(row_start, data_subset, row_offset):
         # Create column headers
-        for col, text in enumerate(['Hour', 'kWh', 'Cost']):
-            header = tk.Label(window, text=text, font=('Arial', 10, 'bold'))
-            header.grid(row=row_offset, column=col + 4 * (row_start // 12), padx=5, pady=0)
-
+        create_headers(row_offset-1)
+        
         # Create data labels
         for i, record in enumerate(data_subset):
-            hour_label_text = f"{(row_start + i) % 24:02d}:00 - {(row_start + i + 1) % 24:02d}:00"
+            hour_label_text = f"{(row_start + i):02d}:00 - {(row_start + i + 1):02d}:00"
             hour_label = tk.Label(window, text=hour_label_text, width=15)
-            hour_label.grid(row=row_offset + i + 1, column=0 + 4 * (row_start // 12), padx=5, pady=0)
+            hour_label.grid(row=row_offset + i, column=0 + 4 * (row_start // 12), padx=5, pady=0)
 
             for j, key in enumerate(['kWh', 'Cost']):
                 cell = tk.Label(window, text=f"{record[key]:.2f}", width=8)
-                cell.grid(row=row_offset + i + 1, column=j + 1 + 4 * (row_start // 12), padx=5, pady=0)
+                cell.grid(row=row_offset + i, column=j + 1 + 4 * (row_start // 12), padx=5, pady=0)
 
-    # Split data into two halves for two columns
-    first_half, second_half = data[:12], data[12:]
+    # Clear the data labels before updating
+    def clear_data_labels():
+        for widget in window.grid_slaves():
+            if int(widget.grid_info()["row"]) > 1:
+                widget.destroy()
 
-    # Create data labels for both halves, offset by 2 rows to leave space for the control frame
-    create_data_labels(0, first_half, 2)
-    create_data_labels(12, second_half, 2)
+    # Callback to refresh the data display
+    def refresh_data(*args):
+        clear_data_labels()
+        selected_date = calendar.get_date()
+        selected_date = datetime.strptime(selected_date, "%m/%d/%y").strftime("%m-%d")
+
+        selected_plug = plug_selector.get() if plug_selector.get() else plug
+        # new_data = get_data_for_day(selected_plug, selected_date)
+        new_data = get_data_for_day(selected_plug, selected_date)
+        create_data_labels(0, new_data[:12], 3)
+        create_data_labels(12, new_data[12:], 3)
 
     # Create a frame for the control elements
     control_frame = tk.Frame(window)
     control_frame.grid(row=0, column=0, columnspan=8, sticky='ew', padx=5, pady=5)
 
-    # Place the controls in the control frame
+    # Date selection control
     date_label = tk.Label(control_frame, text="Select Date:")
     date_label.pack(side='left', padx=(0, 10))
 
     today = datetime.now()
     calendar = Calendar(control_frame, selectmode='day', year=today.year, month=today.month, day=today.day)
     calendar.pack(side='left', fill='x', expand=True)
+    calendar.bind("<<CalendarSelected>>", refresh_data)
 
+    # Plug selection control
     plug_label = tk.Label(control_frame, text="Select Plug:")
     plug_label.pack(side='left', padx=(10, 0))
 
     plug_selector = ttk.Combobox(control_frame, values=["Plug1", "Plug2", "Plug3", "Plug4", "Plug5"], state="readonly", width=10)
     plug_selector.pack(side='left', padx=(0, 10))
-    plug_selector.set("Plug1")  # Default selection
+    plug_selector.set(plug)  # Set to the current plug
+    plug_selector.bind("<<ComboboxSelected>>", refresh_data)
 
+    # Exit button
     exit_button = tk.Button(control_frame, text="Exit", command=window.destroy)
     exit_button.pack(side='left')
+
+    # Initialize with default data
+    refresh_data()
 
 # Function to create initial data structure
 def create_initial_data():
