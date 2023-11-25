@@ -1,12 +1,14 @@
 import paho.mqtt.client as mqtt
 import tkinter as tk
+from tkinter import ttk
+from tkcalendar import Calendar
 import threading
 import time
 from datetime import datetime, timedelta
 import json
 import schedule
-# from collections import OrderedDict
 import os
+import logging
 
 # Define the MQTT on_connect event handler
 def turn_plug_on_off(plug_num, condition):
@@ -20,8 +22,10 @@ def turn_plug_on_off(plug_num, condition):
     if plug_online_status[plug_num-1]:
         topic = f"house/Room{plug_num}Plug/cmnd/Power"
         mqtt_client.publish(topic, condition)
+        logger.info(f"Plug {plug_num} turned {condition}.")  # Add log message
         update_status(f"Plug {plug_num} turned {condition}.")
     else:
+        logger.info(f"Plug {plug_num} is offline.")  # Add log message
         update_status(f"Plug {plug_num} is offline.")
 
 # Define the MQTT on_connect event handler
@@ -35,6 +39,7 @@ def set_telemetry_period(plug_num, tele_period):
     """
     topic = f"house/Room{plug_num}Plug/cmnd/TelePeriod"
     mqtt_client.publish(topic, tele_period)
+    logger.info(f"Telemetry period for plug {plug_num} set to {tele_period} seconds.")  # Add log message
     update_status(f"Telemetry period for plug {plug_num} set to {tele_period} seconds.")
 
 # Define the MQTT on_connect event handler
@@ -51,6 +56,7 @@ def set_power_on_state(plug_num, state=1):
     """
     topic = f"house/Room{plug_num}Plug/cmnd/PowerOnState"
     mqtt_client.publish(topic, state)
+    logger.info(f"Power On State for plug {plug_num} set to {state}.")  # Add log message
     update_status(f"Power On State for plug {plug_num} set to {state}.")
 
 # Set up the schedules
@@ -76,13 +82,14 @@ def setup_schedules():
     schedule.every().sunday.at(weekend_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekend')
 
     # Schedule data update every hour   
-    schedule.every(10).minutes.do(update_all_plugs).tag('update_data')
+    schedule.every(1).minutes.do(update_all_plugs).tag('update_data')
 
 # Turn on all plugs that are set to sleep in the plugs_to_sleep list
 def wake_up_and_turn_on_plugs():
     for i, plug in enumerate(plugs_to_wake):
         if plug:
             turn_plug_on_off(i+1, "ON")    # Turn on the plug
+            logger.info(f"Plug {i+1} turned on.")  # Add log message
             print(f"Plug {i+1} turned on.")
     update_status("Good Morning - I have turned the heaters on.")
     return # schedule.CancelJob  # This will cancel the job after it's run once
@@ -225,6 +232,7 @@ def update_status(message):
         message (str): The message to display in the status bar.
     """
     status_message.config(text=f"Status: {message}")
+    logger.info(message)  # Add log message
 
 # Night,Night mode turns of heaters until the morning when the schedule turns them back on
 def set_night_mode():
@@ -244,6 +252,7 @@ def wake_up():
     Each plug is identified by its index in the list, starting from 0.
     After turning on a plug, it prints a message indicating which plug was turned on.
     """
+    update_status("Good Morning - I have turned the heaters on.")
     for i, plug in enumerate(plugs_to_wake):
         if plug:
             turn_plug_on_off(i+1, "ON")    # Turn on the plug
@@ -251,7 +260,7 @@ def wake_up():
 
 def function3():
     update_status("Function 3 activated.")
-    display_historical_data("Plug3")   
+    display_historical_data("Plug5")   
     
 # Function for the exit button
 def function4():
@@ -402,30 +411,6 @@ def create_gui():
         btn = tk.Button(func_button_frame, text=text, font=('Helvetica', 10), command=func)
         btn.pack(side="left", expand=True, fill="x", padx=5, pady=2)
 
-# Add data to the smart_plug_data dictionary
-def add_data(plug, kWh, cost, timestamp=None):
-    """
-    Add data for a specific plug to the smart_plug_data dictionary.
-
-    Args:
-        plug (str): The name of the plug.
-        kWh (float): The energy consumption in kilowatt-hours.
-        cost (float): The cost of the energy consumption.
-        timestamp (str, optional): The timestamp of the data entry in ISO 8601 format. 
-            If not provided, the current timestamp will be used.
-
-    Returns:
-        None
-    """
-    if timestamp is None:
-        timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M")
-    else:
-        timestamp = datetime.fromisoformat(timestamp).strftime("%Y-%m-%dT%H:%M")
-    hour = datetime.fromisoformat(timestamp).hour
-    if len(smart_plug_data[plug]) >= HOURS_IN_YEAR:
-        smart_plug_data[plug].pop(0)
-    smart_plug_data[plug].append({"timestamp": timestamp, "hour": hour, "kWh": round(kWh, 2), "Cost": round(cost, 2)})
-
 # Get the data for a specific plug and date
 def get_data_for_day(plug_id, date=None):
     """
@@ -460,6 +445,7 @@ def update_all_plugs():
     None
     """
     # Loop over all plugs
+    update_status("Updating data for all plugs...")
     for i in range(5):
         if energy_data_list[i]:
             # Get the latest energy data for the plug
@@ -471,45 +457,68 @@ def update_all_plugs():
             # Add the data to the smart_plug_data dictionary
             update_record(f"Plug{i+1}", kWh, cost)
     
-    # save_data(file_path, smart_plug_data)  # Save the updated data to the file
+    save_data(file_path, smart_plug_data)  # Save the updated data to the file
+
+
     # print('*************************************************************************************************')
     # print(get_data_for_day('Plug3'))
     # print('*************************************************************************************************')
           
 # spawn a child tkinter window to display historical data trend for a specific plug
 def display_historical_data(plug):
-    # Create a new window
+# def display_data_window(data):
+    # Create a new Tkinter window
     window = tk.Toplevel(root)
-    window.title(f"{plug} Power Data")
+    window.title("Smart Plug Data")
     window.geometry("800x470")
 
-    # Assuming get_data_for_day returns a list of dictionaries
     data = get_data_for_day(plug)
 
-    # Define column headers
-    headers = ['Hour', 'kWh', 'Cost']
+    # Function to create labels for data
+    def create_data_labels(row_start, data_subset, row_offset):
+        # Create column headers
+        for col, text in enumerate(['Hour', 'kWh', 'Cost']):
+            header = tk.Label(window, text=text, font=('Arial', 10, 'bold'))
+            header.grid(row=row_offset, column=col + 4 * (row_start // 12), padx=5, pady=0)
 
-    # Create header labels with smaller font and fixed width, minimal padding
-    for j, header in enumerate(headers):
-        header_label = tk.Label(window, text=header, font=('Arial', 8, 'bold'), width=10)
-        header_label.grid(row=0, column=j, sticky='w', padx=1, pady=0)
+        # Create data labels
+        for i, record in enumerate(data_subset):
+            hour_label_text = f"{(row_start + i) % 24:02d}:00 - {(row_start + i + 1) % 24:02d}:00"
+            hour_label = tk.Label(window, text=hour_label_text, width=15)
+            hour_label.grid(row=row_offset + i + 1, column=0 + 4 * (row_start // 12), padx=5, pady=0)
 
-    # Create a table in the window with smaller font, fixed width for labels, and minimal padding
-    for i, record in enumerate(data):
-        # Format hour labels as '00:00 - 01:00', '01:00 - 02:00', etc.
-        hour_label_text = f"{i:02d}:00 - {i+1:02d}:00"
-        hour_label = tk.Label(window, text=hour_label_text, font=('Arial', 8), width=15)
-        hour_label.grid(row=i+1, column=0, sticky='w', padx=1, pady=0)
+            for j, key in enumerate(['kWh', 'Cost']):
+                cell = tk.Label(window, text=f"{record[key]:.2f}", width=8)
+                cell.grid(row=row_offset + i + 1, column=j + 1 + 4 * (row_start // 12), padx=5, pady=0)
 
-        # kWh and Cost columns
-        for j, key in enumerate(['kWh', 'Cost']):
-            cell_value = record[key]
-            cell = tk.Label(window, text=f"{cell_value:.2f}", font=('Arial', 8), width=10)
-            cell.grid(row=i+1, column=j+1, sticky='w', padx=1, pady=0)
+    # Split data into two halves for two columns
+    first_half, second_half = data[:12], data[12:]
 
-    # Add an exit button in a column to the right of the data table with minimal padding
-    exit_button = tk.Button(window, text="Exit", command=window.destroy, font=('Arial', 8))
-    exit_button.grid(row=0, column=len(headers) + 1, rowspan=len(data) + 1, sticky='ns', padx=1, pady=0)
+    # Create data labels for both halves, offset by 2 rows to leave space for the control frame
+    create_data_labels(0, first_half, 2)
+    create_data_labels(12, second_half, 2)
+
+    # Create a frame for the control elements
+    control_frame = tk.Frame(window)
+    control_frame.grid(row=0, column=0, columnspan=8, sticky='ew', padx=5, pady=5)
+
+    # Place the controls in the control frame
+    date_label = tk.Label(control_frame, text="Select Date:")
+    date_label.pack(side='left', padx=(0, 10))
+
+    today = datetime.now()
+    calendar = Calendar(control_frame, selectmode='day', year=today.year, month=today.month, day=today.day)
+    calendar.pack(side='left', fill='x', expand=True)
+
+    plug_label = tk.Label(control_frame, text="Select Plug:")
+    plug_label.pack(side='left', padx=(10, 0))
+
+    plug_selector = ttk.Combobox(control_frame, values=["Plug1", "Plug2", "Plug3", "Plug4", "Plug5"], state="readonly", width=10)
+    plug_selector.pack(side='left', padx=(0, 10))
+    plug_selector.set("Plug1")  # Default selection
+
+    exit_button = tk.Button(control_frame, text="Exit", command=window.destroy)
+    exit_button.pack(side='left')
 
 # Function to create initial data structure
 def create_initial_data():
@@ -553,6 +562,7 @@ def save_data(file_path, data):
     """
     with open(file_path, 'w') as file:
         json.dump(data, file, indent=4)
+    update_status(f"Data saved to {file_path}") 
 
 # Function to load data from JSON
 def load_data(file_path):
@@ -567,6 +577,7 @@ def load_data(file_path):
     """
     with open(file_path, 'r') as file:
         return json.load(file)
+    update_status(f"Data loaded from {file_path}")
 
 # Function to check for existing data or create new data
 def initialize_data(file_path):
@@ -582,8 +593,10 @@ def initialize_data(file_path):
     """
     if os.path.exists(file_path):
         data_structure = load_data(file_path)
+        update_status(f"Existing Data loaded from {file_path}")
     else:
         data_structure = create_initial_data()
+        update_status("Creating initial data structure...")
         save_data(file_path, data_structure)  # Save the initial data to the file
     return data_structure
 
@@ -610,6 +623,8 @@ def update_record(plug_id, kWh, cost, date=None, hour=None):
 
     # Update the record
     smart_plug_data[plug_id][date][hour] = {"kWh": round(kWh, 2), "Cost": round(cost, 2)}
+    update_status(f"Record updated for {plug_id} on {date} at {hour}:00")
+    update_status(f"Current record: {smart_plug_data[plug_id][date][hour]}")
 
 # Function to get the data for a specific plug and date
 def get_data_for_day(plug_id, date=None):
@@ -627,7 +642,12 @@ def get_data_for_day(plug_id, date=None):
     if date is None:
         date = datetime.now().strftime("%m-%d")
 
+    update_status(f"Data for {plug_id} on {date}: {smart_plug_data[plug_id][date]}")
     return smart_plug_data[plug_id][date]
+
+# Add a logging function for this application
+logging.basicConfig(filename='power_logger.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s %(name)s %(message)s')
+logger=logging.getLogger(__name__)
 
 # MQTT Broker settings
 MQTT_BROKER = "broker.hivemq.com"
@@ -679,9 +699,6 @@ TELEMETRY_PERIOD = 10   # In seconds
 # File path for the JSON file
 file_path = "smart_plug_data.json"
 
-# Initialize the data structure for storing historical power consumption data
-smart_plug_data = initialize_data(file_path)
-
 # Create the GUI
 create_gui()
 
@@ -690,6 +707,12 @@ status_frame = tk.Frame(root, borderwidth=1, relief="sunken")
 status_frame.place(relx=0, rely=0.95, relwidth=1, relheight=0.05)
 status_message = tk.Label(status_frame, text="Status: Ready", bg="white", anchor="w", font=('Helvetica', 8))
 status_message.pack(side="left", fill="both", expand=True)
+
+# Add a log message
+update_status("Application started.")
+
+# Initialize the data structure for storing historical power consumption data
+smart_plug_data = initialize_data(file_path)
 
 # Initiate MQTT Client
 mqtt_client = mqtt.Client('Power Logger')
