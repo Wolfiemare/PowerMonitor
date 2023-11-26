@@ -89,8 +89,8 @@ def wake_up_and_turn_on_plugs():
     for i, plug in enumerate(plugs_to_wake):
         if plug:
             turn_plug_on_off(i+1, "ON")    # Turn on the plug
-            logger.info(f"Plug {i+1} turned on.")  # Add log message
-            print(f"Plug {i+1} turned on.")
+            #logger.info(f"Plug {i+1} turned on.")  # Add log message
+            update_status(f"Plug {i+1} turned on.")
     update_status("Good Morning - I have turned the heaters on.")
     return # schedule.CancelJob  # This will cancel the job after it's run once
 
@@ -104,7 +104,7 @@ def on_connect(client, userdata, flags, rc):
     :param flags: Response flags sent by the broker.
     :param rc: The connection result code.
     """
-    print("Connected with result code "+str(rc))
+    #print("Connected with result code "+str(rc))
     update_status("Connected with result code "+str(rc))
 
     client.subscribe("house/#")  # Subscribe to all topics within 'house/'
@@ -130,11 +130,11 @@ def on_message(client, userdata, msg):
     try:
         payload = msg.payload.decode('utf-8')   # Convert the payload to a string
     except UnicodeDecodeError:
-        print("Error: Payload is not UTF-8 encoded")
+        update_status("Error: Payload is not UTF-8 encoded")
         return  
 
-    print(f"Topic: {topic} \nMessage: {payload}")
-    print("")
+    update_status(f"Topic: {topic} \nMessage: {payload}")
+    # print("")
     # update_status(f"Topic: {topic} Message: {payload}")
 
     if 'SENSOR' in topic:
@@ -154,7 +154,7 @@ def on_message(client, userdata, msg):
     # Check if the plug is online
     if 'LWT' in topic:
         plug_num_str = topic.split('/')[1].replace('Room', '').replace('Plug', '')
-        print(plug_num_str)
+        #print(plug_num_str)
 
         if plug_num_str.isdigit():
             plug_num = int(plug_num_str)
@@ -170,7 +170,7 @@ def on_message(client, userdata, msg):
     # Check if the plug is providing power or not (i.e. if it is on or off)
     if 'STATE' in topic:
         plug_num_str = topic.split('/')[1].replace('Room', '').replace('Plug', '')
-        print(plug_num_str)
+        #print(plug_num_str)
 
         if plug_num_str.isdigit():
             plug_num = int(plug_num_str)
@@ -190,7 +190,7 @@ def on_message(client, userdata, msg):
     # Check if the plug has been turn on or off
     if 'RESULT' in topic:
         plug_num_str = topic.split('/')[1].replace('Room', '').replace('Plug', '')
-        print(plug_num_str)
+        #print(plug_num_str)
 
         if plug_num_str.isdigit():
             plug_num = int(plug_num_str)     
@@ -205,7 +205,7 @@ def on_message(client, userdata, msg):
                     #print(f"Current power status list: {power_status_list}")
                 
             except json.JSONDecodeError:
-                print("Error: Payload is not valid JSON")
+                update_status("Error: Payload is not valid JSON")
 
 # Define the MQTT on_publish event handler
 def on_publish(client, userdata, mid):
@@ -220,7 +220,7 @@ def on_publish(client, userdata, mid):
     Returns:
     None
     """
-    print("Message published with id "+str(mid))
+    #print("Message published with id "+str(mid))
     update_status("Message published with id "+str(mid))
 
 # Function to update the status bar
@@ -240,7 +240,7 @@ def set_night_mode():
     for i, plug in enumerate(plugs_to_sleep):
         if plug:
             turn_plug_on_off(i+1, "OFF")    # Turn off the plug
-            print(f"Plug {i+1} turned off.")
+            update_status(f"Plug {i+1} turned off.")
     update_status("Plugs turn off ready for bed.")
 
 # Wake up mode turns on all plugs that are set to wake in the plugs_to_wake list
@@ -256,7 +256,7 @@ def wake_up():
     for i, plug in enumerate(plugs_to_wake):
         if plug:
             turn_plug_on_off(i+1, "ON")    # Turn on the plug
-            print(f"Plug {i+1} turned on.")
+            update_status(f"Plug {i+1} turned on.")
 
 def function3():
     update_status("Function 3 activated.")
@@ -282,7 +282,7 @@ def fetch_data():
         # Schedule the `update_data_field` to run on the main thread
         root.after(0, update_data_fields)
         schedule.run_pending()
-        time.sleep(2)  # Simulate delay for fetching data
+        time.sleep(1)  # Simulate delay for fetching data
 
 # Function to update the data fields with data from energy_data_list
 def update_data_fields():
@@ -406,7 +406,7 @@ def create_gui():
 
     # Creating function buttons and assigning commands
     func_buttons = [set_night_mode, wake_up, function3, function4]  # function4 is the exit function
-    button_texts = ["Night, Night", "Wake Up", "Function 3", "Exit"]
+    button_texts = ["Night, Night", "Wake Up", "Historical Data", "Exit"]
     for i, (func, text) in enumerate(zip(func_buttons, button_texts)):
         btn = tk.Button(func_button_frame, text=text, font=('Helvetica', 10), command=func)
         btn.pack(side="left", expand=True, fill="x", padx=5, pady=2)
@@ -474,8 +474,8 @@ def display_historical_data(plug):
     def create_headers(row_offset):
         headers = ['Hour', 'kWh', 'Cost']
         for idx, header in enumerate(headers):
-            tk.Label(window, text=header, font=('Arial', 10, 'bold')).grid(row=row_offset, column=idx, padx=5, pady=0)
-            tk.Label(window, text=header, font=('Arial', 10, 'bold')).grid(row=row_offset, column=idx+4, padx=5, pady=0)
+            tk.Label(window, text=header, font=('Helvetica', 10, 'bold')).grid(row=row_offset, column=idx, padx=5, pady=0)
+            tk.Label(window, text=header, font=('Helvetica', 10, 'bold')).grid(row=row_offset, column=idx+4, padx=5, pady=0)
 
     # Function to create labels for data
     def create_data_labels(row_start, data_subset, row_offset):
@@ -502,6 +502,7 @@ def display_historical_data(plug):
     def refresh_data(*args):
         clear_data_labels()
         selected_date = calendar.get_date()
+        print(selected_date)
         selected_date = datetime.strptime(selected_date, "%m/%d/%y").strftime("%m-%d")
 
         selected_plug = plug_selector.get() if plug_selector.get() else plug
