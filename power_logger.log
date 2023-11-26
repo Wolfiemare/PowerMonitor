@@ -14947,3 +14947,65 @@ Message: {"Time":"2023-11-26T10:49:46","ENERGY":{"TotalStartTime":"2023-11-16T15
 2023-11-26 09:50:03,633 DEBUG schedule Deleting all jobs tagged "weekend"
 2023-11-26 09:50:03,633 DEBUG schedule Deleting all jobs tagged "update_data"
 2023-11-26 09:50:06,266 INFO __main__ Connected with result code 0
+2023-11-26 09:50:18,799 INFO __main__ Connected with result code 0
+2023-11-26 09:50:28,256 INFO __main__ Connected with result code 0
+2023-11-26 09:50:34,571 INFO __main__ Connected with result code 0
+2023-11-26 09:50:39,785 INFO __main__ Connected with result code 0
+2023-11-26 09:50:47,184 INFO __main__ Connected with result code 0
+2023-11-26 09:51:03,885 DEBUG schedule Running job Job(interval=1, unit=minutes, do=update_all_plugs, args=(), kwargs={})
+2023-11-26 09:51:03,887 INFO __main__ Updating data for all plugs...
+2023-11-26 09:51:04,609 INFO __main__ Data saved to smart_plug_data.json
+2023-11-26 09:51:08,367 INFO __main__ Connected with result code 0
+2023-11-26 09:51:17,746 INFO __main__ Connected with result code 0
+2023-11-26 09:51:21,202 INFO __main__ Connected with result code 0
+2023-11-26 09:51:21,308 INFO __main__ Topic: house/Room2Plug/tele/LWT 
+Message: Online
+2023-11-26 09:51:21,309 INFO __main__ Plug 2 is online.
+2023-11-26 09:51:21,309 INFO __main__ Telemetry period for plug 2 set to 10 seconds.
+2023-11-26 09:51:21,310 INFO __main__ Telemetry period for plug 2 set to 10 seconds.
+2023-11-26 09:51:21,310 INFO __main__ Power On State for plug 2 set to 1.
+2023-11-26 09:51:21,310 INFO __main__ Power On State for plug 2 set to 1.
+2023-11-26 09:51:21,311 INFO __main__ Topic: house/Room1Plug/tele/LWT 
+Message: Online
+2023-11-26 09:51:21,312 INFO __main__ Plug 1 is online.
+2023-11-26 09:51:21,312 INFO __main__ Telemetry period for plug 1 set to 10 seconds.
+2023-11-26 09:51:21,312 INFO __main__ Telemetry period for plug 1 set to 10 seconds.
+2023-11-26 09:51:21,313 INFO __main__ Power On State for plug 1 set to 1.
+2023-11-26 09:51:21,313 INFO __main__ Power On State for plug 1 set to 1.
+2023-11-26 09:51:21,314 INFO __main__ Message published with id 10
+2023-11-26 09:51:21,314 INFO __main__ Message published with id 11
+2023-11-26 09:51:21,315 INFO __main__ Message published with id 12
+2023-11-26 09:51:21,315 INFO __main__ Message published with id 13
+2023-11-26 09:51:21,316 INFO __main__ Topic: house/Room4Plug/tele/LWT 
+Message: Online
+2023-11-26 09:51:21,317 INFO __main__ Plug 4 is online.
+2023-11-26 09:51:21,317 INFO __main__ Telemetry period for plug 4 set to 10 seconds.
+2023-11-26 09:51:21,317 INFO __main__ Telemetry period for plug 4 set to 10 seconds.
+2023-11-26 09:51:21,317 INFO __main__ Power On State for plug 4 set to 1.
+2023-11-26 09:51:21,317 INFO __main__ Power On State for plug 4 set to 1.
+2023-11-26 09:51:21,318 INFO __main__ Topic: house/ground/maindoor/ 
+Message: test
+2023-11-26 09:51:21,318 INFO __main__ Message published with id 14
+2023-11-26 09:51:21,319 INFO __main__ Message published with id 15
+2023-11-26 09:51:21,319 INFO __main__ Topic: house/Room3Plug/tele/LWT 
+Message: Online
+2023-11-26 09:51:21,319 INFO __main__ Plug 3 is online.
+2023-11-26 09:51:21,320 INFO __main__ Telemetry period for plug 3 set to 10 seconds.
+2023-11-26 09:51:21,320 INFO __main__ Telemetry period for plug 3 set to 10 seconds.
+2023-11-26 09:51:21,320 INFO __main__ Power On State for plug 3 set to 1.
+2023-11-26 09:51:21,321 INFO __main__ Power On State for plug 3 set to 1.
+2023-11-26 09:51:21,321 INFO __main__ Topic: house/1st/study/tmp 
+Message: test
+2023-11-26 09:51:21,321 INFO __main__ Message published with id 16
+2023-11-26 09:51:21,322 INFO __main__ Message published with id 17
+2023-11-26 09:51:21,322 INFO __main__ Topic: house/ground/study/temp 
+Message: test
+2023-11-26 09:51:21,323 INFO __main__ Topic: house/ground/maindoor/temp 
+Message: test
+2023-11-26 09:51:21,323 INFO __main__ Topic: house/ground/maindoor 
+Message: test
+2023-11-26 09:51:21,323 INFO __main__ Topic: house/1st/study/temp 
+Message: test
+2023-11-26 09:51:21,324 INFO __main__ Topic: house/Room5Plug/tele/LWT 
+Message: Offline
+2023-11-26 09:51:21,324 INFO __main__ Plug 5 is offline.
