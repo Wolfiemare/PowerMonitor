@@ -14941,3 +14941,9 @@ Message: {"Time":"2023-11-26T10:49:46","Uptime":"9T19:29:44","UptimeSec":847784,
 Message: {"Time":"2023-11-26T10:49:46","ENERGY":{"TotalStartTime":"2023-11-16T15:05:24","Total":103.223,"Yesterday":12.274,"Today":6.234,"Period":0,"Power":5,"ApparentPower":5,"ReactivePower":0,"Factor":1.00,"Voltage":239,"Current":0.020}}
 2023-11-26 09:49:45,527 INFO __main__ Plug 3 data received.
 2023-11-26 09:49:49,856 INFO __main__ Data for Plug4 on 11-25: [{'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 1.53, 'Cost': 0.44}, {'kWh': 1.53, 'Cost': 0.44}, {'kWh': 1.59, 'Cost': 0.46}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}, {'kWh': 0.0, 'Cost': 0.0}]
+2023-11-26 09:49:58,982 INFO __main__ Application started.
+2023-11-26 09:49:59,032 INFO __main__ Existing Data loaded from smart_plug_data.json
+2023-11-26 09:50:03,633 DEBUG schedule Deleting all jobs tagged "weekday"
+2023-11-26 09:50:03,633 DEBUG schedule Deleting all jobs tagged "weekend"
+2023-11-26 09:50:03,633 DEBUG schedule Deleting all jobs tagged "update_data"
+2023-11-26 09:50:06,266 INFO __main__ Connected with result code 0
