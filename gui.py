@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 import tkinter as tk
 from tkinter import ttk
-from tkcalendar import Calendar
+from tkcalendar import DateEntry
 import threading
 import time
 from datetime import datetime, timedelta
@@ -464,6 +464,26 @@ def update_all_plugs():
     # print(get_data_for_day('Plug3'))
     # print('*************************************************************************************************')
           
+# Function to convert date to mm-yy format
+def convert_date_or_today(date_str):
+    """
+    Convert a date string to the mm-dd format or return today's date in mm-dd format.
+
+    Args:
+        date_str (str): The date string to be converted.
+
+    Returns:
+        str: The converted date string in the mm-dd format or today's date in mm-dd format if the input is not in the expected format.
+    """
+    # Check if the date string is in the expected format
+    if len(date_str) != 10 or date_str[2] != '-' or date_str[5] != '-':
+        # If not, return today's date in mm-dd format
+        return datetime.now().strftime('%m-%d')
+
+    # Use string slicing to rearrange the date format
+    return date_str[3:5] + '-' + date_str[0:2]
+
+# Function to display historical data
 def display_historical_data(plug):
     # Create a new Tkinter window
     window = tk.Toplevel(root)
@@ -501,12 +521,12 @@ def display_historical_data(plug):
     # Callback to refresh the data display
     def refresh_data(*args):
         clear_data_labels()
-        selected_date = calendar.get_date()
-        print(selected_date)
-        selected_date = datetime.strptime(selected_date, "%m/%d/%y").strftime("%m-%d")
+        selected_date = date_entry.get()
+        # print(selected_date)
+        selected_date = convert_date_or_today(selected_date)
+        # print(selected_date)
 
         selected_plug = plug_selector.get() if plug_selector.get() else plug
-        # new_data = get_data_for_day(selected_plug, selected_date)
         new_data = get_data_for_day(selected_plug, selected_date)
         create_data_labels(0, new_data[:12], 3)
         create_data_labels(12, new_data[12:], 3)
@@ -520,9 +540,14 @@ def display_historical_data(plug):
     date_label.pack(side='left', padx=(0, 10))
 
     today = datetime.now()
-    calendar = Calendar(control_frame, selectmode='day', year=today.year, month=today.month, day=today.day)
-    calendar.pack(side='left', fill='x', expand=True)
-    calendar.bind("<<CalendarSelected>>", refresh_data)
+    date_entry = DateEntry(control_frame, width=12, background='darkblue',
+                    foreground='white', borderwidth=2, date_pattern='dd-mm-y')
+    date_entry.pack(side='left', padx=(0, 10))
+    date_entry.set_date(today)  # Set default date to today
+
+    date_entry.bind("<<DateEntrySelected>>", refresh_data)
+    selected_date = date_entry.get()
+    print(selected_date)
 
     # Plug selection control
     plug_label = tk.Label(control_frame, text="Select Plug:")
