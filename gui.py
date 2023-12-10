@@ -69,6 +69,8 @@ def setup_schedules():
     schedule.clear('weekday')
     schedule.clear('weekend')
     schedule.clear('update_data')
+    schedule.clear('curfew')
+    schedule.clear('update_daily_data')
 
     # Schedule for weekdays
     schedule.every().monday.at(weekday_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekday')
@@ -81,8 +83,14 @@ def setup_schedules():
     schedule.every().saturday.at(weekend_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekend')
     schedule.every().sunday.at(weekend_wake_up_time).do(wake_up_and_turn_on_plugs).tag('weekend')
 
+    # Schedule curfew mode to turn off plugs at 17:00 every day
+    schedule.every().day.at(CURFEW_TIME).do(set_curfew_mode).tag('curfew')
+
     # Schedule data update every hour   
     schedule.every(1).minutes.do(update_all_plugs).tag('update_data')
+
+    # Schedule daily data update every day
+    schedule.every().day.at(DAILY_DATA_RECORD_TIME).do(update_all_daily_plugs_records).tag('update_daily_data')
 
 # Turn on all plugs that are set to sleep in the plugs_to_sleep list
 def wake_up_and_turn_on_plugs():
@@ -185,7 +193,8 @@ def on_message(client, userdata, msg):
                 #print(f"Current power status list: {power_status_list}")
                 
             except json.JSONDecodeError:
-                print("Error: Payload is not valid JSON")
+                #print("Error: Payload is not valid JSON")
+                update_status("Error: Payload is not valid JSON")
 
     # Check if the plug has been turn on or off
     if 'RESULT' in topic:
@@ -242,6 +251,15 @@ def set_night_mode():
             turn_plug_on_off(i+1, "OFF")    # Turn off the plug
             update_status(f"Plug {i+1} turned off.")
     update_status("Plugs turn off ready for bed.")
+
+# Curfew mode turns of heaters at the curfew time
+def set_curfew_mode():
+    # turn off all plugs that are set to sleep in the plugs_to_sleep list
+    for i, plug in enumerate(plugs_to_curfew):
+        if plug:
+            turn_plug_on_off(i+1, "OFF")    # Turn off the plug
+            update_status(f"Plug {i+1} turned off.")
+    update_status("Plugs turned off at curfew.")
 
 # Wake up mode turns on all plugs that are set to wake in the plugs_to_wake list
 def wake_up():
@@ -408,7 +426,7 @@ def create_gui():
     func_buttons = [set_night_mode, wake_up, function3, function4]  # function4 is the exit function
     button_texts = ["Night, Night", "Wake Up", "Historical Data", "Exit"]
     for i, (func, text) in enumerate(zip(func_buttons, button_texts)):
-        btn = tk.Button(func_button_frame, text=text, font=('Helvetica', 10), command=func)
+        btn = tk.Button(func_button_frame, text=text, font=('Helvetica', 18), command=func)
         btn.pack(side="left", expand=True, fill="x", padx=5, pady=2)
 
 # Get the data for a specific plug and date
@@ -459,10 +477,22 @@ def update_all_plugs():
     
     save_data(file_path, smart_plug_data)  # Save the updated data to the file
 
+# Update the historical daily data for all plugs
+def update_all_daily_plugs_records():
+    # Loop over all plugs
+    update_status("Updating daily data for all plugs...")
+    for i in range(5):
+        if energy_data_list[i]:
+            # Get the latest energy data for the plug
+            latest_energy_data = energy_data_list[i][-1]
+            # Get the kWh and cost for yesterday
+            kWh = round(latest_energy_data['Yesterday'], 2)
+            cost = kWh * KWH_COST
 
-    # print('*************************************************************************************************')
-    # print(get_data_for_day('Plug3'))
-    # print('*************************************************************************************************')
+            # Add the data to the smart_plug_data dictionary
+            update_daily_record(f"Plug{i+1}", kWh, cost)
+    
+    save_data(daily_file_path, daily_smart_plug_data)  # Save the updated data to the file
           
 # Function to convert date to mm-yy format
 def convert_date_or_today(date_str):
@@ -547,7 +577,7 @@ def display_historical_data(plug):
 
     date_entry.bind("<<DateEntrySelected>>", refresh_data)
     selected_date = date_entry.get()
-    print(selected_date)
+    # print(selected_date)
 
     # Plug selection control
     plug_label = tk.Label(control_frame, text="Select Plug:")
@@ -589,6 +619,34 @@ def create_initial_data():
         date_str = start_date.strftime("%m-%d")
         for plug in smart_plugs:
             data_structure[plug][date_str] = [{"kWh": 0.00, "Cost": 0.00} for _ in range(24)]
+        start_date += delta
+
+    return data_structure
+
+# Function to create initial data structure
+def create_initial_daily_data():
+    """
+    Creates an initial data structure for storing daily power consumption data.
+
+    Returns:
+        dict: A dictionary containing the initial data structure.
+            The keys are the names of the smart plugs, and the values are dictionaries.
+            Each inner dictionary represents the power consumption data for a specific smart plug.
+            The keys of the inner dictionary are the dates in the format "mm-dd",
+            and the values are dictionaries representing the power consumption data for each day.
+            Each day dictionary contains the keys "kWh" and "Cost" with initial values of 0.00.
+    """
+    smart_plugs = ["Plug1", "Plug2", "Plug3", "Plug4", "Plug5"]
+    data_structure = {plug: {} for plug in smart_plugs}
+
+    start_date = datetime(2024, 1, 1)
+    end_date = datetime(2024, 12, 31)
+    delta = timedelta(days=1)
+
+    while start_date <= end_date:
+        date_str = start_date.strftime("%m-%d")
+        for plug in smart_plugs:
+            data_structure[plug][date_str] = {"kWh": 0.00, "Cost": 0.00}
         start_date += delta
 
     return data_structure
@@ -645,6 +703,27 @@ def initialize_data(file_path):
         save_data(file_path, data_structure)  # Save the initial data to the file
     return data_structure
 
+# Function to check for existing data or create new data
+def initialize_daily_data(file_path):
+    """
+    Initializes the daily data structure by either loading it from an existing file or creating a new one.
+
+    Args:
+        file_path (str): The path to the file containing the data structure.
+
+    Returns:
+        dict: The initialized data structure.
+
+    """
+    if os.path.exists(file_path):
+        data_structure = load_data(file_path)
+        update_status(f"Existing Data loaded from {file_path}")
+    else:
+        data_structure = create_initial_daily_data()
+        update_status("Creating initial daily data structure...")
+        save_data(file_path, data_structure)  # Save the initial data to the file
+    return data_structure
+
 # Function to update the record for a specific smart plug
 def update_record(plug_id, kWh, cost, date=None, hour=None):
     """
@@ -670,6 +749,33 @@ def update_record(plug_id, kWh, cost, date=None, hour=None):
     smart_plug_data[plug_id][date][hour] = {"kWh": round(kWh, 2), "Cost": round(cost, 2)}
     update_status(f"Record updated for {plug_id} on {date} at {hour}:00")
     update_status(f"Current record: {smart_plug_data[plug_id][date][hour]}")
+
+# Function to update daily data
+def update_daily_record(plug_id, kWh, Cost, month=None, day=None):
+    """
+    Update the daily record for a specific plug in the data structure.
+
+    Args:
+        data_structure (dict): The data structure containing the plug data.
+        plug_id (str): The ID of the plug.
+        kWh (float): The energy consumption in kilowatt-hours.
+        Cost (float): The cost of the energy consumption.
+        month (int, optional): The month of the data. Defaults to None.
+        day (int, optional): The day of the data. Defaults to None.
+
+    Returns:
+        None
+    """
+    if month is None or day is None:
+        yesterday = datetime.today() - timedelta(days=1)
+        month, day = yesterday.month, yesterday.day
+
+    date_str = f"{month:02d}-{day:02d}"
+
+    # Update the record
+    daily_smart_plug_data[plug_id][date_str] = {"kWh": round(kWh, 2), "Cost": round(Cost, 2)}
+    update_status(f"Daily Record updated for {plug_id} on {date_str}")
+    update_status(f"Daily Current record: {daily_smart_plug_data[plug_id][date_str]}")
 
 # Function to get the data for a specific plug and date
 def get_data_for_day(plug_id, date=None):
@@ -720,6 +826,8 @@ plugs_to_sleep = [True, True, True, True, False]   # SHould a plug turn off when
 
 plugs_to_wake = [False, True, True, True, False]   # SHould a plug turn on when the Wake schedule runs?
 
+plugs_to_curfew = [True, False, False, False, False]   # SHould a plug turn off when the Curfew schedule runs?
+
 # Define the initial online status for the 6 plugs as False
 plug_online_status = [False] * 5
 
@@ -741,8 +849,14 @@ KWH_COST = 0.2889
 # Define the telemetry period (in seconds)
 TELEMETRY_PERIOD = 10   # In seconds
 
+CURFEW_TIME = '17:00'   # Curfew time
+DAILY_DATA_RECORD_TIME = '03:00'   # Time to record daily data (Yesterday's Data)
+
 # File path for the JSON file
 file_path = "smart_plug_data.json"
+
+# File path for the daily data JSON file
+daily_file_path = "smart_plug_daily_data.json"
 
 # Create the GUI
 create_gui()
@@ -758,6 +872,9 @@ update_status("Application started.")
 
 # Initialize the data structure for storing historical power consumption data
 smart_plug_data = initialize_data(file_path)
+
+# Initialize the daily data structure for storing historical daily power consumption data
+daily_smart_plug_data = initialize_daily_data(daily_file_path)
 
 # Initiate MQTT Client
 mqtt_client = mqtt.Client('Power Logger')
