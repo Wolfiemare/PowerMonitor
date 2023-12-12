@@ -1,3 +1,8 @@
+# How to set the Smartplug Timezone from the web console
+# Backlog Latitude 51.4893335; Longitude -0.14405508452768728; TimeDST 0,0,3,1,1,60; TimeSTD 0,0,10,1,1,0; TimeZone 99
+# see https://tasmotatimezone.com/ for more info
+#
+#Smart Plug 
 import paho.mqtt.client as mqtt
 import tkinter as tk
 from tkinter import ttk
@@ -28,7 +33,7 @@ def turn_plug_on_off(plug_num, condition):
         logger.info(f"Plug {plug_num} is offline.")  # Add log message
         update_status(f"Plug {plug_num} is offline.")
 
-# Define the MQTT on_connect event handler
+# Set the telemetry period for a specific plug
 def set_telemetry_period(plug_num, tele_period):
     """
     Sets the telemetry period for a specific plug.
@@ -157,7 +162,8 @@ def on_message(client, userdata, msg):
 
             # Add the energy data to the list of dictionaries based on the plug number
             energy_data_list[plug_num-1].append(energy_data)
-            #print(energy_data_list)
+            # print("-------------------------------------------------------------------------------------------------------------------------------")
+            # print(energy_data_list)
 
     # Check if the plug is online
     if 'LWT' in topic:
@@ -276,6 +282,7 @@ def wake_up():
             turn_plug_on_off(i+1, "ON")    # Turn on the plug
             update_status(f"Plug {i+1} turned on.")
 
+# function to display historical data
 def function3():
     update_status("Function 3 activated.")
     display_historical_data("Plug5")   

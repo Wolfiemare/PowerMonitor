@@ -1,9 +1,42 @@
 Plug Description:   Office Heater Plug
-IP Address:         192.168.68.105
+IP Address:         192.168.68.106
 Host():             broker.hivermq.com
 Port:               1883
 Client              Room1-Heater-Plug
 Topic:              Room1Plug
 Full Topic:         house/%topic%/%prefix%
 
+Plug Description:   Hallway Plug
+IP Address:         192.168.68.104
+Host():             broker.hivermq.com
+Port:               1883
+Client              Room2-Heater-Plug
+Topic:              Room2Plug
+Full Topic:         house/%topic%/%prefix%
 
+Plug Description:   Lounge Plug
+IP Address:         192.168.68.110
+Host():             broker.hivermq.com
+Port:               1883
+Client              Room3-Heater-Plug
+Topic:              Room3Plug
+Full Topic:         house/%topic%/%prefix%
+
+Plug Description:   Upstairs Hall Plug
+IP Address:         192.168.68.105
+Host():             broker.hivermq.com
+Port:               1883
+Client              Room4-Heater-Plug
+Topic:              Room4Plug
+Full Topic:         house/%topic%/%prefix%
+
+Plug Description:   Bedroom Plug
+IP Address:         192.168.68.102
+Host():             broker.hivermq.com
+Port:               1883
+Client              Room5-Heater-Plug
+Topic:              Room5Plug
+Full Topic:         house/%topic%/%prefix%
+
+Use web console to set Timezone
+Backlog Latitude 51.4893335; Longitude -0.14405508452768728; TimeDST 0,0,3,1,1,60; TimeSTD 0,0,10,1,1,0; TimeZone 99
