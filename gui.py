@@ -312,7 +312,7 @@ def wake_up():
 # function to display historical data
 def function3():
     update_status("Function 3 activated.")
-    display_historical_data("Plug5")   
+    display_historical_data("Plug3")   
     
 # Function for the exit button
 def function4():
@@ -549,6 +549,10 @@ def convert_date_or_today(date_str):
 
 # Function to display historical data
 def display_historical_data(plug):
+
+    total_kWh = 0.00
+    total_cost = 0.00
+
     # Create a new Tkinter window
     window = tk.Toplevel(root)
     window.title("Smart Plug Data")
@@ -576,6 +580,8 @@ def display_historical_data(plug):
                 cell = tk.Label(window, text=f"{record[key]:.2f}", width=8)
                 cell.grid(row=row_offset + i, column=j + 1 + 4 * (row_start // 12), padx=5, pady=0)
 
+
+
     # Clear the data labels before updating
     def clear_data_labels():
         for widget in window.grid_slaves():
@@ -591,7 +597,8 @@ def display_historical_data(plug):
         # print(selected_date)
 
         selected_plug = plug_selector.get() if plug_selector.get() else plug
-        new_data = get_data_for_day(selected_plug, selected_date)
+        new_data, total_kWh, total_cost  = get_data_for_day(selected_plug, selected_date)
+        
         create_data_labels(0, new_data[:12], 3)
         create_data_labels(12, new_data[12:], 3)
 
@@ -830,7 +837,56 @@ def get_data_for_day(plug_id, date=None):
         date = datetime.now().strftime("%m-%d")
 
     update_status(f"Data for {plug_id} on {date}: {smart_plug_data[plug_id][date]}")
-    return smart_plug_data[plug_id][date]
+    print(f"Data for {plug_id} on {date}: {smart_plug_data[plug_id][date]}")
+    hourly_data, total_kwh, total_cost = calculate_hourly_values(smart_plug_data[plug_id][date])
+
+    return hourly_data, total_kwh, total_cost
+
+# Return a total kWh and Cost for a specific plug and date
+def calculate_total_kWh_and_Cost(hourly_data):
+    """
+    Calculates the total kWh and cost from the given hourly data.
+
+    Args:
+        hourly_data (list): A list of dictionaries containing hourly data.
+
+    Returns:
+        tuple: A tuple containing the total kWh and total cost.
+    """
+    total_kWh = sum(entry['kWh'] for entry in hourly_data)
+    total_Cost = sum(entry['Cost'] for entry in hourly_data)
+    return total_kWh, total_Cost
+
+# Function to create hourly data from cumulative data
+def calculate_hourly_values(cumulative_data):
+    """
+    Calculate the hourly values of kWh and Cost based on cumulative data.
+
+    Args:
+        cumulative_data (list): A list of dictionaries containing cumulative data for each hour.
+
+    Returns:
+        list: A list of dictionaries containing hourly values of kWh and Cost.
+    """
+    hourly_data = []
+    previous_entry = {'kWh': 0.0, 'Cost': 0.0}
+
+    for current_entry in cumulative_data:
+        if current_entry['kWh'] >= previous_entry['kWh'] and current_entry['Cost'] >= previous_entry['Cost']:
+            hourly_kWh = current_entry['kWh'] - previous_entry['kWh']
+            hourly_Cost = current_entry['Cost'] - previous_entry['Cost']
+        else:
+            # Handle the case where the current hour's data is less than the previous hour's data
+            hourly_kWh = 0.0
+            hourly_Cost = 0.0
+
+        hourly_data.append({'kWh': hourly_kWh, 'Cost': hourly_Cost})
+        previous_entry = current_entry
+
+    total_kwh, total_cost = calculate_total_kWh_and_Cost(hourly_data)
+
+    return hourly_data, total_kwh, total_cost
+
 
 # Add a logging function for this application
 logging.basicConfig(filename='power_logger.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s %(name)s %(message)s')
