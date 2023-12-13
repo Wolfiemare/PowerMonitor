@@ -445,11 +445,11 @@ def create_gui():
 
         # Creating buttons and assigning commands
         # ON button
-        on_button = tk.Button(button_frame, text="ON", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "ON"), bg="dark grey")
+        on_button = tk.Button(button_frame, text="ON", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "ON"), bg="Green")
         on_button.pack(side="left", fill="both", expand=True, padx=2)
 
         # OFF button
-        off_button = tk.Button(button_frame, text="OFF", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "OFF"), bg="dark grey")
+        off_button = tk.Button(button_frame, text="OFF", font=('Helvetica', 10), command=lambda plug_number=i+1: turn_plug_on_off(plug_number, "OFF"), bg="Red")
         off_button.pack(side="left", fill="both", expand=True, padx=2)
 
     # Function buttons area
@@ -600,12 +600,13 @@ def display_historical_data(plug):
     control_frame.grid(row=0, column=0, columnspan=8, sticky='ew', padx=5, pady=5)
 
     # Date selection control
-    date_label = tk.Label(control_frame, text="Select Date:")
+    date_label = tk.Label(control_frame, text="Date:", font=('Helvetica', 20))
     date_label.pack(side='left', padx=(0, 10))
 
     today = datetime.now()
     date_entry = DateEntry(control_frame, width=12, background='darkblue',
-                    foreground='white', borderwidth=2, date_pattern='dd-mm-y')
+                          foreground='white', borderwidth=2, date_pattern='dd-mm-y')
+    date_entry.configure(font=('Helvetica', 20))
     date_entry.pack(side='left', padx=(0, 10))
     date_entry.set_date(today)  # Set default date to today
 
@@ -614,16 +615,17 @@ def display_historical_data(plug):
     # print(selected_date)
 
     # Plug selection control
-    plug_label = tk.Label(control_frame, text="Select Plug:")
+    plug_label = tk.Label(control_frame, text="Plug:", font=('Helvetica', 20))
     plug_label.pack(side='left', padx=(10, 0))
 
     plug_selector = ttk.Combobox(control_frame, values=["Plug1", "Plug2", "Plug3", "Plug4", "Plug5"], state="readonly", width=10)
+    plug_selector.configure(font=('Helvetica', 20))  # Set the font to 'Helvetica' with size 12
     plug_selector.pack(side='left', padx=(0, 10))
     plug_selector.set(plug)  # Set to the current plug
     plug_selector.bind("<<ComboboxSelected>>", refresh_data)
 
     # Exit button
-    exit_button = tk.Button(control_frame, text="Exit", command=window.destroy)
+    exit_button = tk.Button(control_frame, text="  Exit  ", command=window.destroy, font=('Helvetica', 20))
     exit_button.pack(side='left')
 
     # Initialize with default data
