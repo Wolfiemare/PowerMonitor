@@ -91,6 +91,9 @@ def setup_schedules():
     # Schedule curfew mode to turn off plugs at 17:00 every day
     schedule.every().day.at(CURFEW_TIME).do(set_curfew_mode).tag('curfew')
 
+    # Schedule evening mode to turn on plugs every evening
+    schedule.every().day.at(evening_on_time).do(set_afternoon_mode).tag('evening')
+
     # Schedule data update every hour   
     schedule.every(1).minutes.do(update_all_plugs).tag('update_data')
 
@@ -99,12 +102,22 @@ def setup_schedules():
 
 # Turn on all plugs that are set to sleep in the plugs_to_sleep list
 def wake_up_and_turn_on_plugs():
+    """
+    Turns on the specified plugs in the morning and turns off other plugs.
+    """
     for i, plug in enumerate(plugs_to_wake):
         if plug:
             turn_plug_on_off(i+1, "ON")    # Turn on the plug
             #logger.info(f"Plug {i+1} turned on.")  # Add log message
             update_status(f"Plug {i+1} turned on.")
-    update_status("Good Morning - I have turned the heaters on.")
+    
+    for i, plug in enumerate(plugs_to_morning_off):
+        if plug:
+            turn_plug_on_off(i+1, "OFF")    # Turn off the plug
+            #logger.info(f"Plug {i+1} turned off.")  # Add log message
+            update_status(f"Plug {i+1} turned off.")
+
+    update_status("Good Morning - I have turned the heaters on and off.")
     return # schedule.CancelJob  # This will cancel the job after it's run once
 
 # Define the MQTT on_connect event handler
@@ -260,12 +273,26 @@ def set_night_mode():
 
 # Curfew mode turns of heaters at the curfew time
 def set_curfew_mode():
-    # turn off all plugs that are set to sleep in the plugs_to_sleep list
+    """
+    Turns off all plugs that are set to sleep in the plugs_to_curfew list.
+    """
     for i, plug in enumerate(plugs_to_curfew):
         if plug:
             turn_plug_on_off(i+1, "OFF")    # Turn off the plug
             update_status(f"Plug {i+1} turned off.")
     update_status("Plugs turned off at curfew.")
+
+# Evening mode turns on heaters at the Evening time
+def set_afternoon_mode():
+    """
+    Turns on all plugs that are set to sleep in the evening_plugs list.
+    """
+    # turn off all plugs that are set to sleep in the plugs_to_sleep list
+    for i, plug in enumerate(evening_plugs):
+        if plug:
+            turn_plug_on_off(i+1, "ON")    # Turn off the plug
+            update_status(f"Plug {i+1} turned on.")
+    update_status("Plugs turned on at evening time.")
 
 # Wake up mode turns on all plugs that are set to wake in the plugs_to_wake list
 def wake_up():
@@ -833,7 +860,11 @@ plugs_to_sleep = [True, True, True, True, False]   # SHould a plug turn off when
 
 plugs_to_wake = [False, True, True, True, False]   # SHould a plug turn on when the Wake schedule runs?
 
+plugs_to_morning_off = [False, False, False, True, False]   # SHould a plug turn off when the Wake schedule runs?
+
 plugs_to_curfew = [True, False, False, False, False]   # SHould a plug turn off when the Curfew schedule runs?
+
+evening_plugs = [False, False, False, True, False]   # SHould a plug turn on when the evening schedule runs?
 
 # Define the initial online status for the 6 plugs as False
 plug_online_status = [False] * 5
@@ -849,6 +880,9 @@ weekday_wake_up_time = '06:30'
 
 # 'weekend_wake_up_time' for Saturday and Sunday
 weekend_wake_up_time = '09:00'
+
+# Evening On Time
+evening_on_time = '19:00'
 
 # Define the cost of 1 kWh of energy (in pounds)
 KWH_COST = 0.2889
