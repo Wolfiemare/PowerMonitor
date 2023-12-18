@@ -169,8 +169,9 @@ def on_message(client, userdata, msg):
 
         if plug_num_str.isdigit():
             plug_num = int(plug_num_str)
-            update_status(f"Plug {plug_num} data received.")
+            # update_status(f"Plug {plug_num} data received.")
             energy_data = json.loads(payload)['ENERGY']
+            print(energy_data['TotalStartTime'])  
             # energy_data['Time'] = json.loads(payload)['Time']
 
             # Add the energy data to the list of dictionaries based on the plug number
@@ -580,7 +581,12 @@ def display_historical_data(plug):
                 cell = tk.Label(window, text=f"{record[key]:.2f}", width=8)
                 cell.grid(row=row_offset + i, column=j + 1 + 4 * (row_start // 12), padx=5, pady=0)
 
+    # Function to create the bottom frame
+    def create_bottom_frame():
+        bottom_frame = tk.Frame(window)
+        bottom_frame.grid(row=4, column=0, columnspan=8, sticky='ew', padx=5, pady=5)
 
+        # Add your code to create the elements in the bottom frame here
 
     # Clear the data labels before updating
     def clear_data_labels():
@@ -637,6 +643,9 @@ def display_historical_data(plug):
 
     # Initialize with default data
     refresh_data()
+
+    # Create the bottom frame
+    create_bottom_frame()
 
 # Function to create initial data structure
 def create_initial_data():
@@ -791,7 +800,7 @@ def update_record(plug_id, kWh, cost, date=None, hour=None):
     # Update the record
     smart_plug_data[plug_id][date][hour] = {"kWh": round(kWh, 2), "Cost": round(cost, 2)}
     update_status(f"Record updated for {plug_id} on {date} at {hour}:00")
-    update_status(f"Current record: {smart_plug_data[plug_id][date][hour]}")
+    # update_status(f"Current record: {smart_plug_data[plug_id][date][hour]}")
 
 # Function to update daily data
 def update_daily_record(plug_id, kWh, Cost, month=None, day=None):
@@ -836,8 +845,8 @@ def get_data_for_day(plug_id, date=None):
     if date is None:
         date = datetime.now().strftime("%m-%d")
 
-    update_status(f"Data for {plug_id} on {date}: {smart_plug_data[plug_id][date]}")
-    print(f"Data for {plug_id} on {date}: {smart_plug_data[plug_id][date]}")
+    # update_status(f"Data for {plug_id} on {date}: {smart_plug_data[plug_id][date]}")
+    # print(f"Data for {plug_id} on {date}: {smart_plug_data[plug_id][date]}")
     hourly_data, total_kwh, total_cost = calculate_hourly_values(smart_plug_data[plug_id][date])
 
     return hourly_data, total_kwh, total_cost
@@ -949,7 +958,7 @@ KWH_COST = 0.2889
 TELEMETRY_PERIOD = 10   # In seconds
 
 CURFEW_TIME = '17:00'   # Curfew time
-DAILY_DATA_RECORD_TIME = '03:00'   # Time to record daily data (Yesterday's Data)
+DAILY_DATA_RECORD_TIME = '01:30'   # Time to record daily data (Yesterday's Data)
 
 # File path for the JSON file
 file_path = "smart_plug_data.json"
