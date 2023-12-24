@@ -417,7 +417,7 @@ def create_gui():
     for i, name in enumerate(column_names):
         # Frame for the column
         frame = tk.Frame(root, borderwidth=1, relief="groove")
-        frame.place(relx=i/5, rely=0, relwidth=1/5, relheight=0.85)  # Adjusted for function button area
+        frame.place(relx=i/NUMBER_OF_PLUGS, rely=0, relwidth=1/NUMBER_OF_PLUGS, relheight=0.85)  # Adjusted for function button area
 
         # Label for the column title
         label = tk.Label(frame, text=name, font=('Helvetica', 11, 'bold'))
@@ -427,14 +427,14 @@ def create_gui():
         for j in range(14):
             # Frame for each data row
             data_frame = tk.Frame(frame)
-            data_frame.pack(side="top", fill="x", padx=2, pady=1)
+            data_frame.pack(side="top", fill="x", padx=1, pady=1)
 
             # Data label
-            data_label = tk.Label(data_frame, text=data_labels[j], width=20, anchor="w", font=('Helvetica', 6))
+            data_label = tk.Label(data_frame, text=data_labels[j], width=18, anchor="w", font=('Helvetica', 6))
             data_label.pack(side="left")
 
             # Data field
-            data_field = tk.Entry(data_frame, font=('Helvetica', 9), width=6)
+            data_field = tk.Entry(data_frame, font=('Helvetica', 8), width=6)
             data_field.pack(side="left", fill="x", expand=True)
 
             # Save the data field in the dictionary
@@ -499,7 +499,7 @@ def update_all_plugs():
     """
     # Loop over all plugs
     update_status("Updating data for all plugs...")
-    for i in range(5):
+    for i in range(NUMBER_OF_PLUGS):
         if energy_data_list[i]:
             # Get the latest energy data for the plug
             latest_energy_data = energy_data_list[i][-1]
@@ -516,7 +516,7 @@ def update_all_plugs():
 def update_all_daily_plugs_records():
     # Loop over all plugs
     update_status("Updating daily data for all plugs...")
-    for i in range(5):
+    for i in range(NUMBER_OF_PLUGS):
         if energy_data_list[i]:
             # Get the latest energy data for the plug
             latest_energy_data = energy_data_list[i][-1]
@@ -631,7 +631,7 @@ def display_historical_data(plug):
     plug_label = tk.Label(control_frame, text="Plug:", font=('Helvetica', 20))
     plug_label.pack(side='left', padx=(10, 0))
 
-    plug_selector = ttk.Combobox(control_frame, values=["Plug1", "Plug2", "Plug3", "Plug4", "Plug5"], state="readonly", width=10)
+    plug_selector = ttk.Combobox(control_frame, values=["Plug1", "Plug2", "Plug3", "Plug4", "Plug5","Plug6"], state="readonly", width=10)
     plug_selector.configure(font=('Helvetica', 20))  # Set the font to 'Helvetica' with size 12
     plug_selector.pack(side='left', padx=(0, 10))
     plug_selector.set(plug)  # Set to the current plug
@@ -660,7 +660,7 @@ def create_initial_data():
             and the values are lists of dictionaries representing the power consumption data for each hour of the day.
             Each hour dictionary contains the keys "kWh" and "Cost" with initial values of 0.00.
     """
-    smart_plugs = ["Plug1", "Plug2", "Plug3", "Plug4", "Plug5"]
+    smart_plugs = ["Plug1", "Plug2", "Plug3", "Plug4", "Plug5","Plug6"]
     data_structure = {plug: {} for plug in smart_plugs}
 
     start_date = datetime(2024, 1, 1)
@@ -688,7 +688,7 @@ def create_initial_daily_data():
             and the values are dictionaries representing the power consumption data for each day.
             Each day dictionary contains the keys "kWh" and "Cost" with initial values of 0.00.
     """
-    smart_plugs = ["Plug1", "Plug2", "Plug3", "Plug4", "Plug5"]
+    smart_plugs = ["Plug1", "Plug2", "Plug3", "Plug4", "Plug5", "Plug6"]
     data_structure = {plug: {} for plug in smart_plugs}
 
     start_date = datetime(2024, 1, 1)
@@ -906,41 +906,43 @@ MQTT_BROKER = "broker.hivemq.com"
 MQTT_PORT = 1883
 MQTT_KEEPALIVE_INTERVAL = 60
 
+NUMBER_OF_PLUGS = 6
+
 # Create the main window
 root = tk.Tk()
 root.title("Tasmota Power Data Display")
 root.geometry("800x470")
 
 # Define a list of column names
-column_names = ["Plug 1 - Office", "Plug 2 - Hallway", "Plug 3 - Lounge", "Plug 4 - Upstairs Hall", "Plug 5 - Bedroom"]
+column_names = ["#1 Office", "#2 Hallway", "#3 Lounge", "#4 Upstairs Hall", "#5 Main Bedroom", "#6 Spare Room"]
 
 # Define a list of data labels
 data_labels =  [
-                'TOTAL (kWh)', 'YESTERDAY (kWh)', 'TODAY (kWh)', 'POWER (W)', 'APPARENT POWER (VA)', 'REACTIVE POWER (VAr)', 
-                'FACTOR', 'VOLTAGE (V)', 'CURRENT (A)', 'TOTAL COST', 'YESTERDAY COST', 'TODAY COST',
+                'TOTAL(kWh)', 'YESTERDAY(kWh)', 'TODAY(kWh)', 'POWER(W)', 'APP P(VA)', 'REAC P(VAr)', 
+                'FACTOR', 'VOLTS(V)', 'CURRENT(A)', 'TOTAL COST', 'YESTERDAY COST', 'TODAY COST',
                 'STATUS', 'POWER STATE'
                 ]       
 
-power_status_list = ['OFF', 'OFF', 'OFF', 'OFF', 'OFF']  # Plugs ON/OFF status
+power_status_list = ['OFF', 'OFF', 'OFF', 'OFF', 'OFF', 'OFF']  # Plugs ON/OFF status
 
-plugs_to_sleep = [True, True, True, True, False]   # SHould a plug turn off when the Sleep button is pressed?
+plugs_to_sleep = [True, True, True, False, False, False]   # Should a plug turn off when the Night, Night button is pressed?
 
-plugs_to_wake = [False, True, True, True, False]   # SHould a plug turn on when the Wake schedule runs?
+plugs_to_wake = [False, True, True, False, False, False]   # Should a plug turn on when the Wake schedule runs?
 
-plugs_to_morning_off = [False, False, False, True, False]   # SHould a plug turn off when the Wake schedule runs?
+plugs_to_morning_off = [False, False, False, True, False, False]   # Should a plug turn off when the Wake schedule runs?
 
-plugs_to_curfew = [True, False, False, False, False]   # SHould a plug turn off when the Curfew schedule runs?
+plugs_to_curfew = [True, False, False, False, False, False]   # Should a plug turn off when the Curfew schedule runs?
 
-evening_plugs = [False, False, False, True, False]   # SHould a plug turn on when the evening schedule runs?
+evening_plugs = [False, False, False, True, False, False]   # Should a plug turn on when the evening schedule runs?
 
 # Define the initial online status for the 6 plugs as False
-plug_online_status = [False] * 5
+plug_online_status = [False] * NUMBER_OF_PLUGS
 
 # Create a dictionary of dictionaries to store the data fields
 data_fields = {name: [] for name in column_names}
 
 # Initialize the list of dictionaries for energy data for each plug
-energy_data_list = [list() for _ in range(5)]
+energy_data_list = [list() for _ in range(NUMBER_OF_PLUGS)]
 
 # 'weekday_wake_up_time' for Monday to Friday
 weekday_wake_up_time = '06:30'

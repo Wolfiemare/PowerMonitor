@@ -38,5 +38,13 @@ Client              Room5-Heater-Plug
 Topic:              Room5Plug
 Full Topic:         house/%topic%/%prefix%
 
+Plug Description:   Spare Bedroom Plug
+IP Address:         192.168.68.120
+Host():             broker.hivermq.com
+Port:               1883
+Client              Room6-Heater-Plug
+Topic:              Room6Plug
+Full Topic:         house/%topic%/%prefix%
+
 Use web console to set Timezone
 Backlog Latitude 51.4893335; Longitude -0.14405508452768728; TimeDST 0,0,3,1,1,60; TimeSTD 0,0,10,1,1,0; TimeZone 99
