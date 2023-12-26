@@ -9,7 +9,7 @@ def read_json_plug_data(file_path):
         data = json.load(file)
 
     # Process and save data for each plug
-    for plug in range(1, 6):  # From Plug1 to Plug5
+    for plug in range(1, 7):  # From Plug1 to Plug6
         plug_key = f'Plug{plug}'
         print(f"Processing data for {plug_key}...")
 
