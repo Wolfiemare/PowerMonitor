@@ -513,7 +513,6 @@ def calculate_cost(kwh):
     # Calculate and return the cost
     return kwh * cost_rate
 
-
 # Update the historical data for all plugs
 def update_all_plugs():
     """
@@ -928,7 +927,6 @@ def calculate_hourly_values(cumulative_data):
     total_kwh, total_cost = calculate_total_kWh_and_Cost(hourly_data)
 
     return hourly_data, total_kwh, total_cost
-
 
 # Add a logging function for this application
 logging.basicConfig(filename='power_logger.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s %(name)s %(message)s')
