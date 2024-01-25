@@ -405,11 +405,11 @@ def update_data_fields():
             else:
                 data_fields[name][8].config(font=('Helvetica', 10, 'bold'), bg="red", fg="white")
             data_fields[name][9].delete(0, tk.END)
-            data_fields[name][9].insert(0, f"£{latest_energy_data['Total']*KWH_COST:.2f}")
+            data_fields[name][9].insert(0, f"£{latest_energy_data['Total']*KWH_COST_DAY:.2f}")
             data_fields[name][10].delete(0, tk.END)
-            data_fields[name][10].insert(0, f"£{latest_energy_data['Yesterday']*KWH_COST:.2f}")
+            data_fields[name][10].insert(0, f"£{latest_energy_data['Yesterday']*KWH_COST_DAY:.2f}")
             data_fields[name][11].delete(0, tk.END)
-            data_fields[name][11].insert(0, f"£{latest_energy_data['Today']*KWH_COST:.2f}")
+            data_fields[name][11].insert(0, f"£{latest_energy_data['Today']*KWH_COST_DAY:.2f}")
 
 # Function to create the GUI
 def create_gui():
@@ -482,6 +482,38 @@ def get_data_for_day(plug_id, date=None):
 
     return smart_plug_data[plug_id][date]
 
+# Calculate the total cost of electricity usage based on time of day
+def calculate_cost(kwh):
+    """
+    Calculate the cost of electricity usage based on the current time.
+
+    The cost rate varies depending on the time of the day:
+    - From 05:30 to 23:30, the cost is 30.25p per kWh.
+    - From 23:30 to 05:30, the cost is 7.50p per kWh.
+
+    Parameters:
+    kwh (float): The number of kilowatt-hours used.
+
+    Returns:
+    float: The total cost of the electricity used, calculated based on the current time.
+    """
+    # Get the current time
+    current_time = datetime.now().time()
+
+    # Define time thresholds
+    day_start = datetime.strptime('05:30', '%H:%M').time()
+    day_end = datetime.strptime('23:30', '%H:%M').time()
+
+    # Determine the cost rate based on the current time
+    if day_start <= current_time <= day_end:
+        cost_rate = KWH_COST_DAY
+    else:
+        cost_rate = KWH_COST_NIGHT
+
+    # Calculate and return the cost
+    return kwh * cost_rate
+
+
 # Update the historical data for all plugs
 def update_all_plugs():
     """
@@ -505,7 +537,8 @@ def update_all_plugs():
             latest_energy_data = energy_data_list[i][-1]
             # Get the kWh and cost
             kWh = round(latest_energy_data['Today'], 2)
-            cost = kWh * KWH_COST
+            # cost = kWh * KWH_COST_DAY
+            cost = calculate_cost(kWh)
 
             # Add the data to the smart_plug_data dictionary
             update_record(f"Plug{i+1}", kWh, cost)
@@ -522,7 +555,7 @@ def update_all_daily_plugs_records():
             latest_energy_data = energy_data_list[i][-1]
             # Get the kWh and cost for yesterday
             kWh = round(latest_energy_data['Yesterday'], 2)
-            cost = kWh * KWH_COST
+            cost = kWh * KWH_COST_DAY
 
             # Add the data to the smart_plug_data dictionary
             update_daily_record(f"Plug{i+1}", kWh, cost)
@@ -914,7 +947,7 @@ root.title("Tasmota Power Data Display")
 root.geometry("800x470")
 
 # Define a list of column names
-column_names = ["#1 Office", "#2 Hallway", "#3 Lounge", "#4 Upstairs Hall", "#5 Main Bedroom", "#6 Spare Room"]
+column_names = ["#1 Office", "#2 Hallway", "#3 Lounge", "#4 Upstairs Hall", "#5 Main Bedroom", "#6 Dehumidifier"]
 
 # Define a list of data labels
 data_labels =  [
@@ -954,7 +987,8 @@ weekend_wake_up_time = '09:00'
 evening_on_time = '19:00'
 
 # Define the cost of 1 kWh of energy (in pounds)
-KWH_COST = 0.2889
+KWH_COST_DAY = 0.3025
+KWH_COST_NIGHT = 0.0750
 
 # Define the telemetry period (in seconds)
 TELEMETRY_PERIOD = 10   # In seconds
